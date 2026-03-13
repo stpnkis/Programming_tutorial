@@ -1,104 +1,106 @@
-# 🚀 Programátorské Tréninkové Centrum
+# 🎓 Programming Tutorial & Training Center
 
-**Interaktivní výukový systém pro Python, Data Science, Machine Learning a Robotiku (ROS2).**
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![ROS2](https://img.shields.io/badge/ROS2-Humble-red?style=for-the-badge&logo=ros&logoColor=white)](https://docs.ros.org/en/humble/index.html)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active_Development-orange?style=for-the-badge)]()
 
-Zapomeňte na pasivní čtení knih. Tento projekt je postaven na principu **Learning by Doing** a **TDD (Test Driven Development)**. Učíte se tak, že opravujete nefunkční kód, plníte výzvy a okamžitě vidíte výsledky svých testů.
+**Komplexní interaktivní výukový systém** navržený pro efektivní osvojení moderního softwarového inženýrství. Od základů Pythonu přes pokročilé algoritmy a Machine Learning až po vývoj robotických systémů v ROS2.
+
+Tento projekt kombinuje teorii s praxí formou **Test-Driven Development (TDD)** výzev, které simulují reálné pracovní úkoly.
 
 ---
 
-## 🎮 Jak to vypadá?
+## 🏗️ Architektura a Obsah Kurzu
 
-Vše běží ve vašem terminálu. Systém vás vede, počítá vám body, sleduje "streak" a vizualizuje progress.
+Repozitář je strukturován do logických celků kopírujících kariérní růst od juniorního vývojáře po experta na robotiku a AI.
 
-### Hlavní menu
+### 🔹 Fáze 1: Core Engineering (Základy inženýrství)
+*   **[01] Python Core:** Hloubková syntaxe, paměťový model, typing.
+*   **[02] OOP & Design Patterns:** SOLID principy, kompozice, dědičnost.
+*   **[03] Algorithms & Data Structures:** Big O notace, grafy, optimalizace.
+*   **[04] Software Craftsmanship:** Git flow, Code Review, CI/CD pipelines.
+
+### 🔹 Fáze 2: Professional Development (Profesionální vývoj)
+*   **[05] Testing & QA:** Pytest, Mocking, TDD metodiky.
+*   **[06] Debugging & Profiling:** Analýza výkonu, refactoring legacy kódu.
+*   **[11] System Engineering:** Linux kernel, Bash scripting, Docker kontejnerizace.
+*   **[12] Networking & Protocols:** REST API, WebSockets, MQTT, Serial.
+
+### 🔹 Fáze 3: Data Science & AI (Věda a umělá inteligence)
+*   **[07] Applied Mathematics:** Lineární algebra, statistika, Scientific computing (NumPy).
+*   **[08] Machine Learning:** Scikit-learn, neuronové sítě, PyTorch, Deep Learning.
+*   **[09] Computer Vision:** Zpracování obrazu, OpenCV, 3D vision, Point Clouds.
+
+### 🔹 Fáze 4: Robotics & Real-time Systems (Robotika)
+*   **[10] ROS2 (Robot Operating System):** Nodes, Topics, Services, TF2, Navigace.
+*   **[13] Concurrency & Async:** Multiprocessing, Threading, AsyncIO, Real-time limity.
+
+---
+
+## 🚀 Jak systém funguje?
+
+Aplikace běží kompletně v CLI (Command Line Interface) a poskytuje gamifikované prostředí pro výuku.
+
+### Ukázka rozhraní (CLI)
 ```text
-  🏆 1250 bodů  ✅ 15 výzev  🔥 3 dní streak
+  🏆 User: stpnkis | Level: Junior Engineer | Points: 1250 
 
-  Hlavní Menu:
+  Active Module: [02_OOP] / [03_Polymorfismus]
+  Target: Implement abstract method 'calculate_area' for all shapes.
 
-    🟢 [01] 🐍 Python Základy
-    🟢 [02] 🏗️ OOP
-    ⚪ [03] 🌳 Datové Struktury & Algoritmy
-    ⚪ [04] 📝 Git & Workflow
-    ...
-    ⚪ [09] 👁️ Computer Vision
-    ⚪ [10] 🤖 ROS2
-```
-
-### Plnění výzvy
-Když spustíte test, okamžitě vidíte, jak si vedete:
-
-```text
-  🏆 VÝZVA 1: Type Casting
-  Obtížnost: ⭐☆☆  |  Body: 15b
-
-  📝 ÚKOL: Převeď hodnoty mezi typy podle zadání.
-
-  ✅ Převody typů zvládnuty! 🎉
-  +15 bodů! 💰
-  [████████████████████] 100% Hotovo
+  > Running tests...
+  [✔] Shape class defined correctly
+  [✔] Circle implements calculate_area
+  [✘] Square is missing implementation
+  
+  ❌ Challenge Failed. Fix the code in 'challenges.py' and try again.
 ```
 
 ---
 
-## 📚 Co se naučíte?
+## 🛠️ Instalace a Spuštění
 
-Kurz je rozdělen do 14 komplexních modulů, které vás provedou od úplných začátečníků až po pokročilé robotické inženýry.
+Pro spuštění tréninkového prostředí stačí naklonovat repozitář a spustit vstupní bod.
 
-| Sekce | Téma | Obsah |
-| :--- | :--- | :--- |
-| **01** | **Python Základy** | Datové typy, cykly, funkce, stringy, error handling |
-| **02** | **OOP** | Třídy, dědičnost, polymorfismus, návrhové vzory |
-| **03** | **Algoritmy** | Řazení, vyhledávání, Big O analýza, stromy, grafy |
-| **04** | **Git & Workflow** | Branching, merging, CI/CD, Code Review |
-| **05** | **Testing** | Unit testy, Pytest, Mocking, TDD |
-| **06** | **Debugging** | Refactoring, logging, profilování kódu |
-| **07** | **NumPy & Matika** | Lineární algebra, statistika, Matplotlib |
-| **08** | **Machine Learning** | Pandas, Scikit-learn, neuronové sítě, PyTorch |
-| **09** | **Computer Vision** | OpenCV, detekce objektů, zpracování obrazu |
-| **10** | **ROS2** | Robot Operating System, nody, topic, navigace |
-| **11-14** | **Pokročilé** | Linux, Sítě, Async, Závěrečné projekty |
+### Prerekvizity
+*   Python 3.8+
+*   Git
 
----
-
-## 🛠️ Jak začít?
-
-### 1. Klonování repozitáře
-Stáhněte si projekt k sobě do počítače:
+### Setup
 ```bash
-git clone https://github.com/vase-jmeno/programovaci-hry.git
-cd programovaci-hry
-```
+# 1. Klonování repozitáře
+git clone git@github.com:stpnkis/Programming_tutorial.git
+cd Programming_tutorial
 
-### 2. Spuštění
-Projekt nevyžaduje žádnou složitou instalaci. Pro základní moduly stačí čistý Python 3.
+# 2. Vytvoření virtuálního prostředí (doporučeno)
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate   # Windows
 
-```bash
+# 3. Instalace závislostí
+pip install -r requirements.txt  # (Pokud soubor existuje, jinak přeskočit)
+
+# 4. Spuštění systému
 python3 start.py
 ```
 
-### 3. Workflow (Jak se učit)
-1. Spusťte `start.py` a vyberte si lekci (např. *01 Datové typy*).
-2. Test selže (to je správně!).
-3. Otevřete příslušný soubor ve složce (např. `01_Python_Zaklady/01_datove_typy/challenges.py`).
-4. Najděte úkoly označené `# TODO` a doplňte kód místo `...`.
-5. Znovu spusťte `start.py` nebo daný skript a sledujte, jak se testy zazelenají ✅.
+---
+
+## 🤝 Contributing & Spolupráce
+
+Tento projekt je open-source a slouží jako vzdělávací platforma. Kód je psán s důrazem na čitelnost a dodržování PEP8 standardů.
+
+Pokud chcete přispět novou výzvou nebo opravou:
+1.  Forkněte repozitář.
+2.  Vytvořte větev (`feature/new-challenge`).
+3.  Odešlete Pull Request s popisem změn.
 
 ---
 
-## 🌟 Proč tento kurz?
-*   **Okamžitá zpětná vazba:** Hned víte, jestli vašemu kódu rozumíte.
-*   **Gamifikace:** Sbírání bodů a udržování streaku vás motivuje pokračovat.
-*   **Reálné dovednosti:** Od začátku používáte terminál, editor kódu a pracujete se soubory jako profesionál.
-*   **Rozsah:** Pokrývá cestu od "Hello World" až po autonomní roboty.
+## 📝 Licence
+
+Tento projekt je licencován pod **MIT License** - viz soubor [LICENSE](LICENSE) pro detaily.
 
 ---
-
-## ❤️ Přispívání
-Našli jste chybu nebo máte nápad na novou výzvu? Pull requesty jsou vítány!
-
-1. Forkněte projekt
-2. Vytvořte feature branch (`git checkout -b feature/NovaVyzva`)
-3. Commitněte změny (`git commit -m 'Přidána nová výzva'`)
-4. Pushněte (`git push origin feature/NovaVyzva`)
-5. Otevřete Pull Request
+*Created & Maintained by [stpnkis](https://github.com/stpnkis)*
