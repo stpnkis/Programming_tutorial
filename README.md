@@ -1,106 +1,66 @@
-# 🎓 Programming Tutorial & Training Center
+# Software Engineering & Robotics Curriculum
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![ROS2](https://img.shields.io/badge/ROS2-Humble-red?style=for-the-badge&logo=ros&logoColor=white)](https://docs.ros.org/en/humble/index.html)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Active_Development-orange?style=for-the-badge)]()
+This repository contains a structured, hands-on curriculum designed to transition learners from basic programming concepts to advanced software engineering, machine learning, and robotic control systems (ROS2).
 
-**Komplexní interaktivní výukový systém** navržený pro efektivní osvojení moderního softwarového inženýrství. Od základů Pythonu přes pokročilé algoritmy a Machine Learning až po vývoj robotických systémů v ROS2.
+The methodology relies strictly on **Test-Driven Development (TDD)**. Each module consists of unit tests defining the expected behavior of the code, requiring the implementation of logic to satisfy these requirements. This ensures a deep understanding of implementation patterns and quality assurance.
 
-Tento projekt kombinuje teorii s praxí formou **Test-Driven Development (TDD)** výzev, které simulují reálné pracovní úkoly.
+## Curriculum Structure
 
----
+The codebase is organized into specialized domains, progressing in complexity and abstraction.
 
-## 🏗️ Architektura a Obsah Kurzu
+### I. Core Foundation
+*   **01_Python_Zaklady**: Language syntax, memory management, type system, Python internals.
+*   **02_OOP**: Object-Oriented Design, SOLID principles, Abstract Base Classes (ABC), Composition.
+*   **03_Datove_Struktury_Algoritmy**: Computational complexity (Big O), graph algorithms, data structure optimization.
 
-Repozitář je strukturován do logických celků kopírujících kariérní růst od juniorního vývojáře po experta na robotiku a AI.
+### II. Engineering Practices
+*   **04_Git_a_Workflow**: Version control strategies (Git Flow), CI/CD pipelines, code review standards.
+*   **05_Testing**: Unit testing (pytest), integration testing, mocking, and coverage analysis.
+*   **06_Cteni_a_Debugovani_Kodu**: Static analysis, profiling, debugging techniques, legacy code refactoring.
 
-### 🔹 Fáze 1: Core Engineering (Základy inženýrství)
-*   **[01] Python Core:** Hloubková syntaxe, paměťový model, typing.
-*   **[02] OOP & Design Patterns:** SOLID principy, kompozice, dědičnost.
-*   **[03] Algorithms & Data Structures:** Big O notace, grafy, optimalizace.
-*   **[04] Software Craftsmanship:** Git flow, Code Review, CI/CD pipelines.
+### III. Data Science & Artificial Intelligence
+*   **07_Numpy_a_Matematika**: Linear algebra, statistical modeling, numerical computing optimization.
+*   **08_Machine_Learning**: Supervised/Unsupervised learning, Neural Networks, PyTorch implementation.
+*   **09_Computer_Vision**: Image processing pipelines, OpenCV, feature detection, 3D reconstruction.
 
-### 🔹 Fáze 2: Professional Development (Profesionální vývoj)
-*   **[05] Testing & QA:** Pytest, Mocking, TDD metodiky.
-*   **[06] Debugging & Profiling:** Analýza výkonu, refactoring legacy kódu.
-*   **[11] System Engineering:** Linux kernel, Bash scripting, Docker kontejnerizace.
-*   **[12] Networking & Protocols:** REST API, WebSockets, MQTT, Serial.
+### IV. Robotics & Systems
+*   **10_ROS2**: Robot Operating System architecture, DDS middleware, navigation stack, perception.
+*   **11_Linux_a_Terminal**: Shell scripting, process management, kernel interaction.
+*   **12_Networking_a_API**: TCP/UDP protocols, REST/WebSockets, asynchronous communication.
+*   **13_Paralelismus_a_Async**: Concurrency models, multiprocessing, threading, unlocking the GIL.
 
-### 🔹 Fáze 3: Data Science & AI (Věda a umělá inteligence)
-*   **[07] Applied Mathematics:** Lineární algebra, statistika, Scientific computing (NumPy).
-*   **[08] Machine Learning:** Scikit-learn, neuronové sítě, PyTorch, Deep Learning.
-*   **[09] Computer Vision:** Zpracování obrazu, OpenCV, 3D vision, Point Clouds.
+## Methodology & Workflow
 
-### 🔹 Fáze 4: Robotics & Real-time Systems (Robotika)
-*   **[10] ROS2 (Robot Operating System):** Nodes, Topics, Services, TF2, Navigace.
-*   **[13] Concurrency & Async:** Multiprocessing, Threading, AsyncIO, Real-time limity.
+This project eschews passive learning in favor of active implementation.
 
----
+1.  **Analysis**: Review the provided interface and documentation strings in the problem files.
+2.  **Implementation**: Write the logic to satisfy the functional requirements (marked by `TODO` directives).
+3.  **Verification**: Execute the test suite using the provided runner to validate correctness, edge cases, and type safety.
 
-## 🚀 Jak systém funguje?
+## Getting Started
 
-Aplikace běží kompletně v CLI (Command Line Interface) a poskytuje gamifikované prostředí pro výuku.
-
-### Ukázka rozhraní (CLI)
-```text
-  🏆 User: stpnkis | Level: Junior Engineer | Points: 1250 
-
-  Active Module: [02_OOP] / [03_Polymorfismus]
-  Target: Implement abstract method 'calculate_area' for all shapes.
-
-  > Running tests...
-  [✔] Shape class defined correctly
-  [✔] Circle implements calculate_area
-  [✘] Square is missing implementation
-  
-  ❌ Challenge Failed. Fix the code in 'challenges.py' and try again.
-```
-
----
-
-## 🛠️ Instalace a Spuštění
-
-Pro spuštění tréninkového prostředí stačí naklonovat repozitář a spustit vstupní bod.
-
-### Prerekvizity
+### Prerequisites
 *   Python 3.8+
 *   Git
+*   (Optional) Docker for ROS2 modules
 
-### Setup
+### Installation
+
 ```bash
-# 1. Klonování repozitáře
 git clone git@github.com:stpnkis/Programming_tutorial.git
 cd Programming_tutorial
 
-# 2. Vytvoření virtuálního prostředí (doporučeno)
+# Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate   # Windows
+source venv/bin/activate
 
-# 3. Instalace závislostí
-pip install -r requirements.txt  # (Pokud soubor existuje, jinak přeskočit)
-
-# 4. Spuštění systému
+# Execute core runner
 python3 start.py
 ```
 
----
+## License
 
-## 🤝 Contributing & Spolupráce
-
-Tento projekt je open-source a slouží jako vzdělávací platforma. Kód je psán s důrazem na čitelnost a dodržování PEP8 standardů.
-
-Pokud chcete přispět novou výzvou nebo opravou:
-1.  Forkněte repozitář.
-2.  Vytvořte větev (`feature/new-challenge`).
-3.  Odešlete Pull Request s popisem změn.
+This project is open-source and available under the **MIT License**.
 
 ---
-
-## 📝 Licence
-
-Tento projekt je licencován pod **MIT License** - viz soubor [LICENSE](LICENSE) pro detaily.
-
----
-*Created & Maintained by [stpnkis](https://github.com/stpnkis)*
+*Maintained by Stepan Kis*
