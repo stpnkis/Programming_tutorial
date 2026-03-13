@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+.venv/
+.env
+
+# Application specific (User progress)
+.progress.json
+*.log
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS
+.DS_Store
+
+# Data Science & ML (Artifacts)
+*.npy
+*.npz
+*.h5
+*.pkl
+models/
+data/
+outputs/
+
+# ROS2 (if used locally)
+install/
+log/
+build/
+
+# Temporary files
+tmp/
+temp/
