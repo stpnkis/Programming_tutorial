@@ -18,8 +18,12 @@ def vyzva_1(cislo):
     - "záporné" pokud je číslo < 0
     - "nula" pokud je číslo == 0
     """
-    # TODO: Doplň if/elif/else ↓
-    pass
+    if cislo > 0:
+        return "kladné"
+    elif cislo == 0:
+        return "nula"
+    else: 
+        return "záporné"
 
 
 def vyzva_2(cislo):
@@ -30,17 +34,31 @@ def vyzva_2(cislo):
     - Číslo dělitelné 3 i 5 → "FizzBuzz"
     - Jinak → číslo jako string
     """
-    # TODO: Doplň logiku ↓
-    pass
-
-
+    if cislo%3 == 0 and cislo%5 == 0:
+        return "FizzBuzz"
+    elif cislo%3 == 0:
+        return "Fizz"
+    elif cislo%5 == 0:
+        return "Buzz"
+    else:
+        return str(cislo)
+    
 def vyzva_3(n):
     """
     🎯 Pomocí for cyklu vrať součet čísel od 1 do n (včetně).
     Příklad: n=5 → 1+2+3+4+5 = 15
     """
-    # TODO: Použij for a range() ↓
-    pass
+    for i in range(n):
+        if i == 0:
+            soucet = 0
+        else:
+            soucet += i
+    return soucet + n
+
+
+    
+    
+    
 
 
 def vyzva_4(seznam):
@@ -48,8 +66,13 @@ def vyzva_4(seznam):
     🎯 Pomocí for cyklu spočítej, kolik sudých čísel je v seznamu.
     Příklad: [1, 2, 3, 4, 5, 6] → 3
     """
-    # TODO: ↓
-    pass
+    pocet_sudych = 0
+
+    for i in seznam:
+        if i%2==0:
+            pocet_sudych +=1
+
+    return pocet_sudych
 
 
 def vyzva_5(text):
@@ -61,17 +84,20 @@ def vyzva_5(text):
     Příklad: "python" → "" (žádné 'a' nenajdeš)
     Příklad: "kobra" → "kobra" (už končí na 'a')
     """
-    # TODO: Použij while cyklus ↓
-    pass
-
+    while text and text[-1] != 'a':
+        text = text[:-1]
+    return text
 
 def vyzva_6():
     """
     🎯 Vytvoř seznam prvních 10 násobků čísla 7 (7, 14, 21, ..., 70)
     pomocí for cyklu. Vrať ho jako list.
     """
-    # TODO: ↓
-    pass
+    nasobky = []
+
+    for i in range(1,11):
+        nasobky.append(i*7)
+    return nasobky
 
 
 def vyzva_7(matice):
@@ -80,8 +106,15 @@ def vyzva_7(matice):
     součet všech prvků.
     Příklad: [[1, 2], [3, 4], [5, 6]] → 21
     """
-    # TODO: Dva vnořené for cykly ↓
-    pass
+    soucet = 0
+
+    for i in matice:
+        for m in i:
+            soucet+=m
+
+    return soucet
+
+
 
 
 # ============================================================

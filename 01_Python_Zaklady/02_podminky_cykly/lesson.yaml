@@ -1,0 +1,456 @@
+id: "01.02"
+title: "Podmínky a cykly"
+summary: "Řízení toku programu — if/else, for, while. Základní stavební kameny logiky."
+difficulty: 1
+estimated_minutes: 50
+tags: ['python', 'basics', 'control-flow', 'fundamentals']
+prerequisites: ['01.01']
+learning_objectives:
+  - "Používat if/elif/else pro rozhodování"
+  - "Psát for cykly s range() a iterací přes kolekce"
+  - "Psát while cykly s podmínkou ukončení"
+  - "Kombinovat podmínky a cykly pro řešení algoritmických problémů"
+  - "Používat vnořené cykly pro práci s 2D daty"
+
+why_it_matters: |
+  Řídicí struktury (podmínky a cykly) jsou mozek programu. Bez nich by program
+  jen prošel řádek po řádku a skončil. S nimi dokáže:
+  - Rozhodovat se (if/elif/else) — „Pokud je senzor aktivní, zastav motor"
+  - Opakovat práci (for/while) — „Projdi všechny soubory a najdi chyby"
+
+  Každý algoritmus — od třídění po neuronové sítě — je kombinace podmínek a cyklů.
+  Pokud ovládáš řídicí struktury, dokážeš naprogramovat cokoliv.
+
+  V praxi:
+  - Webová aplikace: if user.is_authenticated → zobraz obsah
+  - Data science: for row in dataset → zpracuj každý řádek
+  - Robotika: while not obstacle_detected → jeď vpřed
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Napsat if/elif/else větvení pro jakékoliv rozhodování
+  - Iterovat přes čísla pomocí range() a přes kolekce přímo
+  - Používat while cyklus s jasnou podmínkou ukončení
+  - Řešit klasické algoritmické úlohy (FizzBuzz, součty, filtry)
+  - Pracovat s vnořenými cykly pro 2D data (matice)
+
+key_theory: |
+  **Podmínky:**
+  ```python
+  if podminka:
+      # provede se, když je podmínka True
+  elif jina_podminka:
+      # provede se, když první je False a tato True
+  else:
+      # provede se, když všechny předchozí jsou False
+  ```
+
+  **For cyklus:**
+  ```python
+  for i in range(5):       # i = 0, 1, 2, 3, 4
+  for x in [1, 2, 3]:     # iterace přes seznam
+  for i in range(1, 11):  # i = 1, 2, ..., 10
+  ```
+
+  **While cyklus:**
+  ```python
+  while podminka:
+      # opakuj, dokud je podmínka True
+      # POZOR: musíš zajistit, že podmínka jednou bude False!
+  ```
+
+  **Klíčové operátory:** `and`, `or`, `not`, `==`, `!=`, `<`, `>`, `<=`, `>=`
+  **Modulo trik:** `x % n == 0` → x je dělitelné n
+
+challenges:
+  - id: 1
+    title: "If / Elif / Else — rozhodování"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Umět správně větvit program pomocí if/elif/else"
+    tags: ['conditions', 'if-else']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "elif se píše jako else if — ne, v Pythonu je to elif"
+      - "Zapomínám dvojtečku za podmínkou"
+      - "Používám = místo == pro porovnání"
+    mastery_rule: 3_consecutive
+    solution_pattern: "'negative'|'zero'|'positive'"
+    why_it_matters: "Podmínky jsou nejzákladnější nástroj rozhodování. Každý program musí někde rozhodovat — validace inputu, směrování logiky, chybové stavy."
+    what_you_will_learn: "Naučíš se psát if/elif/else strukturu pro klasifikaci hodnot."
+    key_concept: "if testuje podmínku. elif přidává další podmínky. else zachytí vše ostatní. Provede se VŽDY jen jedna větev."
+    worked_example: |
+      ```python
+      def classify_temperature(temp):
+          if temp < 0:
+              return "freezing"
+          elif temp < 15:
+              return "cold"
+          elif temp < 25:
+              return "comfortable"
+          else:
+              return "hot"
+
+      classify_temperature(20)  # "comfortable"
+      classify_temperature(-5)  # "freezing"
+      ```
+    common_mistakes:
+      - "= místo == v podmínce (= je přiřazení, == je porovnání)"
+      - "Zapomenutí dvojtečky: if x == 5 ← chybí :"
+      - "elif se nesmí objevit po else"
+    thinking_notes: |
+      Postup pro psaní podmínek:
+      1. Jaké případy rozlišuji? (negativní, nula, pozitivní)
+      2. Seřaď od nejspecifičtějšího (nebo logicky prvního)
+      3. if → první případ, elif → další, else → „vše ostatní"
+      4. Vždy zkontroluj: pokryl jsem VŠECHNY možnosti?
+    reference_solution: |
+      def classify_number(n):
+          if n < 0:
+              return "negative"
+          elif n == 0:
+              return "zero"
+          else:
+              return "positive"
+    solution_explanation: "Tři vzájemně exkluzivní kategorie: záporné, nula, kladné. if/elif/else je ideální — vždy se vybere právě jedna větev."
+    practice_mode: guided
+
+  - id: 2
+    title: "FizzBuzz — klasický test"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Kombinovat podmínky s modulo operátorem pro klasifikaci"
+    tags: ['conditions', 'modulo', 'classic']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Testuji % 3 a % 5 odděleně před % 15 — špatné pořadí!"
+      - "Používám and místo: n % 15 == 0 nebo (n % 3 == 0 and n % 5 == 0)"
+    mastery_rule: 3_consecutive
+    solution_pattern: "'FizzBuzz'|'Fizz'|'Buzz'"
+    why_it_matters: |
+      FizzBuzz je klasický programátorský test, který se používá na pohovorech.
+      Testuje schopnost kombinovat podmínky a myslet na pořadí testů.
+      Není to jen „školní úloha" — dělitelnost (modulo) se používá všude.
+    what_you_will_learn: "Naučíš se správné pořadí podmínek a použití modulo operátoru."
+    key_concept: "Pořadí podmínek záleží! Specifičtější podmínky (dělitelné 3 I 5) musí být PŘED obecnějšími (dělitelné jen 3)."
+    worked_example: |
+      ```python
+      # ŠPATNĚ — pořadí:
+      if n % 3 == 0:    # 15 spadne sem! Nikdy nedojde k FizzBuzz
+          return "Fizz"
+      elif n % 5 == 0:
+          return "Buzz"
+      elif n % 15 == 0:  # NEDOSAŽITELNÉ!
+          return "FizzBuzz"
+
+      # SPRÁVNĚ:
+      if n % 15 == 0:    # nebo: n % 3 == 0 and n % 5 == 0
+          return "FizzBuzz"
+      elif n % 3 == 0:
+          return "Fizz"
+      elif n % 5 == 0:
+          return "Buzz"
+      ```
+    common_mistakes:
+      - "Testovat % 3 před % 15 — číslo 15 by vrátilo 'Fizz' místo 'FizzBuzz'"
+      - "Zapomenout na else větev (co vrátit, když číslo není dělitelné ani 3 ani 5?)"
+    thinking_notes: |
+      Klíčové pravidlo: **Specifičtější podmínka musí být PRVNÍ.**
+
+      15 je dělitelné 3 i 5. Pokud testuji % 3 jako první,
+      číslo 15 spadne do „Fizz" a nikdy nedosáhne „FizzBuzz".
+
+      Proto: % 15 (nebo % 3 and % 5) → % 3 → % 5 → číslo
+    reference_solution: |
+      def fizzbuzz(n):
+          if n % 15 == 0:
+              return "FizzBuzz"
+          elif n % 3 == 0:
+              return "Fizz"
+          elif n % 5 == 0:
+              return "Buzz"
+          else:
+              return str(n)
+    solution_explanation: "Nejdřív testujeme dělitelnost 15 (= 3 i 5), pak 3, pak 5. Pořadí je klíčové — specifičtější podmínka musí být první."
+    practice_mode: guided
+
+  - id: 3
+    title: "For cyklus — součet čísel"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Používat for cyklus s range() pro iteraci přes čísla"
+    tags: ['loops', 'for', 'range']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "range(10) generuje 1-10 — ne, generuje 0-9"
+      - "range(1, 10) zahrnuje 10 — ne, generuje 1-9"
+    mastery_rule: 3_consecutive
+    solution_pattern: "55"
+    why_it_matters: |
+      For cyklus je nejpoužívanější smyčka v Pythonu. Přes range() iteruješ
+      čísla, přes seznam iteruješ položky. Akumulace v cyklu (součet, počítání,
+      budování seznamu) je základní vzor, který budeš používat denně.
+    what_you_will_learn: "Naučíš se for cyklus s range() a vzor akumulace (postupné sčítání)."
+    key_concept: "for i in range(a, b) projde čísla a, a+1, ..., b-1. Akumulátor (proměnná mimo cyklus) sbírá výsledky."
+    worked_example: |
+      ```python
+      # Součet čísel 1 až 5
+      soucet = 0                  # akumulátor — začíná na 0
+      for i in range(1, 6):       # i = 1, 2, 3, 4, 5
+          soucet += i             # soucet = soucet + i
+      print(soucet)  # 15
+
+      # Ekvivalentní zápis: soucet = sum(range(1, 6))
+      ```
+    common_mistakes:
+      - "range(1, 10) jde do 10 — ne, jde do 9. range(1, 11) jde do 10"
+      - "Zapomenutí inicializace akumulátoru (soucet = 0) před cyklem"
+    thinking_notes: |
+      Vzor akumulace:
+      1. Inicializuj akumulátor: `soucet = 0`
+      2. Cyklus přes hodnoty: `for i in range(...):`
+      3. Přidej do akumulátoru: `soucet += i`
+      4. Po cyklu máš výsledek v akumulátoru
+
+      range() pravidlo: range(start, stop) → start je VČETNĚ, stop je BEZ.
+      Chceš 1 až 10? → range(1, 11)
+    reference_solution: |
+      def sum_1_to_n(n):
+          soucet = 0
+          for i in range(1, n + 1):
+              soucet += i
+          return soucet
+    solution_explanation: "range(1, n+1) generuje čísla 1 až n včetně. Akumulátor soucet se v každém průchodu zvětší o i."
+    practice_mode: guided
+
+  - id: 4
+    title: "Počítání sudých čísel"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Kombinovat for cyklus s podmínkou (filtrování)"
+    tags: ['loops', 'conditions', 'filter']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Sudé = dělitelné 3 — ne, sudé = dělitelné 2"
+      - "Zapomínám na počitadlo nebo ho inicializuji uvnitř cyklu"
+    mastery_rule: 3_consecutive
+    solution_pattern: "5"
+    why_it_matters: |
+      Filtrování dat je jeden z nejčastějších vzorů v programování.
+      Projít kolekci, vybrat prvky splňující podmínku a něco s nimi udělat —
+      to je základ data processingu, validace i obchodní logiky.
+    what_you_will_learn: "Naučíš se kombinovat cyklus s podmínkou pro filtrování hodnot."
+    key_concept: "Vzor 'filter': for + if uvnitř cyklu → vyber jen prvky, které splňují podmínku."
+    worked_example: |
+      ```python
+      # Kolik čísel v seznamu je větších než 10?
+      cisla = [3, 15, 7, 22, 1, 18, 9]
+      pocet = 0
+      for c in cisla:
+          if c > 10:
+              pocet += 1
+      print(pocet)  # 3 (15, 22, 18)
+      ```
+    common_mistakes:
+      - "Inicializace počitadla uvnitř cyklu — každý průchod ho resetuje!"
+      - "x % 2 == 0 testuje sudost, x % 2 == 1 testuje lichost"
+    thinking_notes: |
+      Vzor počítání s filtrem:
+      1. `pocet = 0` — počitadlo PŘED cyklem
+      2. `for x in data:` — projdi data
+      3. `if podminka:` — filtr
+      4. `pocet += 1` — počítej jen ty, co projdou filtrem
+    reference_solution: |
+      def count_even(numbers):
+          pocet = 0
+          for n in numbers:
+              if n % 2 == 0:
+                  pocet += 1
+          return pocet
+    solution_explanation: "Pro každé číslo v seznamu testujeme n % 2 == 0 (sudost). Pokud ano, zvýšíme počitadlo. Klasický filter+count vzor."
+    practice_mode: guided
+
+  - id: 5
+    title: "While cyklus — ořezávání textu"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Používat while cyklus s podmínkou, která se mění v těle cyklu"
+    tags: ['loops', 'while', 'strings']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "While cyklus se nikdy nezastaví — musím měnit podmínku!"
+      - "len() se neaktualizuje — len() vždy počítá aktuální délku"
+    mastery_rule: 3_consecutive
+    solution_pattern: "len(result) <= max_length"
+    why_it_matters: |
+      While cyklus je nezbytný, když nevíš kolik opakování budeš potřebovat.
+      Typické scénáře: čtení ze streamu dokud není prázdný, zmenšování dat
+      dokud splňují podmínku, iterativní algoritmy (Newton-Raphson).
+    what_you_will_learn: "Naučíš se while cyklus, kde podmínka závisí na stavu, který se mění v těle."
+    key_concept: "While cyklus opakuje kód dokud je podmínka True. MUSÍŠ zajistit, že podmínka jednou bude False (jinak nekonečný cyklus!)."
+    worked_example: |
+      ```python
+      # Odstraňuj poslední znak, dokud text není kratší než 5 znaků
+      text = "Ahoj, světe!"
+      while len(text) > 5:
+          text = text[:-1]
+      print(text)  # "Ahoj,"
+
+      # Klíčové: text se mění v každé iteraci → podmínka jednou bude False
+      ```
+    common_mistakes:
+      - "Zapomínáš měnit proměnnou v podmínce → nekonečný cyklus!"
+      - "Off-by-one: while len(text) > 5 vs >= 5 — záleží na tom, zda chceš 5 nebo 4"
+    thinking_notes: |
+      Bezpečný while cyklus — checklist:
+      1. ✅ Podmínka používá nějakou proměnnou
+      2. ✅ V těle cyklu se tato proměnná MĚNÍ
+      3. ✅ Změna směřuje k tomu, aby podmínka byla False
+      4. ✅ Žádná cesta, kde by se proměnná neměnila
+
+      Pokud si nejsi jistý → přidej safety counter:
+      ```python
+      max_iter = 1000
+      while podminka and max_iter > 0:
+          max_iter -= 1
+          ...
+      ```
+    reference_solution: |
+      def trim_to_length(text, max_length):
+          while len(text) > max_length:
+              text = text[:-1]
+          return text
+    solution_explanation: "text[:-1] odstraní poslední znak. len(text) se každou iterací zmenšuje. Cyklus skončí, jakmile je text dostatečně krátký."
+    practice_mode: guided
+
+  - id: 6
+    title: "Násobky sedmičky"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Kombinovat for cyklus s modulo pro hledání násobků"
+    tags: ['loops', 'modulo']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "range(100) začíná od 1 — ne, začíná od 0"
+      - "Násobek 7 = číslo, které se rovná 7 — ne, násobek = dělitelné 7"
+    mastery_rule: 3_consecutive
+    solution_pattern: "[7, 14, 21, ...]"
+    why_it_matters: |
+      Hledání násobků je praktická ukázka modulo operátoru v cyklu.
+      Stejný vzor se používá pro: filtrování dat, generování sekvencí,
+      kontrolu dělitelnosti v kryptografii.
+    what_you_will_learn: "Naučíš se sbírat hodnoty do seznamu během iterace (vzor collect)."
+    key_concept: "x % 7 == 0 znamená, že x je násobek 7. Seznam.append(x) přidá hodnotu do seznamu."
+    worked_example: |
+      ```python
+      # Najdi všechna čísla dělitelná 3 v rozsahu 1-20
+      nasobky = []
+      for i in range(1, 21):
+          if i % 3 == 0:
+              nasobky.append(i)
+      print(nasobky)  # [3, 6, 9, 12, 15, 18]
+      ```
+    common_mistakes:
+      - "nasobky = [] uvnitř cyklu — resetuje seznam v každém průchodu!"
+      - "range(1, 100) nezahrnuje 100 — pro 1-100 potřebuješ range(1, 101)"
+    thinking_notes: |
+      Vzor collect (sbírání do seznamu):
+      1. `vysledky = []` — prázdný seznam PŘED cyklem
+      2. `for x in data:` — projdi data
+      3. `if podminka:` — filtr
+      4. `vysledky.append(x)` — přidej do seznamu
+
+      Tip: totéž jde zapsat jako list comprehension:
+      `vysledky = [x for x in data if podminka]`
+    reference_solution: |
+      def multiples_of_seven(limit):
+          nasobky = []
+          for i in range(1, limit + 1):
+              if i % 7 == 0:
+                  nasobky.append(i)
+          return nasobky
+    solution_explanation: "Projdeme čísla 1 až limit, testujeme dělitelnost 7 pomocí modulo, a sbíráme nalezené násobky do seznamu."
+    practice_mode: guided
+
+  - id: 7
+    title: "Vnořené cykly — součet matice"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Používat vnořené cykly pro práci s 2D daty (seznam seznamů)"
+    tags: ['loops', 'nested', 'matrix', '2d']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Vnořený cyklus projde jen první řádek — ne, vnější cyklus zajistí všechny"
+      - "for radek in matice iteruje přes čísla — ne, iteruje přes řádky (seznamy)"
+    mastery_rule: 3_consecutive
+    solution_pattern: "sum of all elements"
+    why_it_matters: |
+      2D data jsou všude — matice v lineární algebře, pixely obrázku, tabulky
+      v databázi, herní pole. Vnořené cykly jsou základní nástroj pro jejich
+      zpracování. V computer vision budeš procházet každý pixel obrázku.
+    what_you_will_learn: "Naučíš se pracovat s 2D daty pomocí vnořených cyklů."
+    key_concept: "Vnější cyklus iteruje přes řádky, vnitřní přes prvky v řádku. Celek projde VŠECHNY prvky 2D struktury."
+    worked_example: |
+      ```python
+      matice = [
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]
+      ]
+
+      # Součet všech prvků
+      soucet = 0
+      for radek in matice:        # radek = [1,2,3], pak [4,5,6], ...
+          for prvek in radek:     # prvek = 1, pak 2, pak 3, ...
+              soucet += prvek
+
+      print(soucet)  # 45
+
+      # Kolik průchodů? 3 řádky × 3 sloupce = 9 průchodů
+      ```
+    common_mistakes:
+      - "Indexování matice[i] vrátí řádek (seznam), ne číslo"
+      - "Zapomínáš, že for radek in matice dává celé řádky, ne jednotlivé prvky"
+      - "Inicializace akumulátoru uvnitř vnějšího cyklu → počítáš jen poslední řádek"
+    thinking_notes: |
+      Šablona pro 2D zpracování:
+      ```
+      akumulator = 0  (nebo [])
+      for radek in matice:      ← vnější = řádky
+          for prvek in radek:   ← vnitřní = prvky v řádku
+              zpracuj(prvek)
+      ```
+
+      Kolik iterací? řádky × sloupce
+      3×3 matice = 9 iterací
+      100×100 matice = 10 000 iterací (O(n²))
+    reference_solution: |
+      def matrix_sum(matice):
+          soucet = 0
+          for radek in matice:
+              for prvek in radek:
+                  soucet += prvek
+          return soucet
+    solution_explanation: "Vnější cyklus projde řádky, vnitřní projde prvky v každém řádku. Akumulátor sbírá součet všech prvků."
+    practice_mode: guided

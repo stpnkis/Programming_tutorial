@@ -1,0 +1,406 @@
+id: "01.05"
+title: "List Comprehensions"
+summary: "Elegantní a pythonovský způsob tvorby kolekcí — comprehensions a generátory."
+difficulty: 2
+estimated_minutes: 50
+tags: ['python', 'basics', 'comprehensions', 'generators', 'fundamentals']
+prerequisites: ['01.02', '01.04']
+learning_objectives:
+  - "Psát list comprehensions místo explicitních for-smyček"
+  - "Filtrovat prvky pomocí podmínek v comprehension"
+  - "Používat vnořené comprehensions pro 2D data"
+  - "Tvořit dict comprehensions pro transformaci dat"
+  - "Rozumět generátorovým výrazům a rozdílu oproti listům"
+  - "Analyzovat a debugovat chyby v comprehension výrazech"
+
+why_it_matters: |
+  Comprehensions jsou jeden z nejmocnějších nástrojů Pythonu. Nahrazují 3-4 řádky
+  procedurálního kódu jedním výrazem, který je čitelnější a rychlejší. Profesionální
+  Python kód je jimi prošpikovaný — kdo je neovládá, nepíše „pythonovský" kód.
+
+  V praxi je potkáš neustále:
+  - Data science: `[row['name'] for row in data if row['score'] > 80]`
+  - Web backend: `{user.id: user.name for user in users}`
+  - DevOps: `[f for f in os.listdir('.') if f.endswith('.py')]`
+  - ML pipeline: `[transform(img) for img in batch]`
+
+  Generátory navíc řeší problém paměti — místo vytvoření celého listu
+  produkují hodnoty jednu po druhé (lazy evaluation).
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Přepsat jakýkoliv jednoduchý for+append vzor na comprehension
+  - Filtrovat a transformovat data v jednom výrazu
+  - Pracovat s vnořenými comprehensions (zploštění matic)
+  - Tvořit slovníky jedním výrazem (dict comprehension)
+  - Poznat, kdy je comprehension lepší a kdy je lepší normální smyčka
+  - Používat generátorové výrazy pro úsporu paměti
+
+key_theory: |
+  **List comprehension — základní syntaxe:**
+
+  ```python
+  # Místo:
+  result = []
+  for x in sekvence:
+      result.append(výraz)
+
+  # Napiš:
+  result = [výraz for x in sekvence]
+  ```
+
+  **S podmínkou (filtr):**
+  ```python
+  [výraz for x in sekvence if podmínka]
+  ```
+
+  **Vnořená:**
+  ```python
+  [x for row in matice for x in row]
+  # = vnější cyklus PRVNÍ, vnitřní DRUHÝ
+  ```
+
+  **Dict comprehension:**
+  ```python
+  {klíč: hodnota for prvek in sekvence}
+  ```
+
+  **Generator expression:**
+  ```python
+  gen = (x**2 for x in range(1000000))  # Nezabírá paměť!
+  # vs.
+  lst = [x**2 for x in range(1000000)]  # Vytvoří celý list v paměti
+  ```
+
+  **Kdy NEPOUŽÍVAT comprehension:**
+  - Když je výraz příliš složitý (víc než ~80 znaků)
+  - Když potřebuješ side-effects (append jinam, print, ...)
+  - Když máš víc než 2 vnořené smyčky — čitelnost klesá
+
+challenges:
+  - id: 1
+    title: "List comprehension — druhé mocniny"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Psát základní list comprehension s jedním výrazem"
+    tags: ['comprehension', 'basics']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Závorky: kulaté () vytvoří generátor, hranaté [] list"
+      - "range(10) jde od 0 do 9, ne od 1 do 10"
+    mastery_rule: 3_consecutive
+    solution_pattern: "[x**2 for x in range(1, 11)]"
+    why_it_matters: "List comprehension je základ pythonovského stylu. Každý Python vývojář ji musí ovládat."
+    what_you_will_learn: "Naučíš se přepsat jednoduchý for+append na jednořádkový výraz."
+    key_concept: "[výraz for proměnná in sekvence] — vytvoří nový list aplikací výrazu na každý prvek."
+    worked_example: |
+      ```python
+      # Chci list [0, 1, 4, 9, 16] — první mocniny od 0 do 4
+      # Klasicky:
+      result = []
+      for x in range(5):
+          result.append(x**2)
+
+      # Comprehension:
+      result = [x**2 for x in range(5)]
+      ```
+    common_mistakes:
+      - "range(1, 10) dá 1-9, ne 1-10 — potřebuješ range(1, 11)"
+      - "Zapomínáš na ** pro mocninu (ne ^, to je XOR)"
+    thinking_notes: |
+      Vzor přepisu: Najdi tři části —
+      1. Co appenduji? → to je **výraz** (x**2)
+      2. Přes co iteruji? → to je **for x in range(...)** 
+      3. → `[výraz for x in range(...)]`
+    reference_solution: |
+      return [x**2 for x in range(1, 11)]
+    solution_explanation: "Jednořádková comprehension: pro každé x od 1 do 10 vypočítá x², výsledek je list [1, 4, 9, ..., 100]."
+    practice_mode: guided
+
+  - id: 2
+    title: "Comprehension s podmínkou"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Filtrovat prvky v comprehension pomocí if"
+    tags: ['comprehension', 'filter']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "if je před for — ne, je ZA for"
+      - "range(2, 20) skončí na 19 — potřebuješ range(2, 21)"
+    mastery_rule: 3_consecutive
+    solution_pattern: "[x for x in range(2, 21) if x % 2 == 0]"
+    why_it_matters: "Filtrování dat je nejčastější operace v programování. Comprehension s if je nejelegantnější způsob v Pythonu."
+    what_you_will_learn: "Naučíš se kombinovat transformaci a filtraci v jednom výrazu."
+    key_concept: "[výraz for x in seq if podmínka] — podmínka rozhoduje, které prvky se do výsledku dostanou."
+    worked_example: |
+      ```python
+      # Chci jenom kladná čísla z listu:
+      cisla = [-3, 1, -5, 4, 0, 7]
+      kladna = [x for x in cisla if x > 0]  # [1, 4, 7]
+      ```
+    common_mistakes:
+      - "[x if x > 0 for x in cisla] — špatné pořadí! if musí být ZA for"
+      - "Pozor: [x if x > 0 else 0 for x in cisla] je JINÁ syntaxe (ternární)"
+    thinking_notes: |
+      Dva typy if v comprehension:
+      1. **Filtr** (za for): `[x for x in seq if podmínka]` — vynechá prvky
+      2. **Ternární** (před for): `[x if cond else y for x in seq]` — transformuje všechny
+
+      Pro filtrování vždy if ZA for!
+    reference_solution: |
+      return [x for x in range(2, 21) if x % 2 == 0]
+    solution_explanation: "Iteruje přes 2-20 a propustí jen sudá čísla (x % 2 == 0). Alternativa: list(range(2, 21, 2))."
+    practice_mode: guided
+
+  - id: 3
+    title: "Filtrování a transformace"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Kombinovat filtr a transformaci ve složitějším comprehension výrazu"
+    tags: ['comprehension', 'filter', 'transform']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Pořadí: transformace (upper) je výraz, filtr (len > 3) je if — ne naopak"
+      - "len(s) > 3 znamená 4+ znaků, ne 3+"
+    mastery_rule: 3_consecutive
+    solution_pattern: "[s.upper() for s in slova if len(s) > 3]"
+    why_it_matters: "V reálných projektech často potřebuješ data nejen filtrovat, ale zároveň transformovat. Comprehension to zvládne v jednom výrazu."
+    what_you_will_learn: "Naučíš se řetězit filtr a transformaci — nejčastější reálný vzor."
+    key_concept: "Výraz před for transformuje, podmínka za for filtruje. Obojí najednou = nejsilnější vzor."
+    worked_example: |
+      ```python
+      # Chci emaily velkými písmeny, jen ty s doménou .cz
+      emaily = ["jan@firma.cz", "eva@mail.com", "petr@skola.cz"]
+      cz = [e.upper() for e in emaily if e.endswith(".cz")]
+      # ["JAN@FIRMA.CZ", "PETR@SKOLA.CZ"]
+      ```
+    common_mistakes:
+      - "> 3 znamená 'delší než 3 znaky' (4+), ne 'minimálně 3'"
+      - "Nezapomínej na závorky: len(s) > 3, ne len s > 3"
+    thinking_notes: |
+      Rozlož si úlohu:
+      1. Co chci na výstupu? → velká písmena → `.upper()`
+      2. Z čeho vybírám? → ze slov → `for s in slova`
+      3. Jaká podmínka? → délka > 3 → `if len(s) > 3`
+      4. Slož: `[s.upper() for s in slova if len(s) > 3]`
+    reference_solution: |
+      return [s.upper() for s in slova if len(s) > 3]
+    solution_explanation: "Filtruje slova delší než 3 znaky a převede je na velká písmena. Pořadí: výraz → for → if."
+    practice_mode: guided
+
+  - id: 4
+    title: "Vnořená comprehension — flatten"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Používat vnořené for-smyčky v comprehension pro zpracování 2D dat"
+    tags: ['comprehension', 'nested', 'flatten']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Pořadí vnořených for je opačné — ne, je STEJNÉ jako u normálních smyček"
+      - "[[x for x in row] for row in matice] je jiná věc — to vytvoří 2D list, ne flat"
+    mastery_rule: 3_consecutive
+    solution_pattern: "[x for row in matice for x in row]"
+    why_it_matters: "2D data (matice, tabulky, seznamy seznamů) jsou všude. Zploštění je základní operace pro další zpracování."
+    what_you_will_learn: "Pochopíš pořadí vnořených for v comprehension — klíčový koncept pro práci s 2D daty."
+    key_concept: |
+      Vnořená comprehension: `[výraz for vnější in seq1 for vnitřní in vnější]`
+      Pořadí je STEJNÉ jako u normálních vnořených smyček:
+      ```
+      for vnější in seq1:
+          for vnitřní in vnější:
+              result.append(výraz)
+      ```
+    worked_example: |
+      ```python
+      matice = [[1, 2], [3, 4], [5, 6]]
+
+      # Klasicky:
+      flat = []
+      for row in matice:
+          for x in row:
+              flat.append(x)
+      # [1, 2, 3, 4, 5, 6]
+
+      # Comprehension — STEJNÉ pořadí:
+      flat = [x for row in matice for x in row]
+      ```
+    common_mistakes:
+      - "Pořadí: vnější for je PRVNÍ, vnitřní DRUHÝ — čte se jako normální smyčka"
+      - "[row for row in matice for x in row] — špatný výraz! Chceš x, ne row"
+    thinking_notes: |
+      Trik na zapamatování pořadí:
+      Představ si, že jenom odstraníš odsazení a dvojtečky:
+      ```
+      for row in matice:     ┐
+          for x in row:      ├→ [x for row in matice for x in row]
+              result.append(x)┘
+      ```
+      Čti zleva doprava = shora dolů.
+    reference_solution: |
+      return [x for row in matice for x in row]
+    solution_explanation: "Vnější for iteruje přes řádky matice, vnitřní for přes prvky řádku. Výsledek je zploštěný 1D list."
+    practice_mode: guided
+
+  - id: 5
+    title: "Dict comprehension"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Tvořit slovníky pomocí dict comprehension z různých datových zdrojů"
+    tags: ['comprehension', 'dict']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Dict comprehension má hranaté závorky — ne, složené {}"
+      - "Zapomínáš na : mezi klíčem a hodnotou"
+    mastery_rule: 3_consecutive
+    solution_pattern: "{jmeno: znamka for jmeno, znamka in studenti}"
+    why_it_matters: "Dict comprehension je klíčový pro transformaci dat — ze seznamu na lookup tabulku jedním výrazem."
+    what_you_will_learn: "Naučíš se vytvářet slovníky z listu tuplů, listů a dalších sekvencí."
+    key_concept: "{klíč: hodnota for prvek in sekvence} — vytvoří slovník jedním výrazem."
+    worked_example: |
+      ```python
+      # Ze seznamu slov vytvořit slovník slov a jejich délek
+      slova = ["ahoj", "svět", "python"]
+      delky = {s: len(s) for s in slova}
+      # {"ahoj": 4, "svět": 4, "python": 6}
+
+      # Z listu tuplů (rozbalení)
+      pary = [("a", 1), ("b", 2)]
+      d = {k: v for k, v in pary}
+      # {"a": 1, "b": 2}
+      ```
+    common_mistakes:
+      - "Pozor na duplicitní klíče — poslední hodnota vyhraje"
+      - "Závorky: {} pro dict, [] pro list, () pro generátor"
+    thinking_notes: |
+      Dict comprehension vs list comprehension:
+      - List: `[výraz for ...]` → `[1, 4, 9]`
+      - Dict: `{klíč: hodnota for ...}` → `{"a": 1, "b": 2}`
+      - Set: `{výraz for ...}` → `{1, 2, 3}` (bez duplicit)
+    reference_solution: |
+      return {jmeno: znamka for jmeno, znamka in studenti}
+    solution_explanation: "Rozbalí každý tuple na jmeno a znamku, vytvoří z nich pár klíč: hodnota v novém slovníku."
+    practice_mode: guided
+
+  - id: 6
+    title: "Frekvence písmen"
+    type: knowledge
+    difficulty: 2
+    points: 20
+    learning_objective: "Kombinovat string metody, dict comprehension a sorted() pro analýzu textu"
+    tags: ['comprehension', 'dict', 'strings']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Comprehension může počítat frekvenci přímo — ano, přes .count()"
+      - "sorted() vrací list, ne dict — musíš zabalit do dict comprehension"
+    mastery_rule: 3_consecutive
+    solution_pattern: "{k: v for k, v in sorted(...)}"
+    why_it_matters: "Frekvence písmen je klasická úloha, která kombinuje string processing, dict comprehension a řazení — tři klíčové dovednosti najednou."
+    what_you_will_learn: "Naučíš se řetězit string metody, set pro unikátní znaky a dict comprehension se sorted()."
+    key_concept: "Kombinace: text.lower() → set() pro unikáty → dict comprehension s .count() → sorted()."
+    worked_example: |
+      ```python
+      text = "Hello"
+      # 1. Normalizace: "hello"
+      t = text.lower()
+      # 2. Unikátní znaky: {'h', 'e', 'l', 'o'}
+      znaky = set(t)
+      # 3. Frekvence: {'h': 1, 'e': 1, 'l': 2, 'o': 1}
+      freq = {z: t.count(z) for z in znaky}
+      # 4. Řazení: {'e': 1, 'h': 1, 'l': 2, 'o': 1}
+      freq = dict(sorted(freq.items()))
+      ```
+    common_mistakes:
+      - "Nezapomínej odfiltrovat mezery — replace(' ', '') nebo if z != ' '"
+      - "sorted(dict) řadí jen klíče — potřebuješ sorted(dict.items())"
+    thinking_notes: |
+      Postup krok za krokem:
+      1. Normalizuj: `.lower()` + odstraň mezery
+      2. Získej unikátní znaky: `set(text)`
+      3. Spočítej výskyty: dict comprehension + `.count()`
+      4. Seřaď abecedně: `dict(sorted(...))`
+    reference_solution: |
+      t = text.lower().replace(" ", "")
+      return {k: v for k, v in sorted({z: t.count(z) for z in set(t)}.items())}
+    solution_explanation: "Normalizace na malá písmena, odstranění mezer, set pro unikátní znaky, count pro frekvenci, sorted pro abecední řazení."
+    practice_mode: guided
+
+  - id: 7
+    title: "Generátory — Fibonacci"
+    type: implementation
+    difficulty: 3
+    points: 25
+    learning_objective: "Psát generátorové funkce s yield a rozumět lazy evaluation"
+    tags: ['generators', 'yield', 'fibonacci']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "Generátor vrací list — ne, generátor produkuje hodnoty lazy"
+      - "yield ukončí funkci — ne, pozastaví ji a příště pokračuje od dalšího řádku"
+      - "return a yield jsou totéž — ne, yield pozastaví, return ukončí"
+    mastery_rule: 3_consecutive
+    solution_pattern: "def fib(): a, b = 0, 1; while a < 100: yield a; a, b = b, a + b"
+    why_it_matters: |
+      Generátory jsou klíčové pro zpracování velkých dat — místo načtení celého
+      souboru do paměti zpracováváš řádek po řádku. Fibonacci je klasický příklad
+      pro pochopení principu lazy evaluation.
+    what_you_will_learn: "Naučíš se psát generátorové funkce s yield a převádět je na seznamy."
+    key_concept: |
+      `yield` pozastaví funkci a vrátí hodnotu. Při dalším volání `next()` funkce
+      pokračuje od místa, kde se zastavila. `list(generator())` vyčerpá celý generátor.
+    worked_example: |
+      ```python
+      def odpocitavani(n):
+          while n > 0:
+              yield n    # Vrátí n a pozastaví se
+              n -= 1     # Při dalším next() pokračuje odtud
+
+      # Použití:
+      gen = odpocitavani(3)
+      next(gen)  # 3
+      next(gen)  # 2
+      next(gen)  # 1
+
+      # Nebo najednou:
+      list(odpocitavani(3))  # [3, 2, 1]
+      ```
+    common_mistakes:
+      - "Fibonacci: a, b = b, a+b musí být na JEDNOM řádku (simultaneous assignment)"
+      - "while a < 100 ne while True — musíš mít podmínku ukončení"
+      - "Při a, b = b, a+b se obě strany vyhodnotí ZÁROVEŇ"
+    thinking_notes: |
+      Fibonacci krok za krokem:
+      ```
+      a=0, b=1 → yield 0 → a,b = 1,1
+      a=1, b=1 → yield 1 → a,b = 1,2
+      a=1, b=2 → yield 1 → a,b = 2,3
+      a=2, b=3 → yield 2 → a,b = 3,5
+      ...
+      ```
+      Klíč: `a, b = b, a+b` — simultánní přiřazení, ne sekvenční!
+    reference_solution: |
+      def fib_gen():
+          a, b = 0, 1
+          while a < 100:
+              yield a
+              a, b = b, a + b
+      return list(fib_gen())
+    solution_explanation: "Generátorová funkce s yield produkuje Fibonacciho čísla <= 99. a, b = b, a+b je simultánní swap. list() vyčerpá generátor do seznamu."
+    practice_mode: guided

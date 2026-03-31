@@ -1,0 +1,35 @@
+id: "09.07"
+title: "Depth Estimation"
+summary: "🌊 Depth Estimation — Hloubkové mapy, mono/stereo depth."
+difficulty: 2
+estimated_minutes: 35
+tags: ['cv', 'computer-vision', 'opencv']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Metody odhadu hloubky"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Depth senzory"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 3
+    title: "Monokulární depth"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 4
+    title: "Depth mapa — operace"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 5
+    title: "Aplikace hloubky"
+    type: implementation
+    difficulty: 1
+    points: 10

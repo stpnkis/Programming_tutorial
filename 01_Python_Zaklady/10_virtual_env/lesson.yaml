@@ -1,0 +1,35 @@
+id: "01.10"
+title: "Virtual Env"
+summary: "Izolace projektu — každý projekt své závislosti."
+difficulty: 1
+estimated_minutes: 30
+tags: ['python', 'basics', 'fundamentals']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Vytvoření virtual environment"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Aktivace venv"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Uložení závislostí"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Instalace ze souboru"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Git a venv"
+    type: implementation
+    difficulty: 1
+    points: 10

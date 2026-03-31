@@ -1,0 +1,35 @@
+id: "11.05"
+title: "Docker Zaklady"
+summary: "🐳 Docker Základy — Dockerfile, build, run, compose, volumes, networking."
+difficulty: 1
+estimated_minutes: 30
+tags: ['linux', 'terminal', 'bash']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Docker koncepty"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Dockerfile"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "docker run a správa kontejnerů"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 4
+    title: "Docker Compose"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Volumes a Docker networking"
+    type: implementation
+    difficulty: 1
+    points: 10

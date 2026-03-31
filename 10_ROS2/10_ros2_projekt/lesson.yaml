@@ -1,0 +1,35 @@
+id: "10.10"
+title: "Ros2 Projekt"
+summary: "🏆 ROS2 Projekt — Návrh kompletního robotického systému od A do Z."
+difficulty: 2
+estimated_minutes: 35
+tags: ['ros2', 'robotics']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Architektura projektu"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Bringup a konfigurace"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Stavový automat"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Testování a simulace"
+    type: implementation
+    difficulty: 3
+    points: 25
+  - id: 5
+    title: "Dokumentace a deploy"
+    type: implementation
+    difficulty: 2
+    points: 20

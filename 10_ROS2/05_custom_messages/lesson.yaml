@@ -1,0 +1,35 @@
+id: "10.05"
+title: "Custom Messages"
+summary: "📦 ROS2 Custom Messages — Vlastní .msg, .srv, .action soubory a package konfigurace."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ros2', 'robotics']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Vlastní .msg soubory"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 2
+    title: "Vlastní .srv soubory"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Vlastní .action soubory"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 4
+    title: "CMakeLists a package.xml"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Použití custom messages"
+    type: implementation
+    difficulty: 1
+    points: 10

@@ -1,0 +1,30 @@
+id: "03.04"
+title: "Hashovani"
+summary: ""
+difficulty: 1
+estimated_minutes: 25
+tags: ['algorithms', 'data-structures']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Challenge 1"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "První unikátní znak"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 3
+    title: "Seskupení anagramů"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Hash tabulka s řetězením"
+    type: implementation
+    difficulty: 1
+    points: 10

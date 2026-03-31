@@ -1,0 +1,35 @@
+id: "09.09"
+title: "Cv Pipeline Projekt"
+summary: "🏗️ CV Pipeline Projekt — Kompletní pipeline pro počítačové vidění."
+difficulty: 2
+estimated_minutes: 35
+tags: ['cv', 'computer-vision', 'opencv']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "CV Pipeline architektura"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Detekční pipeline"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 3
+    title: "Object Tracking"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 4
+    title: "Edge Deployment"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 5
+    title: "Návrh CV projektu"
+    type: implementation
+    difficulty: 3
+    points: 30

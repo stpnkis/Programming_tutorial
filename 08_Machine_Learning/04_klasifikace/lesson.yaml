@@ -1,0 +1,35 @@
+id: "08.04"
+title: "Klasifikace"
+summary: "🏷️ Klasifikace — KNN, SVM, Decision Tree, Random Forest."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "K-Nearest Neighbors"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Rozhodovací strom"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Random Forest teorie"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Confusion Matrix"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Klasifikační metriky"
+    type: implementation
+    difficulty: 1
+    points: 10

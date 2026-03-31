@@ -1,0 +1,35 @@
+id: "13.04"
+title: "Queues A Pipes"
+summary: "📦 Queues & Pipes — Queue, Pipe, producer-consumer, thread/process-safe fronty."
+difficulty: 1
+estimated_minutes: 30
+tags: ['async', 'threading', 'parallel']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "📦 Teorie front a rour"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "🚦 Producer-Consumer s queue.Queue"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "⭐ PriorityQueue — plánování robotických úkolů"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "🔧 multiprocessing.Pipe — IPC komunikace"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "🤖 multiprocessing.Queue — senzorová fúze"
+    type: implementation
+    difficulty: 1
+    points: 10

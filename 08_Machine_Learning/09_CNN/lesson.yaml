@@ -1,0 +1,35 @@
+id: "08.09"
+title: "Cnn"
+summary: "🖼️ CNN — Konvoluční neuronové sítě."
+difficulty: 2
+estimated_minutes: 35
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Konvoluce ručně"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Max Pooling"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 3
+    title: "CNN Architektura"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 4
+    title: "Známé CNN architektury"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "PyTorch CNN"
+    type: implementation
+    difficulty: 2
+    points: 20

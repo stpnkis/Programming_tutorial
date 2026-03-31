@@ -1,0 +1,472 @@
+id: "02.02"
+title: "Dědičnost"
+summary: "Pochop dědičnost — hierarchii tříd, super(), přepisování metod a kdy dědičnost použít vs. nevyužít."
+difficulty: 2
+estimated_minutes: 50
+tags: ['python', 'oop', 'inheritance', 'super', 'override']
+prerequisites: ['02.01']
+learning_objectives:
+  - "Vytvořit potomka, který dědí atributy a metody z rodiče"
+  - "Používat super().__init__() pro inicializaci rodičovské části"
+  - "Přepisovat (override) metody v potomku"
+  - "Rozšířit rodiče o nové atributy a metody"
+  - "Trasovat pořadí volání při dědičnosti"
+  - "Diagnostikovat chyby v hierarchii tříd"
+
+why_it_matters: |
+  Dědičnost je jeden z pilířů OOP a potkáš ji v každém větším projektu:
+
+  - **Django** — `class MyView(View)` dědí HTTP handling logiku
+  - **PyTorch** — `class MyModel(nn.Module)` dědí forward/backward propagation
+  - **ROS2** — `class MyNode(Node)` dědí komunikaci s ROS systémem
+  - **pytest** — fixture třídy dědí z `unittest.TestCase`
+
+  Dědičnost ti umožňuje **neopisovat kód**. Místo kopírování společné logiky
+  do 10 tříd ji napíšeš jednou v rodiči a potomci ji zdědí. Když opravíš bug
+  v rodiči, opraví se automaticky všude.
+
+  Ale pozor — špatně použitá dědičnost je horší než žádná. V další lekci
+  se naučíš, kdy raději použít kompozici.
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Navrhnout hierarchii tříd rodič → potomek
+  - Volat `super().__init__()` pro správnou inicializaci
+  - Přepsat metodu rodiče a přidat nové chování
+  - Rozšířit rodiče o nové atributy bez rozbití existující funkčnosti
+  - Trasovat pořadí volání metod v hierarchii
+  - Najít typické chyby v dědičnosti (chybějící super, špatné přepisování)
+
+key_theory: |
+  **Základní syntaxe:**
+  ```python
+  class Rodic:
+      def __init__(self, x):
+          self.x = x
+      def metoda(self):
+          return f"Rodič: {self.x}"
+
+  class Potomek(Rodic):        # dědí z Rodic
+      def __init__(self, x, y):
+          super().__init__(x)   # inicializuj rodičovskou část
+          self.y = y            # přidej vlastní atributy
+      def metoda(self):         # override — přepiš metodu
+          return f"Potomek: {self.x}, {self.y}"
+  ```
+
+  **Klíčové koncepty:**
+  | Koncept | Popis | Příklad |
+  |---------|-------|---------|
+  | `class P(Rodic)` | Potomek dědí z Rodiče | Získá všechny atributy a metody |
+  | `super().__init__()` | Volání rodičovského `__init__` | Inicializuje zděděné atributy |
+  | Override | Přepsání metody v potomku | Potomek má vlastní verzi metody |
+  | `isinstance(obj, Trida)` | Kontrola typu | `isinstance(pes, Zvire)` → `True` |
+  | `issubclass(P, R)` | Kontrola hierarchie | `issubclass(Pes, Zvire)` → `True` |
+
+  **Pravidlo:** Potomek zdědí **vše** z rodiče. Co chce jinak → přepíše (override).
+  Co chce navíc → přidá nové metody/atributy.
+
+before_you_code: |
+  Než začneš, ujisti se, že rozumíš:
+
+  1. **super().__init__() je povinný** — pokud potomkův `__init__` nepřijde volat
+     `super().__init__()`, rodičovské atributy nebudou inicializovány a kód spadne
+     na `AttributeError`.
+
+  2. **Override ≠ mazání** — když přepíšeš metodu, rodičovská verze stále existuje
+     a můžeš ji zavolat přes `super().metoda()`.
+
+  3. **isinstance() funguje v hierarchii** — `isinstance(pes, Zvire)` je `True`,
+     protože Pes JE Zvíře (LSP princip).
+
+  4. **Dědičnost = „je" vztah** — Pes JE Zvíře ✓, Auto JE Motor ✗ (auto MÁ motor = kompozice).
+
+lesson_summary: |
+  V této lekci jsi se naučil:
+  - **Vytvořit hierarchii** rodič → potomek pomocí `class Potomek(Rodic)`
+  - **Inicializovat rodiče** přes `super().__init__()` — nikdy nezapomínej!
+  - **Přepisovat metody** (override) — potomek může mít vlastní verzi
+  - **Rozšiřovat rodiče** o nové atributy a metody
+  - **Trasovat pořadí volání** — kdo se zavolá první, kdo poslední
+  - **Diagnostikovat chyby** — chybějící super(), špatný override
+
+  Klíčové poučení: Dědičnost je mocný nástroj pro znovupoužití kódu,
+  ale používej ji jen pro skutečné „je" vztahy (Pes JE Zvíře).
+
+recommended_next: |
+  - **02.03 Polymorfismus** — různé objekty, stejné rozhraní — navazuje na override
+  - **02.04 Zapouzdření** — jak chránit vnitřní stav objektu
+  - **02.08 Kompozice vs. Dědičnost** — kdy NEpoužít dědičnost
+
+challenges:
+  - id: 1
+    title: "Pes a Kočka — základní dědičnost"
+    type: implementation
+    difficulty: 2
+    points: 20
+    learning_objective: "Vytvořit potomka se super().__init__(), override metody a novým chováním"
+    tags: ['inheritance', 'super', 'override']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Potomek automaticky převezme __init__ — ano, ale pokud ho přepíšeš, musíš volat super()"
+      - "super() nahradí self — ne, super() odkazuje na rodičovskou třídu"
+      - "Override smaže rodičovskou metodu — ne, jen ji zastíní (shadow)"
+    mastery_rule: 3_consecutive
+    why_it_matters: "Třídy jako Pes(Zvire) jsou přesně ten vzor, který uvidíš ve frameworcích — MyModel(nn.Module), MyView(View)."
+    what_you_will_learn: "Naučíš se vytvořit potomka, inicializovat rodiče přes super() a přepsat metodu."
+    key_concept: "Potomek dědí vše z rodiče. super().__init__() inicializuje zděděné atributy. Override přepíše chování."
+    worked_example: |
+      ```python
+      class Zvire:
+          def __init__(self, jmeno, vek):
+              self.jmeno = jmeno
+              self.vek = vek
+          def zvuk(self):
+              return "..."
+
+      class Pes(Zvire):
+          def __init__(self, jmeno, vek, rasa):
+              super().__init__(jmeno, vek)  # inicializuj jmeno, vek
+              self.rasa = rasa              # přidej vlastní atribut
+
+          def zvuk(self):                   # override
+              return "Haf!"
+
+          def aport(self):                  # nová metoda
+              return f"{self.jmeno} přináší míček!"
+
+      rex = Pes("Rex", 3, "labrador")
+      rex.jmeno   # "Rex" (zděděno ze Zvire)
+      rex.zvuk()   # "Haf!" (override)
+      rex.aport()  # "Rex přináší míček!"
+      ```
+    common_mistakes:
+      - "Zapomenout super().__init__() — AttributeError: 'Pes' object has no attribute 'jmeno'"
+      - "Napsat Zvire.__init__(self, ...) místo super().__init__(...) — funguje, ale je to antipattern"
+      - "Zapomenout self v definici metody — def zvuk(): místo def zvuk(self):"
+    thinking_notes: |
+      Postup pro vytvoření potomka:
+      1. `class Potomek(Rodic):` — deklaruj dědičnost
+      2. `def __init__(self, rodičovské_args, nové_args):` — přijmi vše
+      3. `super().__init__(rodičovské_args)` — inicializuj rodiče
+      4. `self.nový_atribut = hodnota` — přidej vlastní stav
+      5. Přepiš metody, které chceš jinak
+      6. Přidej nové metody pro nové chování
+    reference_solution: |
+      class Pes(Zvire):
+          def __init__(self, jmeno, vek, rasa):
+              super().__init__(jmeno, vek)
+              self.rasa = rasa
+          def zvuk(self):
+              return "Haf!"
+          def aport(self):
+              return f"{self.jmeno} přináší míček!"
+
+      class Kocka(Zvire):
+          def __init__(self, jmeno, vek):
+              super().__init__(jmeno, vek)
+          def zvuk(self):
+              return "Mňau!"
+          def pride(self):
+              return f"{self.jmeno} přišla, když se jí chtělo"
+    solution_explanation: |
+      Pes rozšiřuje Zvíře o atribut `rasa` a metodu `aport()`. Kočka přepisuje
+      `zvuk()` a přidává `pride()`. Obě třídy volají `super().__init__()` pro
+      správnou inicializaci zděděných atributů `jmeno` a `vek`.
+    practice_mode: guided
+
+  - id: 2
+    title: "Elektromobil — rozšíření rodiče"
+    type: implementation
+    difficulty: 3
+    points: 25
+    learning_objective: "Rozšířit rodičovskou třídu o nový stav a komplexnější logiku s omezeními"
+    tags: ['inheritance', 'super', 'state', 'logic']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "super().ujed() automaticky přidá omezení — ne, musíš přepsat celou logiku"
+      - "self.baterie je sdílená mezi instancemi — ne, každý objekt má vlastní"
+      - "Elektromobil nemá přístup k self.km — má, zdědil ho z Vozidla"
+    mastery_rule: 3_consecutive
+    why_it_matters: |
+      Reálná dědičnost často přidává omezení nebo stav. Django modely rozšiřují
+      rodičovský model o nová pole. PyTorch vrstvy přidávají parametry.
+      Naučíš se rozšířit rodiče bez rozbití jeho funkčnosti.
+    what_you_will_learn: "Naučíš se rozšířit rodiče o nový stav (baterie) a přepsat metodu s komplexní logikou."
+    key_concept: "super().__init__() inicializuje zděděný stav. Override metody může buď úplně nahradit logiku, nebo zavolat super().metoda() a přidat k ní."
+    worked_example: |
+      ```python
+      class Vozidlo:
+          def __init__(self, znacka, rok):
+              self.znacka = znacka
+              self.rok = rok
+              self.km = 0
+          def ujed(self, vzdalenost):
+              self.km += vzdalenost
+
+      class Elektromobil(Vozidlo):
+          def __init__(self, znacka, rok):
+              super().__init__(znacka, rok)
+              self.baterie = 100  # nový atribut
+
+          def ujed(self, vzdalenost):
+              # Omezení: 0.2% baterie na km
+              max_km = self.baterie / 0.2
+              realne = min(vzdalenost, max_km)
+              self.km += realne
+              self.baterie -= realne * 0.2
+      ```
+    common_mistakes:
+      - "Zapomenout omezit vzdálenost — auto ujede i když nemá baterii"
+      - "Použít super().ujed() a pak odečíst km — zbytečná komplikace, přepiš celou logiku"
+      - "Neošetřit případ, kdy chce ujet víc než může — musíš vzít min()"
+    thinking_notes: |
+      Postup pro Elektromobil:
+      1. `super().__init__(znacka, rok)` — zdědí km, znacka, rok
+      2. `self.baterie = 100` — nový atribut
+      3. V `ujed()`:
+         - Spočítej max km: `max_km = self.baterie / 0.2`
+         - Reálně ujede: `realne = min(vzdalenost, max_km)`
+         - Přičti km, odečti baterii
+      4. `nabij()` → `self.baterie = 100`
+      5. `stav()` → f-string s informacemi
+    reference_solution: |
+      class Elektromobil(Vozidlo):
+          def __init__(self, znacka, rok):
+              super().__init__(znacka, rok)
+              self.baterie = 100
+
+          def ujed(self, vzdalenost):
+              max_km = self.baterie / 0.2
+              realne = min(vzdalenost, max_km)
+              self.km += realne
+              self.baterie -= realne * 0.2
+
+          def nabij(self):
+              self.baterie = 100
+
+          def stav(self):
+              return f"{self.znacka}: {self.baterie:.0f}% baterie, {self.km:.0f} km"
+    solution_explanation: |
+      Elektromobil rozšiřuje Vozidlo o `baterie` atribut. Klíčová je omezená `ujed()` —
+      spočítáme max. dojezd z aktuální baterie, ujede se jen tolik, kolik baterie dovolí.
+      `nabij()` resetuje baterii. `stav()` formátuje aktuální stav.
+    practice_mode: guided
+
+  - id: 3
+    title: "Kdo se zavolá? — trasování dědičnosti"
+    type: trace
+    difficulty: 2
+    points: 20
+    learning_objective: "Umět trasovat pořadí volání metod a __init__ v hierarchii tříd"
+    tags: ['inheritance', 'tracing', 'super', 'mro']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "override metoda zavolá i rodičovskou verzi — NE, jen pokud explicitně zavoláš super()"
+      - "super().__init__() se zavolá automaticky — NE, musíš ho zavolat explicitně"
+      - "Python volá obě verze metody — NE, volá jen tu nejbližší v hierarchii (MRO)"
+    mastery_rule: 3_consecutive
+    why_it_matters: |
+      Trasování volání metod v hierarchii je klíčové pro debugging OOP kódu.
+      Když dědíš z knihovního kódu (Django View, PyTorch Module), musíš
+      vědět, co přesně se zavolá a v jakém pořadí.
+    what_you_will_learn: "Naučíš se krokově trasovat, co se stane při vytvoření objektu a volání metod v hierarchii."
+    key_concept: |
+      Trasování dědičnosti:
+      1. Při vytvoření `Potomek()` se zavolá `Potomek.__init__()`
+      2. Pokud `Potomek.__init__` volá `super().__init__()`, zavolá se i `Rodic.__init__()`
+      3. Při volání `obj.metoda()` se hledá NEJDŘÍVE v potomku, pak v rodiči (MRO)
+    worked_example: |
+      ```python
+      class A:
+          def __init__(self):
+              self.x = 1
+              print("A.__init__")
+          def greet(self):
+              return f"A: {self.x}"
+
+      class B(A):
+          def __init__(self):
+              super().__init__()    # zavolá A.__init__
+              self.y = 2
+              print("B.__init__")
+          def greet(self):          # override
+              return f"B: {self.x}, {self.y}"
+
+      b = B()                       # Vytiskne: A.__init__ pak B.__init__
+      b.greet()                     # "B: 1, 2" (B.greet, ne A.greet)
+      ```
+    common_mistakes:
+      - "Myslet si, že se obě verze greet() zavolají — ne, override zastíní rodičovskou"
+      - "Zapomenout, že super().__init__() se provede BĚHEM potomkova __init__"
+      - "Zaměňovat pořadí — super() se zavolá tam, kde stojí v kódu"
+    thinking_notes: |
+      **Postup pro trasování dědičnosti:**
+
+      1. Najdi, jaká třída se vytváří (`Potomek()`)
+      2. Podívej se na `Potomek.__init__`:
+         - Kde je `super().__init__()`? → zavolá rodičovský init v tom bodě
+         - Co se nastaví před super()? Co po?
+      3. Pro volání metody: najdi metodu v potomku
+         - Existuje override? → zavolá se potomkova verze
+         - Neexistuje? → zavolá se rodičovská verze
+    reference_solution: |
+      # Trasování:
+      # 1. Ucitel("Jan", 10) → Ucitel.__init__("Jan", 10)
+      # 2. super().__init__("Jan") → Osoba.__init__("Jan") → self.jmeno = "Jan"
+      # 3. self.roky_praxe = 10
+      # 4. u.predstav_se() → Ucitel MÁ override → "Učitel Jan (10 let praxe)"
+      # 5. u.jmeno → "Jan" (zděděno z Osoba)
+      return ("Učitel Jan (10 let praxe)", "Jan")
+    solution_explanation: |
+      Klíčové momenty:
+      - `Ucitel.__init__` zavolá `super().__init__(jmeno)` → nastaví `self.jmeno`
+      - Pak nastaví `self.roky_praxe = 10`
+      - `u.predstav_se()` najde override v Ucitel → vrátí formátovaný string
+      - `u.jmeno` je zděděný atribut z Osoba (nastaven přes super)
+    practice_mode: guided
+
+  - id: 4
+    title: "Najdi bug v hierarchii"
+    type: debugging
+    difficulty: 2
+    points: 20
+    learning_objective: "Diagnostikovat a opravit typické chyby v dědičnosti — chybějící super(), špatný override"
+    tags: ['inheritance', 'debugging', 'super', 'bugs']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "Python automaticky zavolá rodičovský __init__ — NE, musíš ho zavolat explicitně"
+      - "Override metoda zdědí parametry rodiče — NE, definuješ nový podpis"
+      - "Chybějící super() vyhodí chybu hned — NE, spadne až když přistoupíš ke zděděnému atributu"
+    mastery_rule: 3_consecutive
+    why_it_matters: |
+      Chybějící `super().__init__()` je nejčastější OOP bug v Pythonu.
+      Kód „vypadá správně", ale spadne na `AttributeError` při přístupu
+      k atributu, který měl inicializovat rodič. Naučíš se tento bug
+      rozpoznat a opravit.
+    what_you_will_learn: "Naučíš se diagnostikovat AttributeError způsobený chybějícím super().__init__()."
+    key_concept: |
+      Pokud potomek přepíše `__init__()` a nezavolá `super().__init__()`,
+      rodičovské atributy nebudou existovat → `AttributeError`.
+    worked_example: |
+      ```python
+      # ❌ BUG:
+      class Student(Osoba):
+          def __init__(self, jmeno, univerzita):
+              # Chybí super().__init__(jmeno)!
+              self.univerzita = univerzita
+
+      s = Student("Jan", "ČVUT")
+      s.univerzita  # "ČVUT" ✓
+      s.jmeno       # AttributeError! ← Bug se projeví až tady
+
+      # ✅ OPRAVA:
+      class Student(Osoba):
+          def __init__(self, jmeno, univerzita):
+              super().__init__(jmeno)   # ← Toto chybělo!
+              self.univerzita = univerzita
+      ```
+    common_mistakes:
+      - "Myšlenka, že Python automaticky inicializuje rodiče — ne, musíš explicitně"
+      - "Testování jen nových atributů — bug se projeví teprve při přístupu ke zděděným"
+      - "Oprava přidáním self.jmeno = jmeno místo super() — funguje, ale rozbíjí DRY princip"
+    thinking_notes: |
+      **Debugging postup pro dědičnost:**
+
+      1. Kdo dědí z koho? → `class Potomek(Rodic)`
+      2. Má potomek vlastní `__init__`?
+         - ANO → volá `super().__init__()`? Pokud ne = potenciální bug
+         - NE → zdědí rodičovský init (OK)
+      3. Jaké atributy nastavuje rodičovský `__init__`?
+         - Existují i bez super() volání? → Ne = `AttributeError`
+      4. Najdi řádek, kde se přistupuje ke zděděnému atributu → tam se projeví bug
+    reference_solution: |
+      class Zamestnanec(Osoba):
+          def __init__(self, jmeno, pozice, plat):
+              super().__init__(jmeno)
+              self.pozice = pozice
+              self.plat = plat
+          def info(self):
+              return f"{self.jmeno} - {self.pozice} ({self.plat} Kč)"
+    solution_explanation: |
+      Bugovaná verze chyběla `super().__init__(jmeno)`, takže `self.jmeno` nikdy
+      nebyl nastaven. Při volání `info()` → `AttributeError: 'Zamestnanec' has no
+      attribute 'jmeno'`. Oprava: přidat `super().__init__(jmeno)` před vlastní atributy.
+    practice_mode: guided
+
+  - id: 5
+    title: "Tvary — polymorfismus přes dědičnost"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Implementovat společné rozhraní přes dědičnost — každý potomek počítá jinak"
+    tags: ['inheritance', 'polymorphism', 'abstract', 'math']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "NotImplementedError se dá ignorovat — ne, spadne, pokud potomek neimplementuje metodu"
+      - "super().obsah() funguje — ne, rodič hází NotImplementedError"
+      - "import math není potřeba — je, pro math.pi v Kruhu"
+    mastery_rule: 3_consecutive
+    why_it_matters: |
+      Toto je vzor pro abstraktní rozhraní — rodič definuje CO se má dělat,
+      potomek říká JAK. Uvidíš to v každém frameworku: Django views,
+      PyTorch layers, Flask blueprints.
+    what_you_will_learn: "Naučíš se implementovat společné rozhraní, kde každý potomek má vlastní logiku."
+    key_concept: "Rodič definuje `obsah()` jako NotImplementedError → nutí potomky implementovat vlastní verzi. Polymorfismus = různé třídy, stejné rozhraní."
+    worked_example: |
+      ```python
+      class Tvar:
+          def obsah(self):
+              raise NotImplementedError  # potomek MUSÍ přepsat
+
+      class Kruh(Tvar):
+          def __init__(self, polomer):
+              self.polomer = polomer
+          def obsah(self):
+              return math.pi * self.polomer ** 2
+
+      # Polymorfismus v akci:
+      tvary = [Kruh(5), Obdelnik(3, 4)]
+      for t in tvary:
+          print(t.obsah())  # každý počítá jinak!
+      ```
+    common_mistakes:
+      - "Zapomenout import math — NameError: name 'math' is not defined"
+      - "Zapomenout self.polomer = polomer v __init__"
+      - "Použít r místo self.polomer v obsah() — musí být instanční atribut"
+    thinking_notes: |
+      Postup:
+      1. Kruh: `__init__(self, polomer)`, `obsah()` = `π * r²`
+      2. Obdelnik: `__init__(self, sirka, vyska)`, `obsah()` = `šířka * výška`
+      3. Oba dědí `barva` z Tvar přes `super().__init__(barva)`
+      4. `isinstance(Kruh(5), Tvar)` → `True` (Kruh JE Tvar)
+    reference_solution: |
+      class Kruh(Tvar):
+          def __init__(self, polomer, barva="černá"):
+              super().__init__(barva)
+              self.polomer = polomer
+          def obsah(self):
+              return math.pi * self.polomer ** 2
+
+      class Obdelnik(Tvar):
+          def __init__(self, sirka, vyska, barva="černá"):
+              super().__init__(barva)
+              self.sirka = sirka
+              self.vyska = vyska
+          def obsah(self):
+              return self.sirka * self.vyska
+    solution_explanation: |
+      Oba tvary dědí z Tvar, každý implementuje vlastní obsah(). Kruh
+      počítá π*r², Obdélník šířka*výška. isinstance() potvrzuje hierarchii.
+      To je polymorfismus — stejné rozhraní, různá implementace.
+    practice_mode: guided

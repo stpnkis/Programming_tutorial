@@ -1,0 +1,35 @@
+id: "10.08"
+title: "Navigation"
+summary: "🗺️ ROS2 Navigation — Nav2, costmaps, plannery, AMCL a autonomní navigace."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ros2', 'robotics']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Nav2 Stack — přehled"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Costmaps — mapy nákladů"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Plánování cesty"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "AMCL lokalizace"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Nav2 API v Pythonu"
+    type: implementation
+    difficulty: 1
+    points: 10

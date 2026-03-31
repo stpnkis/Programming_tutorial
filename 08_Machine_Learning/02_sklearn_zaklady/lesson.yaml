@@ -1,0 +1,35 @@
+id: "08.02"
+title: "Sklearn Zaklady"
+summary: "🤖 Sklearn Základy — Pipeline, train/test, transformery."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Train/Test Split"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "StandardScaler"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Sklearn Pipeline"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Cross-Validation"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Grid Search Koncept"
+    type: implementation
+    difficulty: 1
+    points: 10

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-🚀 PROGRAMÁTORSKÉ TRÉNINKOVÉ CENTRUM
+🚀 PROGRAMÁTORSKÉ TRÉNINKOVÉ CENTRUM v2.0
 Hlavní spouštěč — vstupní bod do celého systému.
 
 Spusť: python3 start.py
+Legacy režim: python3 start.py --legacy
 """
 import os
 import sys
@@ -218,6 +219,15 @@ def show_roadmap():
 
 def main():
     """Hlavní smyčka."""
+    # ── New Rich-based UI (default) ──
+    if "--legacy" not in sys.argv:
+        try:
+            from engine.app import App
+            return App().run()
+        except ImportError:
+            pass  # Rich not available, fallback to legacy UI
+
+    # ── Legacy UI (original) ──
     while True:
         UI.welcome()
 

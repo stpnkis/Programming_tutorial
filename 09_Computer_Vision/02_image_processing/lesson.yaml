@@ -1,0 +1,35 @@
+id: "09.02"
+title: "Image Processing"
+summary: "🎨 Image Processing — Filtry, threshold, morfologie."
+difficulty: 1
+estimated_minutes: 30
+tags: ['cv', 'computer-vision', 'opencv']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Průměrový filtr"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Thresholding"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Morfologické operace"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 4
+    title: "Histogram Equalization"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 5
+    title: "Přehled filtrů"
+    type: implementation
+    difficulty: 1
+    points: 10

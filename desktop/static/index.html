@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProgTrain — Programátorské Tréninkové Centrum</title>
+
+  <!-- CodeMirror 5 (vendored locally for offline use) -->
+  <link rel="stylesheet" href="/static/vendor/codemirror/codemirror.min.css">
+  <link rel="stylesheet" href="/static/vendor/codemirror/dracula.min.css">
+  <link rel="stylesheet" href="/static/vendor/codemirror/merge.min.css">
+  <script src="/static/vendor/codemirror/codemirror.min.js"></script>
+  <script src="/static/vendor/codemirror/python.min.js"></script>
+  <script src="/static/vendor/codemirror/matchbrackets.min.js"></script>
+  <script src="/static/vendor/codemirror/closebrackets.min.js"></script>
+  <script src="/static/vendor/codemirror/diff_match_patch.min.js"></script>
+  <script src="/static/vendor/codemirror/merge.min.js"></script>
+
+  <!-- Marked (vendored locally for offline use) -->
+  <script src="/static/vendor/marked/marked.min.js"></script>
+
+  <!-- xterm.js (vendored locally for integrated terminal) -->
+  <link rel="stylesheet" href="/static/vendor/xterm/xterm.css">
+  <script src="/static/vendor/xterm/xterm.js"></script>
+  <script src="/static/vendor/xterm/addon-fit.js"></script>
+
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Top navigation bar -->
+  <header id="topbar">
+    <div class="topbar-left">
+      <span class="logo" onclick="Dashboard.show()">⚡ ProgTrain</span>
+    </div>
+    <div class="topbar-center" id="breadcrumb"></div>
+    <div class="topbar-right">
+      <button onclick="Dashboard.show()" title="Dashboard (Ctrl+P)">🏠</button>
+      <button onclick="showSearchView()" title="Hledat">🔍</button>
+      <button onclick="Lab.showRepl()" title="Python REPL">🐍 REPL</button>
+      <button onclick="Lab.showTerminal()" title="Terminal">⬛ Terminal</button>
+      <button onclick="Keyboard.toggleCommandPalette()" title="Paleta příkazů (Ctrl+P)" class="btn-palette">⌨️</button>
+    </div>
+  </header>
+
+  <div id="app-container">
+    <!-- Left sidebar: course map -->
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <h3>📚 Kurikulum</h3>
+      </div>
+      <div id="course-tree"></div>
+      <div id="progress-summary"></div>
+    </aside>
+
+    <!-- Main content area -->
+    <main id="main-content">
+      <!-- Dashboard view -->
+      <div id="dashboard-view" class="view active">
+        <div id="dashboard-guidance"></div>
+        <div id="dashboard-stats"></div>
+        <div id="dashboard-recs"></div>
+      </div>
+
+      <!-- Lesson view -->
+      <div id="lesson-view" class="view">
+        <div id="lesson-header"></div>
+        <div id="lesson-theory"></div>
+        <div id="lesson-challenges"></div>
+        <div id="lesson-footer"></div>
+      </div>
+
+      <!-- Challenge workspace view -->
+      <div id="challenge-view" class="view">
+        <div id="challenge-workspace">
+          <!-- Left: task + theory -->
+          <div id="challenge-info-panel" tabindex="0">
+            <div id="challenge-header-info"></div>
+            <div id="challenge-theory-pane"></div>
+            <div id="challenge-task-pane"></div>
+          </div>
+          <!-- Right: editor + output -->
+          <div id="challenge-work-panel">
+            <div id="editor-toolbar">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span id="editor-filename"></span>
+                <span id="challenge-type-indicator"></span>
+                <span id="autosave-indicator" class="autosave-indicator"></span>
+              </div>
+              <div class="toolbar-actions">
+                <button onclick="Workspace.resetToStarter()" title="Reset na výchozí kód (Ctrl+Shift+R)" class="btn-small">🔄 Reset</button>
+                <button onclick="Challenge.revealReference()" title="Zobrazit referenční řešení (Ctrl+Shift+E)" class="btn-small">📋 Referenční</button>
+                <button onclick="Challenge.compareWithReference()" title="Porovnat s referenčním (Ctrl+Shift+C)" class="btn-small">⚖️ Porovnat</button>
+                <button onclick="Workspace.save()" title="Uložit (Ctrl+S)" class="btn-small">💾 Uložit</button>
+                <button id="btn-run-challenge" onclick="Challenge.run()" class="btn-primary" title="Spustit (Ctrl+Enter)">▶ Spustit</button>
+              </div>
+            </div>
+            <div id="editor-container"></div>
+            <div id="output-panel">
+              <div class="output-header">
+                <span>📋 Výstup</span>
+                <div style="display:flex;gap:4px">
+                  <button id="btn-prev-challenge" onclick="Challenge.navigate(-1)" class="btn-small" title="Předchozí výzva (Alt+←)">◀</button>
+                  <button id="btn-next-challenge" onclick="Challenge.navigate(1)" class="btn-small" title="Další výzva (Alt+→)">▶</button>
+                  <button onclick="UI.clearOutput()" class="btn-small">Vymazat</button>
+                </div>
+              </div>
+              <div id="output-content" tabindex="0"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Compare modal overlay -->
+        <div id="compare-modal" class="modal-overlay" style="display:none">
+          <div class="modal-content modal-wide">
+            <div class="modal-header">
+              <h3>⚖️ Porovnání — Tvůj kód vs. Referenční řešení</h3>
+              <button onclick="Challenge.closeCompareModal()" class="btn-small">✕ Zavřít</button>
+            </div>
+            <div id="compare-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search view -->
+      <div id="search-view" class="view">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Hledat lekci, téma, tag..."
+                 oninput="doSearch(this.value)">
+        </div>
+        <div id="search-results"></div>
+      </div>
+
+      <!-- REPL view -->
+      <div id="repl-view" class="view">
+        <h2>🐍 Python REPL</h2>
+        <p class="muted">Persistentní Python session — proměnné zůstávají mezi spuštěními.</p>
+        <div id="repl-editor-container"></div>
+        <div style="margin: 8px 0;">
+          <button onclick="Lab.runRepl()" class="btn-primary">▶ Spustit (Ctrl+Enter)</button>
+          <button onclick="Lab.resetRepl()" class="btn-small">🔄 Restart session</button>
+          <button onclick="Lab.clearReplOutput()" class="btn-small">Vymazat výstup</button>
+        </div>
+        <div id="repl-output" class="output-box"></div>
+      </div>
+
+      <!-- Terminal view -->
+      <div id="terminal-view" class="view terminal-view-full">
+        <div class="terminal-toolbar">
+          <h3>⬛ Linux Terminal</h3>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span id="terminal-status" class="terminal-status">●</span>
+            <button onclick="Lab.resetTerminalSession()" class="btn-small">🔄 Nová session</button>
+          </div>
+        </div>
+        <div id="xterm-container"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Application modules (modular architecture v3) -->
+  <script src="/static/js/store.js"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/ui.js"></script>
+  <script src="/static/js/workspace.js"></script>
+  <script src="/static/js/lab.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+  <script src="/static/js/lesson.js"></script>
+  <script src="/static/js/challenge.js"></script>
+  <script src="/static/js/keyboard.js"></script>
+  <script src="/static/js/app.v3.js"></script>
+</body>
+</html>

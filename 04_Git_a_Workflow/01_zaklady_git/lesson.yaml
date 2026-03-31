@@ -1,0 +1,35 @@
+id: "04.01"
+title: "Zaklady Git"
+summary: "📦 Git — Základy: Verzování kódu od nuly."
+difficulty: 1
+estimated_minutes: 30
+tags: ['git', 'workflow', 'vcs']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Základní Git příkazy"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 2
+    title: "Tři oblasti Gitu"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: ".gitignore vzory"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Git log a diff"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Dobrá commit zpráva"
+    type: implementation
+    difficulty: 1
+    points: 10

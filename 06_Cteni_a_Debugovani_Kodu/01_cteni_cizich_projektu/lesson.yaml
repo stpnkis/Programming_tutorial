@@ -1,0 +1,30 @@
+id: "06.01"
+title: "Cteni Cizich Projektu"
+summary: "📖 Čtení kódu — Rozumění cizím projektům."
+difficulty: 1
+estimated_minutes: 25
+tags: ['debugging', 'reading-code', 'profiling']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Co dělá tato funkce?"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Najdi a oprav bug"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 3
+    title: "Trasování kódu ručně"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Porozumění rekurzivní funkci"
+    type: implementation
+    difficulty: 2
+    points: 20

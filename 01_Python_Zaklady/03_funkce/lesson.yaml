@@ -1,0 +1,380 @@
+id: "01.03"
+title: "Funkce"
+summary: "Základní stavební blok programů — def, return, parametry, lambda, closure."
+difficulty: 1
+estimated_minutes: 50
+tags: ['python', 'basics', 'functions', 'fundamentals']
+prerequisites: ['01.01', '01.02']
+learning_objectives:
+  - "Definovat funkci s parametry a návratovou hodnotou"
+  - "Používat default parametry a znát jejich chování"
+  - "Používat *args a **kwargs pro variabilní argumenty"
+  - "Vytvářet lambda funkce pro jednoduché operace"
+  - "Předávat funkce jako argumenty (higher-order functions)"
+  - "Pochopit closure a její praktické využití"
+
+why_it_matters: |
+  Funkce je **nejdůležitější nástroj** pro organizaci kódu. Bez funkcí bys
+  musel kopírovat stejný kód znovu a znovu — a každá změna by znamenala
+  úpravu na desítkách míst.
+
+  V praxi:
+  - Webová aplikace: každý endpoint je funkce (`def get_user(user_id): ...`)
+  - Machine learning: celý pipeline je řetězec funkcí (preprocess → train → evaluate)
+  - Robotika: ovládání motoru je funkce (`def move_forward(speed, duration): ...`)
+  - Testing: každý test je funkce (`def test_login(): ...`)
+
+  Funkce ti umožňují:
+  - **Rozdělit problém** na menší, zvládnutelné kusy
+  - **Testovat** každý kus nezávisle
+  - **Znovupoužívat** kód bez kopírování
+  - **Abstrahovat** — skrýt detail za jasné jméno
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Napsat funkci s `def` a `return`
+  - Definovat default parametry a rozumět jim
+  - Používat `*args` pro libovolný počet argumentů
+  - Používat `**kwargs` pro pojmenované argumenty
+  - Vytvořit lambda funkci
+  - Předat funkci jako argument jiné funkci
+  - Vytvořit closure (funkci s pamětí)
+
+key_theory: |
+  **Anatomie funkce:**
+  ```python
+  def nazev(param1, param2="default"):
+      """Co funkce dělá (docstring)."""
+      vysledek = param1 + param2
+      return vysledek  # bez return vrací None
+  ```
+
+  **Důležité koncepty:**
+
+  | Koncept | Syntax | K čemu |
+  |---------|--------|--------|
+  | Základní funkce | `def f(x): return x` | Pojmenovaný blok kódu |
+  | Default param | `def f(x, n=2)` | Volitelné parametry |
+  | `*args` | `def f(*args)` | Libovolný počet pozičních |
+  | `**kwargs` | `def f(**kw)` | Libovolné pojmenované |
+  | Lambda | `lambda x: x*2` | Anonymní jednořádková funkce |
+  | Higher-order | `map(func, data)` | Funkce jako argument |
+  | Closure | `def outer(): def inner(): ...` | Funkce s pamětí |
+
+  **Pravidlo:** Funkce by měla dělat **jednu věc** a dělat ji **dobře**.
+  Pokud má funkce víc než ~20 řádků, pravděpodobně dělá příliš mnoho.
+
+challenges:
+  - id: 1
+    title: "Funkce s return — maximum"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Umět definovat funkci s parametry a return hodnotou"
+    tags: ['functions', 'return', 'basics']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Zaměnění print() a return — print zobrazí, return vrátí"
+      - "Zapomenutí return — funkce pak vrátí None"
+    why_it_matters: "Funkce s return je absolutní základ. Každý program má desítky funkcí, které něco vrací."
+    what_you_will_learn: "Naučíš se definovat funkci s parametry a vrátit výsledek."
+    key_concept: "return ukončí funkci a vrátí hodnotu volajícímu. Bez return funkce vrátí None."
+    worked_example: |
+      ```python
+      # Funkce, která vrátí menší ze dvou čísel
+      def minimum(a, b):
+          if a < b:
+              return a
+          return b
+
+      # Nebo jednodušeji:
+      def minimum(a, b):
+          return min(a, b)
+
+      print(minimum(3, 7))  # → 3
+      ```
+    common_mistakes:
+      - "print(max(a, b)) místo return max(a, b) — print zobrazí na obrazovku, ale nevrátí hodnotu"
+      - "Zapomenutí na případ, kdy a == b (max() to řeší automaticky)"
+    thinking_notes: |
+      Kdykoli píšeš funkci, zeptej se: *Co chci vrátit?*
+      Pak napiš `return` s tou hodnotou. Pokud funkce nic nevrací,
+      pravděpodobně by měla — čistý kód preferuje návratové hodnoty.
+    reference_solution: |
+      return max(a, b)
+    solution_explanation: "Vestavěná funkce max() vrátí větší hodnotu. Funguje i pro oba stejné."
+    practice_mode: guided
+
+  - id: 2
+    title: "Default parametry"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Rozumět default parametrům a umět je použít"
+    tags: ['functions', 'parameters', 'defaults']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Mutable default argument trap: def f(x=[])"
+      - "Default parametry musí být na konci seznamu parametrů"
+    why_it_matters: |
+      Default parametry umožňují vytvořit funkce s volitelným chováním.
+      API knihovny (requests, pandas) je plné default parametrů — umožňují jednoduché volání, ale i plnou kontrolu.
+    what_you_will_learn: "Naučíš se definovat default parametry a pracovat s nimi."
+    key_concept: "Default parametr má přednastavenou hodnotu. Pokud ho nezadáš, použije se default."
+    worked_example: |
+      ```python
+      def pozdrav(jmeno, pozdrav="Ahoj"):
+          return f"{pozdrav}, {jmeno}!"
+
+      pozdrav("Jan")         # → "Ahoj, Jan!"
+      pozdrav("Jan", "Čau")  # → "Čau, Jan!"
+
+      # POZOR: nikdy nepoužívej mutable default:
+      # def f(data=[]):  # BUG! seznam se sdílí mezi voláními
+      # def f(data=None):
+      #     data = data or []  # SPRÁVNĚ
+      ```
+    common_mistakes:
+      - "'ha' * 3 → 'hahaha' (bez mezer!) — potřebuješ join()"
+      - "Trailing space: 'ha ' * 3 → 'ha ha ha ' (s mezerou na konci)"
+    thinking_notes: |
+      Strategie pro opakování s oddělovačem:
+      - `' '.join([text] * n)` — vytvoř seznam n kopií a spoj mezerou
+      - Toto je idiomatický Python pro opakování s oddělovačem
+    reference_solution: |
+      return " ".join([text] * n)
+    solution_explanation: "Vytvoříme seznam n kopií textu a spojíme je mezerou. join() se stará o oddělovače."
+    practice_mode: guided
+
+  - id: 3
+    title: "*args — variabilní argumenty"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Používat *args pro funkce s proměnným počtem argumentů"
+    tags: ['functions', 'args', 'variadic']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "*args je tuple, ne list — ale pro většinu operací to nevadí"
+      - "Zapomenutí ošetřit prázdný *args — dělení nulou!"
+    why_it_matters: |
+      *args najdeš v mnoha knihovnách — print() samotné přijímá *args.
+      Je to způsob, jak vytvořit flexibilní funkce bez pevného počtu parametrů.
+    what_you_will_learn: "Naučíš se přijmout libovolný počet pozičních argumentů a pracovat s nimi."
+    key_concept: "*args zachytí všechny zbylé poziční argumenty do tuple."
+    worked_example: |
+      ```python
+      def soucet(*cisla):
+          """Sečte libovolný počet čísel."""
+          return sum(cisla)
+
+      soucet(1, 2, 3)     # → 6
+      soucet(10)           # → 10
+      soucet()             # → 0
+
+      # args je tuple:
+      def info(*args):
+          print(type(args))  # <class 'tuple'>
+          print(len(args))   # počet argumentů
+      ```
+    common_mistakes:
+      - "ZeroDivisionError: sum(args)/len(args) selže pro prázdné args"
+      - "Zapomenutí, že průměr prázdné množiny by měl mít speciální hodnotu (0, None, nebo výjimka)"
+    thinking_notes: |
+      Vždy ošetři okrajové případy:
+      1. Co když jsou args prázdné? → vrať 0
+      2. Co je průměr? → sum / len
+      3. Průměr by měl být float → dělení automaticky vrací float v Python 3
+    reference_solution: |
+      if not args:
+          return 0
+      return sum(args) / len(args)
+    solution_explanation: "Nejprve ošetříme prázdný vstup. Pak spočítáme průměr jako součet dělený počtem. Python 3 automaticky vrací float."
+    practice_mode: guided
+
+  - id: 4
+    title: "**kwargs — keyword argumenty"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Používat **kwargs pro pojmenované variabilní argumenty"
+    tags: ['functions', 'kwargs', 'variadic']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "kwargs je dict, ne list of tuples"
+      - "Seřazení — dict v Pythonu 3.7+ zachovává pořadí vložení, ale úloha chce abecední"
+    why_it_matters: |
+      **kwargs je základ pro konfiguraci, logování, dekorátory a metaprogramování.
+      Frameworky jako Django a Flask ho používají všude.
+    what_you_will_learn: "Naučíš se zachytit pojmenované argumenty a zpracovat je."
+    key_concept: "**kwargs zachytí pojmenované argumenty do slovníku (dict)."
+    worked_example: |
+      ```python
+      def config(**nastaveni):
+          for klic, hodnota in sorted(nastaveni.items()):
+              print(f"{klic} = {hodnota}")
+
+      config(debug=True, port=8080, host="localhost")
+      # debug = True
+      # host = localhost
+      # port = 8080
+      ```
+    common_mistakes:
+      - "Zapomenutí na sorted() — kwargs nemusí být v abecedním pořadí"
+      - "f-string s = : f'{k}={v}' (pozor, v f-stringu je = debug feature)"
+    thinking_notes: |
+      Pro formátování kwargs do stringu:
+      1. Seřaď klíče: `sorted(kwargs.items())`
+      2. Formátuj každý pár: `f"{k}={v}"`
+      3. Spoj je: `", ".join(...)`
+    reference_solution: |
+      return ", ".join(f"{k}={v}" for k, v in sorted(kwargs.items()))
+    solution_explanation: "sorted(kwargs.items()) seřadí páry podle klíčů. join() je spojí čárkou a mezerou."
+    practice_mode: guided
+
+  - id: 5
+    title: "Lambda funkce"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Vytvořit a vrátit lambda funkci"
+    tags: ['functions', 'lambda', 'anonymous']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Lambda může mít jen jeden výraz (ne příkazy jako if, for)"
+      - "Lambda se nehodí pro složitou logiku — použij def"
+    why_it_matters: |
+      Lambda funkce jsou klíčové pro funkcionální styl: sort(), filter(), map().
+      V data science je uvidíš s pandas: `df.apply(lambda x: x.strip())`.
+    what_you_will_learn: "Naučíš se vytvořit anonymní funkci a vrátit ji jako hodnotu."
+    key_concept: "Lambda je jednořádková anonymní funkce: lambda parametry: výraz."
+    worked_example: |
+      ```python
+      # Lambda pro zdvojnásobení:
+      double = lambda x: x * 2
+      double(5)  # → 10
+
+      # Ekvivalent:
+      def double(x):
+          return x * 2
+
+      # Lambda v sorted():
+      lide = [("Jan", 25), ("Eva", 22)]
+      sorted(lide, key=lambda osoba: osoba[1])
+      # → [("Eva", 22), ("Jan", 25)]
+      ```
+    common_mistakes:
+      - "Psaní return lambda x: x*2 — return je správně, lambda JE výraz"
+      - "Snaha napsat víceřádkovou lambdu — to v Pythonu nejde"
+    thinking_notes: |
+      Lambda je jen zkratka za `def`. Použij ji jen pro jednoduché operace.
+      Pravidlo: pokud lambdu musíš komentovat, napiš raději `def`.
+    reference_solution: |
+      return lambda x: x * 2
+    solution_explanation: "lambda x: x * 2 vytvoří anonymní funkci. return ji vrátí jako hodnotu — funkce jsou v Pythonu first-class objekty."
+    practice_mode: guided
+
+  - id: 6
+    title: "Funkce jako argument (Higher-Order)"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Používat funkce jako argumenty (higher-order functions)"
+    tags: ['functions', 'higher-order', 'map']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Předání func() místo func — závorky zavolají funkci, ne předají ji"
+      - "Funkce je objekt jako každý jiný — můžeš ji přiřadit, předat, vrátit"
+    why_it_matters: |
+      Higher-order funkce jsou základ funkcionálního programování.
+      V Pythonu je používáš denně: sorted(key=...), map(), filter().
+      V ML: callback funkce, custom loss functions, transformace dat.
+    what_you_will_learn: "Naučíš se přijmout funkci jako parametr a aplikovat ji na data."
+    key_concept: "V Pythonu jsou funkce first-class objects — můžeš je předat jako argument jiné funkci."
+    worked_example: |
+      ```python
+      # Vlastní filter():
+      def filtruj(podminka, data):
+          return [x for x in data if podminka(x)]
+
+      kladna = filtruj(lambda x: x > 0, [-1, 2, -3, 4])
+      # → [2, 4]
+      ```
+    common_mistakes:
+      - "func(x) for x in seznam — správné volání, ale pozor na závorky kolem func"
+      - "Zapomenutí vrátit nový seznam — list comprehension je nejčistší"
+    thinking_notes: |
+      Vzor pro aplikaci funkce na kolekci:
+      `[func(prvek) for prvek in kolekce]`
+      Toto je vlastně to, co dělá `map(func, kolekce)`.
+    reference_solution: |
+      return [func(x) for x in seznam]
+    solution_explanation: "List comprehension aplikuje func na každý prvek. Je to idiomatický Python — čistší než cyklus s append."
+    practice_mode: guided
+
+  - id: 7
+    title: "Closure — funkce s pamětí"
+    type: implementation
+    difficulty: 3
+    points: 25
+    learning_objective: "Pochopit a vytvořit closure — funkci s pamětí vnějšího scope"
+    tags: ['functions', 'closure', 'advanced']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "Proměnná count musí být nonlocal nebo mutable (např. list)"
+      - "Každé volání make_counter() vytvoří NOVOU closure s vlastní pamětí"
+    why_it_matters: |
+      Closure je základ pro dekorátory, factory funkce, cachování a callback pattern.
+      Frameworky (Flask, FastAPI) je používají interně. Pochopení closure = pochopení
+      Pythonu na hlubší úrovni.
+    what_you_will_learn: "Naučíš se vytvořit funkci, která si pamatuje stav mezi voláními."
+    key_concept: "Closure je funkce, která zachytí proměnné z vnějšího scope — i po skončení vnější funkce."
+    worked_example: |
+      ```python
+      def make_multiplier(faktor):
+          def nasobicka(x):
+              return x * faktor  # 'faktor' je z vnějšího scope
+          return nasobicka
+
+      double = make_multiplier(2)
+      triple = make_multiplier(3)
+      double(5)   # → 10
+      triple(5)   # → 15
+      # Každá closure má svůj vlastní 'faktor'
+      ```
+    common_mistakes:
+      - "UnboundLocalError: count += 1 bez nonlocal — Python si myslí, že count je lokální"
+      - "Řešení: buď nonlocal count, nebo count = [0] a count[0] += 1 (mutable container trick)"
+    thinking_notes: |
+      Dva způsoby, jak udržet stav v closure:
+      1. `nonlocal count` — explicitně řekneš Pythonu, že count je z vnějšího scope
+      2. `count = [0]` — list je mutable, takže count[0] += 1 funguje bez nonlocal
+
+      Moderní Python preferuje nonlocal — je čitelnější.
+    reference_solution: |
+      def make_counter():
+          count = 0
+          def counter():
+              nonlocal count
+              count += 1
+              return count
+          return counter
+      return make_counter
+    solution_explanation: |
+      make_counter vytvoří lokální count = 0. Vnitřní counter() pomocí nonlocal
+      přistupuje k count a zvyšuje ho. Každé volání make_counter() vytvoří
+      novou closure s vlastním count — nezávislé počítadlo.

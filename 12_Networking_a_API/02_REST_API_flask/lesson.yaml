@@ -1,0 +1,35 @@
+id: "12.02"
+title: "Rest Api Flask"
+summary: "🍶 REST API s Flask — routy, metody, JSON odpovědi, blueprinty, CRUD."
+difficulty: 1
+estimated_minutes: 30
+tags: ['networking', 'api', 'http']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Flask základy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "HTTP metody a REST"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "JSON odpovědi"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Blueprinty a App Factory"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Kompletní CRUD API"
+    type: implementation
+    difficulty: 1
+    points: 10

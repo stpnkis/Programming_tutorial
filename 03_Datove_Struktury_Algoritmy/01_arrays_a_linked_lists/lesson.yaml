@@ -1,0 +1,379 @@
+id: "03.01"
+title: "Arrays a Linked Lists"
+summary: "Základní datové struktury — pole a spojové seznamy, kdy co použít a proč."
+difficulty: 2
+estimated_minutes: 55
+tags: ['algorithms', 'data-structures', 'arrays', 'linked-lists']
+prerequisites: ['01.02', '01.03']
+learning_objectives:
+  - "Rozumět paměťovému modelu pole (contiguous) vs. linked listu (reference)"
+  - "Implementovat základní operace nad poli bez vestavěných metod"
+  - "Vytvořit linked list od nuly s přidáváním, mazáním a procházením"
+  - "Aplikovat techniku dvou ukazatelů (two-pointer, slow/fast)"
+  - "Opravovat chyby v implementacích datových struktur"
+  - "Refaktorovat procedurální kód na čisté OOP řešení"
+
+why_it_matters: |
+  Arrays (pole) a linked lists (spojové seznamy) jsou dva nejzákladnější stavební
+  kameny všech datových struktur. Stacky, fronty, hash tabulky, stromy — všechny
+  se skládají z polí nebo linked listů.
+
+  Pochopení jejich rozdílů je klíčové pro výběr správné struktury:
+  - **Array:** O(1) přístup indexem, O(n) vkládání na začátek — ideální pro read-heavy data
+  - **Linked list:** O(1) vkládání/mazání, O(n) přístup — ideální pro časté modifikace
+
+  Na pohovorech na tech pozice jsou otázky na pole a linked listy absolutní základ.
+  Technika dvou ukazatelů (two pointers) se objevuje v desítkách algoritmických úloh.
+
+what_you_will_learn: |
+  Po dokončení budeš umět:
+  - Implementovat reverse, merge a deduplikaci na poli ručně
+  - Vytvořit linked list s plným rozhraním (pridej, odeber, hledej)
+  - Najít střed linked listu pomocí slow/fast pointer techniky
+  - Rozpoznat a opravit typické chyby v datových strukturách
+  - Refaktorovat procedurální kód na čistý OOP design
+
+key_theory: |
+  **Array (Python list) — souvislý blok paměti:**
+
+  | Operace | Složitost | Poznámka |
+  |---------|-----------|----------|
+  | Přístup `lst[i]` | O(1) | Přímý přístup přes index |
+  | Append `lst.append(x)` | O(1) amort. | Na konec je rychlý |
+  | Insert `lst.insert(0, x)` | O(n) | Musí posunout všechny prvky |
+  | Hledání `x in lst` | O(n) | Lineární prohledání |
+  | Mazání `lst.pop(0)` | O(n) | Posun prvků |
+
+  **Linked List — uzly propojené referencemi:**
+
+  ```
+  [data|next] → [data|next] → [data|next] → None
+      hlava                       konec
+  ```
+
+  | Operace | Složitost | Poznámka |
+  |---------|-----------|----------|
+  | Přístup k i-tému | O(n) | Musíš projít od hlavy |
+  | Přidání na začátek | O(1) | Nový uzel, next = hlava |
+  | Přidání na konec | O(n) | Musíš najít konec |
+  | Mazání (s referencí) | O(1) | Přepojení ukazatelů |
+
+  **Technika dvou ukazatelů (Two Pointers):**
+  - Slow/fast: slow jde po jednom, fast po dvou → slow skončí uprostřed
+  - Left/right: oba konce pole, pohyb dovnitř → reverse, palindrom
+  - Dva pointery na dva pole: merge sorted arrays
+
+challenges:
+  - id: 1
+    title: "Otoč seznam ručně"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Implementovat in-place reverse pole pomocí techniky dvou ukazatelů"
+    tags: ['array', 'two-pointers', 'reverse']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "[::-1] je elegantní, ale úloha záměrně učí mechaniku swapů"
+      - "i a j se musí posunovat SOUČASNĚ — i dopředu, j dozadu"
+    mastery_rule: 3_consecutive
+    solution_pattern: "while i < j: swap; i += 1; j -= 1"
+    why_it_matters: "Reverse je základní stavební blok mnoha algoritmů. Two-pointer technika se používá v desítkách dalších úloh."
+    what_you_will_learn: "Naučíš se in-place modifikaci pole pomocí swapů — efektivní O(n) s O(1) pamětí."
+    key_concept: |
+      Technika LEFT/RIGHT pointer:
+      ```
+      i = 0, j = len-1
+      swap lst[i] a lst[j]
+      posuň oba dovnitř
+      ```
+    worked_example: |
+      ```python
+      lst = [1, 2, 3, 4, 5]
+      # i=0, j=4: swap lst[0]↔lst[4] → [5, 2, 3, 4, 1]
+      # i=1, j=3: swap lst[1]↔lst[3] → [5, 4, 3, 2, 1]
+      # i=2, j=2: i >= j → STOP
+      ```
+    common_mistakes:
+      - "Podmínka while i <= j je taky OK, ale swap s i==j je zbytečný"
+      - "Nezapomínej vrátit modifikovaný list (return lst)"
+    thinking_notes: |
+      Vizualizace:
+      ```
+      [1, 2, 3, 4, 5]
+       ↑           ↑
+       i           j     → swap → [5, 2, 3, 4, 1]
+          ↑     ↑
+          i     j        → swap → [5, 4, 3, 2, 1]
+            ↑
+            i=j          → STOP
+      ```
+    reference_solution: |
+      i, j = 0, len(lst) - 1
+      while i < j:
+          lst[i], lst[j] = lst[j], lst[i]
+          i += 1
+          j -= 1
+      return lst
+    solution_explanation: "Dva ukazatele z obou konců se posouvají dovnitř. V každém kroku prohodí prvky. O(n) čas, O(1) paměť."
+    practice_mode: guided
+
+  - id: 2
+    title: "Najdi duplikáty v seznamu"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Použít set nebo Counter pro efektivní detekci duplicit"
+    tags: ['array', 'set', 'duplicates']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "for+for vnořená smyčka funguje, ale je O(n²) — set řešení je O(n)"
+      - "Výsledek musí být seřazený — nezapomínej na sorted()"
+    mastery_rule: 3_consecutive
+    solution_pattern: "Counter nebo ručně přes set(seen/dupes)"
+    why_it_matters: "Detekce duplicit je klasická algoritmická úloha. Rozhodnutí mezi O(n²) a O(n) přístupem ukazuje porozumění složitosti."
+    what_you_will_learn: "Naučíš se efektivně hledat duplicity pomocí set — O(n) místo O(n²)."
+    key_concept: "Set umožňuje O(1) lookup — projdeš list jednou a duplicity rozpoznáš okamžitě."
+    worked_example: |
+      ```python
+      # Přístup s dvěma sety:
+      videne = set()
+      duplikaty = set()
+      for x in [1, 2, 3, 2, 4, 3]:
+          if x in videne:      # O(1) lookup!
+              duplikaty.add(x)
+          videne.add(x)
+      # duplikaty = {2, 3}
+      ```
+    common_mistakes:
+      - "Výsledek je list, ne set — musíš na konci sorted(duplikaty)"
+      - "Counter(lst) vrací dict, ne list — musíš filtrovat na count > 1"
+    thinking_notes: |
+      Dva přístupy:
+      1. **Counter:** `sorted(x for x, c in Counter(lst).items() if c > 1)`
+      2. **Dva sety:** `videne + duplikaty` — efektivnější paměťově pro velké listy
+    reference_solution: |
+      videne = set()
+      duplikaty = set()
+      for x in lst:
+          if x in videne:
+              duplikaty.add(x)
+          videne.add(x)
+      return sorted(duplikaty)
+    solution_explanation: "Jeden průchod: pokud prvek už je v 'videne', přidej do 'duplikaty'. O(n) čas, O(n) paměť."
+    practice_mode: guided
+
+  - id: 3
+    title: "Merge dvou seřazených seznamů"
+    type: implementation
+    difficulty: 2
+    points: 25
+    learning_objective: "Implementovat merge dvou seřazených polí technikou dvou ukazatelů"
+    tags: ['array', 'two-pointers', 'merge', 'sorting']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "sorted(a + b) funguje, ale je O((n+m) log(n+m)) — merge je O(n+m)"
+      - "Po while-smyčce zůstávají nespotřebované prvky — musíš je přidat"
+    mastery_rule: 3_consecutive
+    solution_pattern: "while i < len(a) and j < len(b): porovnej a[i] vs b[j]"
+    why_it_matters: |
+      Merge je klíčový krok merge sortu — jednoho z nejdůležitějších algoritmů.
+      Two-pointer technika na dvou polích se objevuje v mnoha variacích.
+    what_you_will_learn: "Naučíš se merge operaci — základ merge sortu a obecnou two-pointer techniku na dvou polích."
+    key_concept: |
+      Dva ukazatele, každý na jedno pole. V každém kroku přidej menší prvek
+      a posuň odpovídající ukazatel. Na konci přidej zbytek.
+    worked_example: |
+      ```python
+      a = [1, 3, 5]
+      b = [2, 4, 6]
+      # i=0, j=0: a[0]=1 < b[0]=2 → přidej 1, i=1
+      # i=1, j=0: a[1]=3 > b[0]=2 → přidej 2, j=1
+      # i=1, j=1: a[1]=3 < b[1]=4 → přidej 3, i=2
+      # i=2, j=1: a[2]=5 > b[1]=4 → přidej 4, j=2
+      # i=2, j=2: a[2]=5 < b[2]=6 → přidej 5, i=3
+      # i=3: a vyčerpaný → přidej zbytek b: [6]
+      # Výsledek: [1, 2, 3, 4, 5, 6]
+      ```
+    common_mistakes:
+      - "Nezapomínej na result.extend(a[i:]) a result.extend(b[j:]) po smyčce"
+      - "Podmínka: a[i] <= b[j] (s =) zachová stabilitu řazení"
+    thinking_notes: |
+      Merge vizualizace:
+      ```
+      a: [1, 3, 5]    b: [2, 4, 6]    result: []
+          ↑                ↑
+          i                j
+
+      1 < 2 → přidej 1:
+      a: [1, 3, 5]    b: [2, 4, 6]    result: [1]
+             ↑            ↑
+      ```
+    reference_solution: |
+      result = []
+      i, j = 0, 0
+      while i < len(a) and j < len(b):
+          if a[i] <= b[j]:
+              result.append(a[i])
+              i += 1
+          else:
+              result.append(b[j])
+              j += 1
+      result.extend(a[i:])
+      result.extend(b[j:])
+      return result
+    solution_explanation: "Two-pointer merge: porovnávej hlavy obou polí, přidej menší, posuň pointer. Na konci přidej zbytek. O(n+m) čas."
+    practice_mode: guided
+
+  - id: 4
+    title: "Linked List od nuly"
+    type: implementation
+    difficulty: 2
+    points: 30
+    learning_objective: "Vytvořit kompletní linked list implementaci s OOP rozhraním"
+    tags: ['linked-list', 'oop', 'data-structure']
+    estimated_minutes: 12
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "self.hlava je přímo hodnota — ne, je to reference na Uzel objekt"
+      - "pridej() přidá na začátek — ne, na konec (musíš projít celý list)"
+      - "__len__ musí projít celý list a počítat uzly"
+    mastery_rule: 3_consecutive
+    solution_pattern: "class LinkedList s pridej, jako_seznam, __len__, __repr__"
+    why_it_matters: |
+      Linked list je základ mnoha datových struktur (stack, queue, deque).
+      Implementace od nuly učí práci s referencemi — kritická dovednost
+      pro pochopení stromů, grafů a dalších struktur.
+    what_you_will_learn: "Vybuduješ datovou strukturu od nuly — pochopíš, co se skrývá za abstrakce."
+    key_concept: |
+      Linked list = řetěz uzlů propojených referencemi:
+      ```
+      hlava → [10|→] → [20|→] → [30|None]
+      ```
+      Každý uzel zná jen svého následníka (dalsi).
+    worked_example: |
+      ```python
+      class LinkedList:
+          def __init__(self):
+              self.hlava = None
+
+          def pridej(self, hodnota):
+              novy = Uzel(hodnota)
+              if not self.hlava:
+                  self.hlava = novy
+                  return
+              aktualni = self.hlava
+              while aktualni.dalsi:
+                  aktualni = aktualni.dalsi
+              aktualni.dalsi = novy
+      ```
+    common_mistakes:
+      - "V pridej(): nezapomínej na speciální případ prázdného listu"
+      - "V jako_seznam(): procházej while aktualni, ne while aktualni.dalsi"
+      - "__repr__ musí spojit hodnoty šipkami: '1 → 2 → 3'"
+    thinking_notes: |
+      Procházení linked listu — univerzální vzor:
+      ```python
+      aktualni = self.hlava
+      while aktualni:           # Dokud existuje uzel
+          # udělej něco s aktualni.hodnota
+          aktualni = aktualni.dalsi  # Posuň se na další
+      ```
+      Tento vzor použiješ v jako_seznam(), __len__() i __repr__().
+    reference_solution: |
+      class LinkedList:
+          def __init__(self):
+              self.hlava = None
+
+          def pridej(self, hodnota):
+              novy = Uzel(hodnota)
+              if not self.hlava:
+                  self.hlava = novy
+                  return
+              aktualni = self.hlava
+              while aktualni.dalsi:
+                  aktualni = aktualni.dalsi
+              aktualni.dalsi = novy
+
+          def jako_seznam(self):
+              vysledek = []
+              aktualni = self.hlava
+              while aktualni:
+                  vysledek.append(aktualni.hodnota)
+                  aktualni = aktualni.dalsi
+              return vysledek
+
+          def __len__(self):
+              pocet = 0
+              aktualni = self.hlava
+              while aktualni:
+                  pocet += 1
+                  aktualni = aktualni.dalsi
+              return pocet
+
+          def __repr__(self):
+              if self.hlava:
+                  return repr(self.hlava)
+              return "prázdný"
+    solution_explanation: "Každá metoda používá vzor procházení while aktualni → aktualni = aktualni.dalsi. pridej() hledá konec, jako_seznam() sbírá hodnoty, __len__() počítá uzly."
+    practice_mode: guided
+
+  - id: 5
+    title: "Prostřední prvek — Slow/Fast pointer"
+    type: implementation
+    difficulty: 3
+    points: 30
+    learning_objective: "Aplikovat slow/fast pointer techniku pro nalezení středu linked listu"
+    tags: ['linked-list', 'two-pointers', 'slow-fast']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "Musím znát délku listu — ne, slow/fast pointer délku nepotřebuje"
+      - "Pro sudý počet je prostřední první z dvojice — ne, druhý (slow jde o krok dál)"
+    mastery_rule: 3_consecutive
+    solution_pattern: "slow = fast = hlava; while fast and fast.dalsi: slow = slow.dalsi; fast = fast.dalsi.dalsi"
+    why_it_matters: |
+      Slow/fast pointer je elegantní technika, která řeší mnoho problémů v O(n) čase
+      bez potřeby znát délku. Používá se i pro detekci cyklu (Floyd's algorithm).
+    what_you_will_learn: "Ovládneš slow/fast pointer — jednu z nejelegantnějších algoritmických technik."
+    key_concept: |
+      Fast jde 2x rychleji než slow. Když fast dorazí na konec,
+      slow je přesně uprostřed — protože ušel polovinu cesty.
+    worked_example: |
+      ```python
+      # [1] → [2] → [3] → [4] → [5] → None
+      #  s,f
+      # Krok 1: s=[2], f=[3]
+      # Krok 2: s=[3], f=[5]
+      # f.dalsi = None → STOP
+      # slow.hodnota = 3 ✓
+      ```
+    common_mistakes:
+      - "Podmínka: while fast AND fast.dalsi — obě musí platit!"
+      - "Pro prázdný list nebo list s jedním prvkem ošetři edge case"
+    thinking_notes: |
+      Proč to funguje?
+      - Fast udělá 2 kroky, slow 1 krok
+      - Když fast projde N kroků (celý list), slow prošel N/2
+      - N/2 = střed listu!
+
+      Edge cases:
+      - Lichý počet: [1,2,3,4,5] → slow=3 (přesný střed)
+      - Sudý počet: [1,2,3,4] → slow=3 (druhý z prostředních)
+    reference_solution: |
+      if not ll.hlava:
+          return None
+      slow = fast = ll.hlava
+      while fast and fast.dalsi:
+          slow = slow.dalsi
+          fast = fast.dalsi.dalsi
+      return slow.hodnota
+    solution_explanation: "Slow pointer jde po jednom, fast po dvou. Když fast dorazí na konec, slow je uprostřed. Elegantní O(n) řešení bez počítání délky."
+    practice_mode: guided

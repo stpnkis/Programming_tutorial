@@ -1,0 +1,30 @@
+id: "06.02"
+title: "Debugger Pdb"
+summary: "🔬 Debugger — pdb a breakpoints."
+difficulty: 1
+estimated_minutes: 25
+tags: ['debugging', 'reading-code', 'profiling']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "PDB příkazy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Challenge 2"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Challenge 3"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Kde umístit breakpoint?"
+    type: implementation
+    difficulty: 1
+    points: 10

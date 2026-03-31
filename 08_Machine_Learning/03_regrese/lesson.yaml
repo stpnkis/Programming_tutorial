@@ -1,0 +1,35 @@
+id: "08.03"
+title: "Regrese"
+summary: "📈 Regrese — Lineární, polynomiální, regularizace."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Lineární regrese ručně"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Sklearn LinearRegression"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Polynomiální regrese"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Ridge vs Lasso"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Regresní metriky"
+    type: implementation
+    difficulty: 1
+    points: 10

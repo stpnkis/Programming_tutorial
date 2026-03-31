@@ -1,0 +1,518 @@
+id: "01.04"
+title: "Stringy a formátování"
+summary: "Nauč se pracovat s textem — formátovat, analyzovat, krájet a hledat chyby v řetězcových operacích."
+difficulty: 1
+estimated_minutes: 50
+tags: ['python', 'basics', 'strings', 'formatting', 'fundamentals']
+prerequisites: ['01.01', '01.02', '01.03']
+learning_objectives:
+  - "Formátovat text pomocí f-stringů a zarovnání"
+  - "Používat string slicing pro výběr podřetězců"
+  - "Pracovat s metodami split(), join(), replace(), strip(), upper(), lower()"
+  - "Trasovat kód s řetězcovými operacemi a předvídat výstup"
+  - "Najít a opravit chyby ve formátovacím kódu"
+  - "Normalizovat text pro porovnávání (case-folding, whitespace)"
+
+why_it_matters: |
+  Stringy jsou nejčastější datový typ v reálných programech. Každý vstup od uživatele,
+  každá zpráva, každý log, každý řádek CSV souboru — to všechno jsou stringy.
+
+  V praxi se se stringy setkáš neustále:
+  - **Webové API** vrací JSON, kde klíče i hodnoty jsou stringy
+  - **Robotika** — UART komunikace, parsování senzorových dat z textového streamu
+  - **Machine learning** — čištění textových dat, tokenizace, normalizace
+  - **DevOps** — parsování logů, formátování výstupů, cesty k souborům
+
+  Kdo neumí pracovat se stringy, zasekne se na každém druhém úkolu.
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Vytvářet formátované výstupy pomocí f-stringů (včetně zarovnání a formátování čísel)
+  - Krájet stringy pomocí slicingu (podřetězce, otočení, každý n-tý znak)
+  - Trasovat kód se stringovými operacemi a předvídat, co vypíše
+  - Najít a opravit typické chyby ve formátovacím kódu
+  - Normalizovat text (pro hledání, porovnávání, palindromy)
+  - Navrhout vlastní textový procesor s volnou kreativitou
+
+key_theory: |
+  **F-string formátování (Python 3.6+):**
+  ```python
+  jmeno = "Jan"
+  vek = 25
+  f"Jmenuji se {jmeno} a je mi {vek} let."
+  f"{3.14159:.2f}"     # → "3.14" (2 desetinná místa)
+  f"{'text':<10}"      # → "text      " (zarovnání doleva)
+  f"{'text':>10}"      # → "      text" (doprava)
+  f"{'text':^10}"      # → "   text   " (na střed)
+  ```
+
+  **String slicing:**
+  ```python
+  s = "Python"
+  s[0]      # "P"       — první znak
+  s[-1]     # "n"       — poslední znak
+  s[1:4]    # "yth"     — od indexu 1 do 3
+  s[::2]    # "Pto"     — každý druhý
+  s[::-1]   # "nohtyP"  — pozpátku
+  ```
+
+  **Důležité metody:**
+  | Metoda | Co dělá | Příklad |
+  |--------|---------|---------|
+  | `.split()` | Rozdělí na seznam | `"a b c".split()` → `["a","b","c"]` |
+  | `.join()` | Spojí seznam | `"-".join(["a","b"])` → `"a-b"` |
+  | `.replace()` | Nahradí podřetězec | `"abc".replace("b","X")` → `"aXc"` |
+  | `.strip()` | Odstraní whitespace | `" hi ".strip()` → `"hi"` |
+  | `.upper()/.lower()` | Změní velikost | `"Hi".lower()` → `"hi"` |
+  | `.startswith()` | Testuje prefix | `"abc".startswith("ab")` → `True` |
+  | `.find()` | Najde index | `"abc".find("b")` → `1` |
+  | `.count()` | Počet výskytů | `"abab".count("ab")` → `2` |
+
+before_you_code: |
+  Než začneš řešit úkoly, ujisti se, že rozumíš těmto konceptům:
+
+  1. **Stringy jsou neměnné (immutable)** — metody jako `.replace()` nebo `.upper()`
+     nevracejí upravený originál, ale **nový** string. Originál zůstává nezměněn.
+
+  2. **Indexování od nuly** — první znak je `s[0]`, ne `s[1]`.
+     Záporné indexy počítají od konce: `s[-1]` je poslední znak.
+
+  3. **Slicing nikdy nevyhodí IndexError** — `s[100:200]` vrátí prázdný string `""`,
+     nezpadne. To je důležitý rozdíl oproti indexování (`s[100]` spadne).
+
+  4. **f-string vs .format() vs %** — Používej f-stringy (jsou nejčitelnější).
+     Ostatní formáty uvidíš ve starším kódu.
+
+lesson_summary: |
+  V této lekci jsi se naučil pracovat s textem v Pythonu:
+  - **F-stringy** pro čisté a čitelné formátování výstupů
+  - **Slicing** pro výběr částí textu, otočení a vzorkování
+  - **String metody** pro transformaci a analýzu textu
+  - **Normalizaci** textu pro spolehlivé porovnávání
+  - **Debugging** formátovacího kódu — odhalování typických chyb
+  - **Trasování** kódu — předvídání výstupu krok po kroku
+
+  Klíčová poučení:
+  - Stringy jsou **immutable** — metody vrací nové stringy
+  - F-stringy jsou preferovaný způsob formátování v moderním Pythonu
+  - Při porovnávání textu vždy **normalizuj** (`.lower()`, `.strip()`)
+
+recommended_next: |
+  - **01.05 List Comprehensions** — naučíš se elegantně zpracovávat seznamy (včetně seznamů stringů)
+  - **01.06 Slovníky a množiny** — klíče slovníků jsou stringy, množiny pomáhají s unikátními hodnotami
+  - **01.07 File I/O** — čtení a zápis souborů = práce se stringy na disku
+
+challenges:
+  - id: 1
+    title: "F-strings — moderní formátování"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Umět formátovat text pomocí f-stringů s výrazy a zarovnáním"
+    tags: ['strings', 'f-strings', 'formatting']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "f-string se píše bez f na začátku — ne, f'...' je povinné"
+      - "Uvnitř {} nemůže být výraz — může, f'{2+2}' funguje"
+      - "f-string funguje s apostrofy i uvozovkami — ano, f'...' i f\"...\" jsou OK"
+    mastery_rule: 3_consecutive
+    solution_pattern: "f'Jmenuju se {jmeno} a je mi {vek} let.'"
+    why_it_matters: "F-stringy jsou standard pro formátování textu v moderním Pythonu. Budeš je používat v každém programu — logy, výstupy, zprávy."
+    what_you_will_learn: "Naučíš se vkládat proměnné a výrazy přímo do textových řetězců."
+    key_concept: "f-string = string s prefixem f, kde {} obsahuje výrazy, které se vyhodnotí za běhu."
+    worked_example: |
+      ```python
+      # Základní f-string
+      jmeno = "Karel"
+      f"Ahoj, {jmeno}!"  # → "Ahoj, Karel!"
+
+      # Výraz uvnitř {}
+      f"2 + 3 = {2 + 3}"  # → "2 + 3 = 5"
+
+      # Volání metod
+      f"{'ahoj'.upper()}"  # → "AHOJ"
+
+      # Formátování čísel
+      f"{3.14159:.2f}"  # → "3.14" (2 des. místa)
+      f"{1000000:,}"    # → "1,000,000" (oddělovače)
+      ```
+    common_mistakes:
+      - "Zapomenout f před řetězcem: '{jmeno}' místo f'{jmeno}' — vypíše doslova {jmeno}"
+      - "Zanořené uvozovky: f'řekl 'ahoj'' — použij f\"řekl 'ahoj'\" nebo f'řekl \"ahoj\"'"
+    thinking_notes: |
+      Postup pro f-string:
+      1. Napiš string s prefixem `f`
+      2. Kam chceš dosadit proměnnou → vlož `{proměnná}`
+      3. Potřebuješ formátovat číslo? → `{číslo:.2f}` pro 2 des. místa
+      4. Zarovnat text? → `{text:<10}` (doleva na 10 znaků)
+    reference_solution: |
+      return f"Jmenuju se {jmeno} a je mi {vek} let."
+    solution_explanation: "F-string s proměnnými v {} — Python je za běhu dosadí. Jednoduché, čitelné, standardní."
+    practice_mode: guided
+
+  - id: 2
+    title: "String slicing — výběr a otočení"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Ovládat string slicing s pozitivními i negativními indexy"
+    tags: ['strings', 'slicing', 'indexing']
+    estimated_minutes: 6
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "s[1:3] vrátí 3 znaky — ne, vrátí 2 znaky (stop index je exkluzivní)"
+      - "s[-1] vyhodí chybu — ne, vrátí poslední znak"
+      - "s[::-1] změní originální string — ne, vrátí nový (stringy jsou immutable)"
+    mastery_rule: 3_consecutive
+    solution_pattern: "text[::-1]"
+    why_it_matters: |
+      Slicing je klíčový pro parsování textu — vytažení přípony souboru,
+      extrakce podřetězce, otočení textu pro palindromy. Funguje i na
+      listech a tuplech, takže se ti tato znalost vrátí mnohokrát.
+    what_you_will_learn: "Naučíš se vybírat části textu pomocí slicingu a otáčet text."
+    key_concept: "s[start:stop:step] — start je inkluzivní, stop exkluzivní, step určuje směr a krok."
+    worked_example: |
+      ```python
+      s = "Python"
+
+      # Základní slicing
+      s[0:3]    # "Pyt" — znaky na pozicích 0, 1, 2
+      s[2:]     # "thon" — od pozice 2 do konce
+      s[:3]     # "Pyt" — od začátku do pozice 2
+
+      # Záporné indexy (od konce)
+      s[-3:]    # "hon" — poslední 3 znaky
+      s[:-2]    # "Pyth" — vše kromě posledních 2
+
+      # Step (krok)
+      s[::2]    # "Pto" — každý druhý znak
+      s[::-1]   # "nohtyP" — pozpátku!
+      ```
+    common_mistakes:
+      - "Zapomenout, že stop je exkluzivní: s[0:3] vrátí s[0], s[1], s[2] — NE s[3]"
+      - "Zaměňovat s[-1] (poslední znak) a s[-0] (to je totéž jako s[0]!)"
+    thinking_notes: |
+      Představ si string jako řadu krabiček:
+      ```
+       P  y  t  h  o  n
+       0  1  2  3  4  5   ← pozitivní indexy
+      -6 -5 -4 -3 -2 -1   ← negativní indexy
+      ```
+      Slicing = „vyber krabičky od start do stop (ale stop nevčetně)".
+      Step = „beru každou step-tou". Step = -1 → jdu pozpátku.
+    reference_solution: |
+      return text[::-1]
+    solution_explanation: "Slicing s krokem -1 projde string od konce k začátku a vytvoří nový, otočený string. Elegantní Pythonic idiom."
+    practice_mode: guided
+
+  - id: 3
+    title: "Co vypíše tento kód?"
+    type: trace
+    difficulty: 2
+    points: 20
+    learning_objective: "Umět trasovat kód s řetězcovými operacemi a předvídat výstup krok po kroku"
+    tags: ['strings', 'tracing', 'methods', 'reasoning']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - ".upper() změní originální string — ne, vrátí nový (immutable!)"
+      - ".split() s argumentem ',' rozloží i podle mezer — ne, jen podle čárky"
+      - ".replace() nahrazuje jen první výskyt — ne, nahrazuje VŠECHNY výskyty"
+    mastery_rule: 3_consecutive
+    solution_pattern: "Trasování krokové analýzy"
+    why_it_matters: |
+      Trasování kódu je klíčová dovednost pro debugging. Když program
+      nedělá to, co čekáš, musíš být schopen projít kód řádek po řádku
+      a zjistit, kde se realita rozchází s tvým očekáváním.
+    what_you_will_learn: "Naučíš se krokově trasovat kód se stringovými operacemi — předvídat výstup bez spuštění."
+    key_concept: |
+      Trasování = mentální simulace kódu. Pro každý řádek si zapíšeš:
+      1. Co se provede
+      2. Jaká je hodnota proměnné PO provedení
+    worked_example: |
+      ```python
+      # Trasujme tento kód:
+      s = "Hello"
+      s = s.lower()     # s = "hello"
+      s = s.replace("l", "L")  # s = "heLLo" (obě 'l' nahrazeny!)
+      result = s[1:4]   # result = "eLL" (indexy 1,2,3)
+
+      # Klíč: .replace() nahrazuje VŠECHNY výskyty, ne jen první!
+      ```
+    common_mistakes:
+      - "Zapomenout, že .replace() bez třetího argumentu nahradí VŠECHNY výskyty"
+      - "Myslet si, že s.upper() změní s — ne, musíš přiřadit: s = s.upper()"
+      - "Zapomenout na whitespace při .split() — 'a b  c'.split() vrátí ['a','b','c']"
+    thinking_notes: |
+      **Jak trasovat kód se stringy:**
+
+      1. **Zapiš si stav proměnných** — po každém řádku si napiš, co obsahují
+      2. **Pamatuj na immutabilitu** — `s.upper()` BEZ přiřazení nemění `s`
+      3. **Slicing pozorně** — nakresli si indexy pod string
+      4. **Split/join** — rozbij si na kroky: co je vstup → co vrátí split → co vrátí join
+
+      Postup pro tento úkol:
+      - Vezmi kód řádek po řádku
+      - Pro každý řádek zapiš hodnotu proměnných
+      - Na konci vrať finální hodnotu
+    reference_solution: |
+      # Krok 1: text = "  Hello, World!  "
+      # Krok 2: text = text.strip() → "Hello, World!"
+      # Krok 3: parts = text.split(", ") → ["Hello", "World!"]
+      # Krok 4: parts[1] = "World!" → parts[1].upper() = "WORLD!"
+      # Krok 5: " + ".join(["Hello", "WORLD!"]) → "Hello + WORLD!"
+      # Krok 6: result.count("L") → "Hello + WORLD!" obsahuje: l(1)? Ne — count je case-sensitive!
+      #         "L" v "Hello + WORLD!" → "WORLD!" má W,O,R,L,D → 1× "L"
+      #         Ale v "Hello" je "l" (malé) → ne "L"
+      #         Výsledek: 1
+      return ("Hello + WORLD!", 1)
+    solution_explanation: |
+      Klíčové momenty trasování:
+      - `.strip()` odstraní whitespace z obou stran
+      - `.split(", ")` dělí přesně podle řetězce ", " (čárka + mezera)
+      - `.upper()` změní "World!" na "WORLD!" — včetně interpunkce, ta zůstává
+      - `.count("L")` je case-sensitive — počítá jen velká "L"
+      - V "Hello + WORLD!" je jen jedno velké "L" (v "WORLD!")
+    practice_mode: guided
+
+  - id: 4
+    title: "Najdi bug ve formátovači"
+    type: debugging
+    difficulty: 2
+    points: 20
+    learning_objective: "Umět najít a opravit typické chyby v kódu pracujícím se stringy"
+    tags: ['strings', 'debugging', 'formatting', 'bugs']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - ".replace() modifikuje string in-place — NE, vrací nový string"
+      - "Výsledek .upper() se automaticky uloží — NE, musíš přiřadit"
+      - "f-string bez f prefix funguje s {} — NE, je to plain string"
+    mastery_rule: 3_consecutive
+    solution_pattern: "Oprava immutability bugů"
+    why_it_matters: |
+      Chyby se stringy jsou jedny z nejčastějších v Pythonu. String immutability
+      je zdroj záludných bugů — kód „vypadá správně", ale nefunguje, protože
+      výsledek metody se nikam neuloží. Toto je reálný debugging scénář.
+    what_you_will_learn: "Naučíš se diagnostikovat a opravit chyby plynoucí z immutability stringů."
+    key_concept: |
+      String metody NIKDY nemění originál — vždy vrací nový string.
+      Musíš výsledek přiřadit zpět: `s = s.upper()`, ne jen `s.upper()`.
+    worked_example: |
+      ```python
+      # ❌ BUG — string se nezmění:
+      text = "ahoj"
+      text.upper()        # vrátí "AHOJ", ale text je stále "ahoj"!
+      print(text)         # → "ahoj" (BUG!)
+
+      # ✅ OPRAVA — přiřaď výsledek:
+      text = "ahoj"
+      text = text.upper() # teď text = "AHOJ"
+      print(text)         # → "AHOJ" ✓
+
+      # To samé platí pro .replace(), .strip(), .lower() atd.
+      ```
+    common_mistakes:
+      - "Zapomenout přiřadit výsledek string metody — nejčastější bug v Pythonu"
+      - "Testovat jen happy path — chyba se projeví až s nestandardním vstupem"
+      - "Neošetřit prázdný vstup — ''.split() vrátí [], ne chybu"
+    thinking_notes: |
+      **Debugging postup pro string kód:**
+
+      1. **Najdi řádky, kde se volá string metoda** — `.upper()`, `.replace()`, `.strip()`...
+      2. **Zkontroluj, zda se výsledek přiřazuje** — `text.replace(...)` bez přiřazení je bug!
+      3. **Trasuj proměnné** — co obsahuje `text` po každém řádku?
+      4. **Testuj okrajové případy** — prázdný string, string s mezerami, speciální znaky
+
+      V této úloze: funkce vrací nesprávný výsledek, protože výsledek string metody
+      se nikam neuloží. Najdi tyto řádky a přiřaď výsledek zpět do proměnné.
+    reference_solution: |
+      def format_name(jmeno, prijmeni):
+          jmeno = jmeno.strip()
+          prijmeni = prijmeni.strip()
+          jmeno = jmeno.capitalize()
+          prijmeni = prijmeni.upper()
+          return f"{prijmeni}, {jmeno}"
+    solution_explanation: |
+      Bugovaná verze volala `.strip()`, `.capitalize()` a `.upper()` bez přiřazení výsledku.
+      String metody v Pythonu vrací **nový** string (protože stringy jsou immutable).
+      Oprava: přiřadit výsledek zpět → `jmeno = jmeno.strip()` místo jen `jmeno.strip()`.
+    practice_mode: guided
+
+  - id: 5
+    title: "Palindrom s normalizací"
+    type: implementation
+    difficulty: 2
+    points: 15
+    learning_objective: "Umět normalizovat text a kombinovat string operace pro složitější logiku"
+    tags: ['strings', 'palindrome', 'normalization', 'algorithms']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "'Anna' == 'anna' je True — NE, Python je case-sensitive"
+      - ".lower() stačí pro normalizaci — záleží na úloze, někdy potřebuješ i .strip()"
+      - "Palindrom se kontroluje jen porovnáním s reverse — ano, ale musíš normalizovat"
+    mastery_rule: 3_consecutive
+    solution_pattern: "lower().strip() + [::-1]"
+    why_it_matters: |
+      Normalizace textu je klíčová pro jakékoliv porovnávání — hledání v databázi,
+      porovnávání uživatelských vstupů, validace hesel. Palindrom je klasický
+      algoritmický příklad, který krásně kombinuje slicing a string metody.
+    what_you_will_learn: "Naučíš se kombinovat normalizaci textu (lower, strip) s algoritmickou logikou."
+    key_concept: "Před porovnáváním textu vždy normalizuj — převeď na stejnou velikost písmen a odstraň nadbytečné whitespace."
+    worked_example: |
+      ```python
+      # Bez normalizace — špatně:
+      "Anna" == "annA"[::-1]  # False! (case-sensitive)
+
+      # S normalizací — správně:
+      text = "Anna"
+      normalized = text.lower()    # "anna"
+      normalized == normalized[::-1]  # "anna" == "anna" → True ✓
+
+      # Reálnější příklad s mezerami:
+      text = "  Race Car  "
+      clean = text.strip().lower().replace(" ", "")  # "racecar"
+      clean == clean[::-1]  # True ✓
+      ```
+    common_mistakes:
+      - "Zapomenout na .lower() — 'Anna' != 'annA' kvůli case-sensitivity"
+      - "Neodstranit mezery — ' anna ' obrácená je ' anna ' ale s mezerou na jiné straně"
+      - "Modifikovat originální text místo new proměnné — nemusí vadit, ale je to čistší"
+    thinking_notes: |
+      Postup pro palindrom:
+      1. Normalizuj: `.lower()` a `.strip()` (a případně odstraň mezery/interpunkci)
+      2. Porovnej s obrácenou verzí: `normalized == normalized[::-1]`
+
+      Klíčové je pořadí: NEJDŘÍV normalizuj, PAK porovnávej.
+    reference_solution: |
+      normalized = text.lower().strip()
+      return normalized == normalized[::-1]
+    solution_explanation: "Nejdřív normalizujeme na malá písmena a odstraníme okrajové mezery, pak porovnáme s obrácenou verzí. Dvě operace, čistý výsledek."
+    practice_mode: guided
+
+  - id: 6
+    title: "Formátování tabulky"
+    type: implementation
+    difficulty: 2
+    points: 20
+    learning_objective: "Umět kombinovat f-string zarovnání, iteraci a join pro strukturovaný výstup"
+    tags: ['strings', 'formatting', 'alignment', 'tables']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "f'{x:<10}' zarovná doprava — ne, < je DOleva, > je DOPrava"
+      - "sorted(dict) vrátí klíč-hodnota páry — ne, vrátí jen klíče; použij sorted(dict.items())"
+      - "join() funguje na libovolných typech — ne, všechny prvky musí být stringy"
+    mastery_rule: 3_consecutive
+    solution_pattern: "join + sorted + f-string alignment"
+    why_it_matters: |
+      Formátování strukturovaných dat do čitelného výstupu je denní chleba.
+      Logování, reporty, CLI nástroje — všude potřebuješ zarovnané tabulky.
+      F-string alignment je klíč k profesionálním výstupům.
+    what_you_will_learn: "Naučíš se kombinovat f-string zarovnání s iterací a join() pro tabulkové výstupy."
+    key_concept: |
+      F-string zarovnání: `f'{hodnota:<šířka}'`
+      - `<` = doleva, `>` = doprava, `^` = na střed
+      - Šířka = minimální počet znaků (doplní mezerami)
+    worked_example: |
+      ```python
+      data = {"x": 1, "ahoj": 2}
+
+      # Zarovnání klíčů na 6 znaků doleva:
+      for k, v in sorted(data.items()):
+          print(f"{k:<6}: {v}")
+      # ahoj  : 2
+      # x     : 1
+
+      # Nebo jako jeden string s join:
+      "\n".join(f"{k:<6}: {v}" for k, v in sorted(data.items()))
+      ```
+    common_mistakes:
+      - "Zapomenout sorted() — slovníky nemají zaručené pořadí (v CPythonu 3.7+ ano, ale conceptuálně ne)"
+      - "Zapomenout str() při join() — int hodnoty se musí převést na string"
+      - "Špatná šířka zarovnání — 7 znaků, ne 6"
+    thinking_notes: |
+      Postup pro tabulku:
+      1. Seřaď data: `sorted(data.items())`
+      2. Pro každý pár (klíč, hodnota): `f'{klíč:<7}: {hodnota}'`
+      3. Spoj řádky: `'\n'.join(...)`
+
+      Tip: F-string zarovnání funguje i s proměnnou šířkou:
+      `width = 7; f'{text:<{width}}'`
+    reference_solution: |
+      return "\n".join(f"{k:<7}: {v}" for k, v in sorted(data.items()))
+    solution_explanation: |
+      Řešení kombinuje tři koncepty: `sorted(data.items())` seřadí slovník
+      podle klíčů abecedně, `f'{k:<7}'` zarovná klíč doleva na 7 znaků,
+      a `'\\n'.join()` spojí řádky. Generátorový výraz to všechno udělá na jednom řádku.
+    practice_mode: guided
+
+  - id: 7
+    title: "Vlastní šablonovací systém"
+    type: implementation
+    difficulty: 3
+    points: 25
+    learning_objective: "Umět navrhnout a implementovat vlastní textový procesor kombinující více string technik"
+    tags: ['strings', 'templating', 'design', 'creative']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "str.format() a f-string jsou totéž — ne, f-string se evaluuje na místě, .format() je metoda"
+      - "replace() s jedním {} nahradí všechny — ano, ale pozor na pořadí substitucí"
+      - "kwargs je normální slovník — ano, přesně tak"
+    mastery_rule: 3_consecutive
+    solution_pattern: "Iterace + replace"
+    why_it_matters: |
+      Šablonovací systémy jsou všude — Django templates, Jinja2, e-mailové šablony,
+      generátory kódu. Pochopení principu ti pomůže porozumět, jak fungují reálné
+      frameworky, a navrhnout vlastní řešení, když žádný framework není po ruce.
+    what_you_will_learn: "Naučíš se navrhnout vlastní nahrazovací systém — základ šablonovacích enginů."
+    key_concept: "Šablona = string s placeholdery. Engine = funkce, která nahradí placeholdery skutečnými hodnotami."
+    worked_example: |
+      ```python
+      # Jednoduchý šablonovací engine:
+      def render(template, **kwargs):
+          result = template
+          for key, value in kwargs.items():
+              result = result.replace(f"{{{key}}}", str(value))
+          return result
+
+      render("Ahoj {jmeno}!", jmeno="Karel")  # → "Ahoj Karel!"
+      ```
+    common_mistakes:
+      - "Zapomenout f'{{klíč}}' — v f-stringu se { escapuje jako {{ a } jako }}"
+      - "Zapomenout str(value) — pokud value je int, replace selže"
+      - "Použít jen jeden replace — musíš iterovat přes všechny kwargs"
+    thinking_notes: |
+      Postup:
+      1. Začni s template stringem
+      2. Pro každý klíč v kwargs: nahraď `{klíč}` za `str(hodnota)`
+      3. Vrať výsledek
+
+      Proč `f'{{{key}}}'`? Protože:
+      - `{` a `}` uvnitř f-stringu se escapují jako {{ a }}
+      - `{key}` se vyhodnotí jako proměnná
+      - Celkově: `f'{{{key}}}'` = `{` + hodnota key + `}` = `{jmeno}`
+
+      Pro kreativnější rozšíření: co kdybys přidal defaultní hodnoty,
+      nebo podporu pro `{jmeno|UPPER}` transformace?
+    reference_solution: |
+      result = template
+      for key, value in kwargs.items():
+          result = result.replace(f"{{{key}}}", str(value))
+      return result
+    solution_explanation: |
+      Iterujeme přes všechny klíč-hodnota páry z kwargs. Pro každý pár
+      nahradíme `{klíč}` za textovou reprezentaci hodnoty. `str(value)`
+      zajistí, že i čísla se korektně převedou na text. Toto je zjednodušená
+      verze toho, co dělá `str.format()` interně.
+    practice_mode: open

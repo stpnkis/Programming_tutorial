@@ -16,8 +16,7 @@ def vyzva_1(a, b):
     🎯 Napiš funkci, která vrátí větší ze dvou čísel.
     Pokud jsou stejná, vrať libovolné z nich.
     """
-    # TODO: ↓
-    pass
+    return max(a,b)
 
 
 def vyzva_2(text, n=2):
@@ -26,8 +25,7 @@ def vyzva_2(text, n=2):
     Default n=2.
     Příklad: ("ha", 3) → "ha ha ha"
     """
-    # TODO: ↓
-    pass
+    return" ".join([text]*n)
 
 
 def vyzva_3(*args):
@@ -37,8 +35,10 @@ def vyzva_3(*args):
     Příklad: (10, 20, 30) → 20.0
     Pokud nejsou žádné argumenty, vrať 0.
     """
-    # TODO: ↓
-    pass
+    if not args:
+        return 0
+    return sum(args)/len(args)
+
 
 
 def vyzva_4(**kwargs):
@@ -48,9 +48,8 @@ def vyzva_4(**kwargs):
     Příklad: (jmeno="Jan", vek=25) → "jmeno=Jan, vek=25"
     Seřaď klíče abecedně.
     """
-    # TODO: ↓
-    pass
 
+    return ", ".join(f"{k}={v}" for k in sorted(kwargs) for v in [kwargs[k]])   
 
 def vyzva_5():
     """
@@ -58,8 +57,8 @@ def vyzva_5():
     Vrať tu lambda funkci.
     Příklad: result(5) → 10
     """
-    # TODO: Vrať lambda funkci ↓
-    pass
+    return lambda x:x*2
+    
 
 
 def vyzva_6(func, seznam):

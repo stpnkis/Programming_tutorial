@@ -1,0 +1,30 @@
+id: "02.03"
+title: "Polymorfismus"
+summary: "🏗️ OOP — Polymorfismus: Stejné rozhraní, různé chování."
+difficulty: 1
+estimated_minutes: 25
+tags: ['python', 'oop', 'classes']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Platební metody — polymorfní třídy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Polymorfismus v akci"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Notifikační systém"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 4
+    title: "Duck Typing — Pythonický polymorfismus"
+    type: implementation
+    difficulty: 1
+    points: 10

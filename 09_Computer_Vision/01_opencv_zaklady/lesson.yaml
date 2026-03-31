@@ -1,0 +1,35 @@
+id: "09.01"
+title: "Opencv Zaklady"
+summary: "📷 OpenCV Základy — Načítání, zobrazení, základní operace."
+difficulty: 1
+estimated_minutes: 30
+tags: ['cv', 'computer-vision', 'opencv']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Vytvoření obrázku"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Barevné prostory"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Kreslení tvarů"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "ROI a Resize"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Základní operace"
+    type: implementation
+    difficulty: 1
+    points: 10

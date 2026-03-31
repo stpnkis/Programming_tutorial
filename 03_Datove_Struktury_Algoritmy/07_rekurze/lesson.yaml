@@ -1,0 +1,40 @@
+id: "03.07"
+title: "Rekurze"
+summary: "🔄 DSA — Rekurze: Síla volání sebe sama."
+difficulty: 2
+estimated_minutes: 40
+tags: ['algorithms', 'data-structures']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Faktoriál — základ rekurze"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Fibonacci — dvojitá rekurze"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Challenge 3"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Flatten vnořeného seznamu"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 5
+    title: "Hanojské věže"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 6
+    title: "Všechny permutace"
+    type: implementation
+    difficulty: 3
+    points: 30

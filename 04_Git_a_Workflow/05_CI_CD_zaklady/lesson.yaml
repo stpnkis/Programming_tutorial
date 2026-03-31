@@ -1,0 +1,25 @@
+id: "04.05"
+title: "Ci Cd Zaklady"
+summary: "🚀 CI/CD — Automatizace testů a nasazení."
+difficulty: 2
+estimated_minutes: 25
+tags: ['git', 'workflow', 'vcs']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "CI/CD — definice a kroky"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "GitHub Actions YAML"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Pipeline simulátor"
+    type: implementation
+    difficulty: 2
+    points: 25

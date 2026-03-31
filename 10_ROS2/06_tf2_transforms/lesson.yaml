@@ -1,0 +1,35 @@
+id: "10.06"
+title: "Tf2 Transforms"
+summary: "🔄 TF2 Transforms — Souřadnicové rámce, broadcaster, listener, statické transformy."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ros2', 'robotics']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "TF2 — souřadnicové rámce"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "TF2 Broadcaster"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "TF2 Listener"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Statické transformace"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 5
+    title: "TF2 v praxi — transformace dat"
+    type: implementation
+    difficulty: 1
+    points: 10

@@ -34,7 +34,7 @@ class Challenge:
 
     def __init__(self, title, description="", task="", hints=None,
                  tests=None, difficulty=1, points=10, theory=None,
-                 example=None, example_output=None):
+                 example=None, example_output=None, challenge_type=None):
         self.title = title
         self.description = description
         self.task = task
@@ -45,6 +45,7 @@ class Challenge:
         self.theory = theory
         self.example = example
         self.example_output = example_output
+        self.challenge_type = challenge_type  # "implementation", "knowledge", etc.
         self.solved = False
 
 

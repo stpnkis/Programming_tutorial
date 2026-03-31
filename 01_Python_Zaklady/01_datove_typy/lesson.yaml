@@ -1,0 +1,327 @@
+id: "01.01"
+title: "Datové typy v Pythonu"
+summary: "Nauč se rozlišovat a pracovat se základními datovými typy — základ každého programu."
+difficulty: 1
+estimated_minutes: 35
+tags: ['python', 'basics', 'types', 'fundamentals']
+prerequisites: []
+learning_objectives:
+  - "Rozlišovat int, float, str, bool a None"
+  - "Převádět mezi typy pomocí int(), str(), float(), bool()"
+  - "Zjistit typ jakékoliv hodnoty pomocí type()"
+  - "Používat základní aritmetické a porovnávací operátory"
+  - "Pochopit dynamické typování v Pythonu"
+
+why_it_matters: |
+  Datové typy jsou absolutní základ programování. Každá hodnota v Pythonu má typ —
+  a ten ovlivňuje, co s ní můžeš dělat. Pokud nerozumíš typům, budeš narážet na
+  TypeError a ValueError v každém programu, který napíšeš.
+
+  V praxi se s typy setkáš všude:
+  - Webové API vrací JSON, kde jsou čísla, texty a boolean hodnoty
+  - Strojové učení pracuje s float čísly, NumPy pole mají explicitní dtype
+  - Databáze mají přísné typy pro sloupce (INTEGER, VARCHAR, BOOLEAN)
+  - Robotika a senzory vrací data jako int (teplota), float (vzdálenost), bool (detekce)
+
+  Kdo rozumí typům, rozumí tomu, PROČ se program chová tak, jak se chová.
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Vytvořit proměnnou libovolného základního typu
+  - Převádět hodnoty mezi typy (a vědět, kdy to selže)
+  - Zjistit typ jakékoliv hodnoty
+  - Provádět aritmetické operace a znát rozdíl mezi / a //
+  - Chápat, proč Python nehlídá typy při přiřazení (dynamické typování)
+
+key_theory: |
+  **Základních 5 typů:**
+
+  | Typ | Příklad | K čemu |
+  |-----|---------|--------|
+  | `int` | `42`, `-7`, `0` | Celá čísla — indexy, počty, ID |
+  | `float` | `3.14`, `-0.5` | Desetinná čísla — měření, výpočty |
+  | `str` | `"ahoj"`, `'svět'` | Text — jména, zprávy, cesty |
+  | `bool` | `True`, `False` | Logické hodnoty — podmínky, flagy |
+  | `None` | `None` | Prázdná hodnota — „nic", „nezadáno" |
+
+  **Převody:** `int("42")` → 42, `str(3.14)` → "3.14", `bool(0)` → False
+  **Zjištění typu:** `type(42).__name__` → "int"
+  **Operátory:** `+`, `-`, `*`, `/` (float dělení), `//` (celočíselné), `%` (zbytek), `**` (mocnina)
+
+challenges:
+  - id: 1
+    title: "Vytvoř proměnné správných typů"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Umět vytvořit proměnnou každého základního typu"
+    tags: ['types', 'variables']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "None se píše s malým n"
+      - "True/False se píše s malým písmenem"
+      - "String potřebuje uvozovky"
+    mastery_rule: 3_consecutive
+    solution_pattern: "(42, 3.14, 'Ahoj', True, None)"
+    why_it_matters: "Vytváření proměnných je první věc, kterou v programu děláš. Pokud neumíš vytvořit správný typ, nic dalšího fungovat nebude."
+    what_you_will_learn: "Naučíš se rozlišovat 5 základních typů a vytvořit proměnnou každého z nich."
+    key_concept: "Každá hodnota v Pythonu má typ. Typ určuje, co s hodnotou můžeš dělat."
+    worked_example: |
+      ```python
+      # Celé číslo — pro počítání, indexování
+      vek = 25
+
+      # Desetinné číslo — pro měření, výpočty
+      vyska = 1.82
+
+      # Text — pro jména, zprávy
+      jmeno = "Karel"
+
+      # Bool — pro ano/ne rozhodnutí
+      je_student = True
+
+      # None — pro „ještě nevím", „prázdné"
+      vysledek = None
+      ```
+    common_mistakes:
+      - "none místo None (Python je case-sensitive!)"
+      - "true místo True (velké T!)"
+      - "Zapomenutí uvozovek kolem textu: x = ahoj místo x = 'ahoj'"
+    thinking_notes: |
+      Když potřebuješ proměnnou, zeptej se: *Jakou hodnotu uchovávám?*
+      - Počítám něco? → `int`
+      - Měřím s desetinami? → `float`
+      - Ukládám text? → `str`
+      - Ano/ne rozhodnutí? → `bool`
+      - Ještě nemám hodnotu? → `None`
+    reference_solution: |
+      cele_cislo = 42
+      desetinne = 3.14
+      text = "Ahoj"
+      pravda = True
+      nic = None
+      return cele_cislo, desetinne, text, pravda, nic
+    solution_explanation: "Každá proměnná má jednoduché přiřazení s literálem správného typu. Python pozná typ z hodnoty — nemusíš ho deklarovat."
+    practice_mode: guided
+
+  - id: 2
+    title: "Type Casting — převody mezi typy"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Umět převádět hodnoty mezi typy pomocí int(), str(), float(), bool()"
+    tags: ['types', 'casting']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "int('3.14') funguje — nefunguje, musíš nejdřív float()"
+      - "bool('False') vrátí False — ne, každý neprázdný string je True"
+    mastery_rule: 3_consecutive
+    solution_pattern: "('42', 123, 3.14, False)"
+    why_it_matters: |
+      Data z reálného světa přichází v různých formátech. Z textového inputu
+      dostaneš string, ale potřebuješ číslo. Z API dostaneš číslo, ale
+      potřebuješ text pro výpis. Převody typů jsou denní chleba programátora.
+    what_you_will_learn: "Naučíš se bezpečně převádět mezi int, str, float a bool."
+    key_concept: "Python má vestavěné funkce pro převod: int(), str(), float(), bool(). Některé převody můžou selhat (ValueError)."
+    worked_example: |
+      ```python
+      # Z textu na číslo (typický scénář: uživatelský input)
+      vek_text = "25"
+      vek = int(vek_text)  # 25
+
+      # Z čísla na text (pro výpis)
+      cena = 99.90
+      zprava = "Cena: " + str(cena)  # "Cena: 99.9"
+
+      # Bool: 0, "", [], None → False, všechno ostatní → True
+      bool(0)       # False
+      bool(42)      # True
+      bool("")      # False
+      bool("ahoj")  # True
+      ```
+    common_mistakes:
+      - "int('3.14') vyhodí ValueError — musíš nejdřív float('3.14'), pak int()"
+      - "bool('False') vrátí True — protože 'False' je neprázdný string!"
+      - "Zapomínáš, že bool(0) je False, ale bool('0') je True"
+    thinking_notes: |
+      Pravidlo pro bool(): *Je to „prázdné" nebo „nulové"?* → False. Jinak True.
+      Prázdné: `0`, `0.0`, `""`, `[]`, `{}`, `None` → False
+      Všechno ostatní → True
+
+      Pravidlo pro int() ze stringu: string musí obsahovat POUZE celé číslo.
+      `int("42")` ✅  `int("3.14")` ❌  `int("ahoj")` ❌
+    reference_solution: |
+      cislo_jako_text = str(42)
+      text_jako_cislo = int("123")
+      text_jako_float = float("3.14")
+      nula_jako_bool = bool(0)
+      return cislo_jako_text, text_jako_cislo, text_jako_float, nula_jako_bool
+    solution_explanation: "Každý převod používá odpovídající vestavěnou funkci. str() pro text, int() pro celé číslo, float() pro desetinné, bool() pro logickou hodnotu."
+    practice_mode: guided
+
+  - id: 3
+    title: "Zjisti typy hodnot"
+    type: implementation
+    difficulty: 2
+    points: 20
+    learning_objective: "Umět zjistit typ jakékoliv hodnoty pomocí type() a __name__"
+    tags: ['types', 'introspection']
+    estimated_minutes: 7
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "type() vrací string — ne, vrací type objekt, musíš použít .__name__"
+      - "type(None) vrátí 'None' — ne, vrátí 'NoneType'"
+    mastery_rule: 3_consecutive
+    solution_pattern: "['int', 'str', 'float', 'bool', 'NoneType', 'list', 'tuple', 'dict']"
+    why_it_matters: |
+      Při debugování je zjištění typu klíčové. Když funkce vrací neočekávaný
+      výsledek, první otázka je: „Jaký typ to vlastně je?" type() je tvůj
+      diagnostický nástroj.
+    what_you_will_learn: "Naučíš se introspekci typů — zjistit typ jakékoliv hodnoty."
+    key_concept: "type(x) vrací typ objektu. type(x).__name__ vrací název typu jako řetězec."
+    worked_example: |
+      ```python
+      # type() vrací type objekt
+      type(42)          # <class 'int'>
+      type("ahoj")      # <class 'str'>
+
+      # __name__ z toho udělá string
+      type(42).__name__  # "int"
+
+      # Pozor na NoneType!
+      type(None).__name__  # "NoneType" (ne "None"!)
+
+      # list comprehension pro skupinu hodnot:
+      hodnoty = [1, "a", 3.14]
+      [type(x).__name__ for x in hodnoty]  # ["int", "str", "float"]
+      ```
+    common_mistakes:
+      - "type(None).__name__ je 'NoneType', ne 'None'"
+      - "type(True).__name__ je 'bool', ne 'True'"
+    thinking_notes: |
+      Vzor pro zjištění typů ve skupině:
+      1. Máš seznam hodnot
+      2. Pro každou hodnotu chceš type(x).__name__
+      3. → List comprehension je ideální nástroj
+    reference_solution: |
+      hodnoty = [42, "ahoj", 3.14, True, None, [1,2], (1,2), {1:2}]
+      typy = [type(x).__name__ for x in hodnoty]
+      return typy
+    solution_explanation: "List comprehension projde všechny hodnoty a pro každou extrahuje název typu. Elegantní jednořádkové řešení."
+    practice_mode: guided
+
+  - id: 4
+    title: "Aritmetika a operátory"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Ovládat aritmetické a porovnávací operátory v Pythonu"
+    tags: ['operators', 'arithmetic']
+    estimated_minutes: 6
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "/ a // jsou totéž — ne, / vrací float, // dělí celočíselně"
+      - "% vrací podíl — ne, vrací ZBYTEK po dělení"
+      - "^ je mocnina — ne, ^ je bitový XOR, mocnina je **"
+    mastery_rule: 3_consecutive
+    solution_pattern: "(42, 3, 2, 1024, True)"
+    why_it_matters: |
+      Aritmetika je základ algoritmů. Floor division (//) se používá
+      pro stránkování, indexování a dělení do skupin. Modulo (%) je
+      klíčové pro cykly, kontrolu sudosti/lichosti a hashování.
+    what_you_will_learn: "Naučíš se všechny důležité aritmetické a porovnávací operátory."
+    key_concept: |
+      `/` = float dělení: `7/2` → `3.5`
+      `//` = celočíselné (floor): `7//2` → `3`
+      `%` = zbytek (modulo): `7%2` → `1`
+      `**` = mocnina: `2**10` → `1024`
+    worked_example: |
+      ```python
+      # Floor division — kolik celých skupin?
+      17 // 5  # = 3 (tři celé pětky se vejdou do 17)
+
+      # Modulo — co zbyde?
+      17 % 5   # = 2 (17 = 3*5 + 2)
+
+      # Praktický příklad: stránkování
+      celkem_polozek = 47
+      na_stranku = 10
+      pocet_stranek = celkem_polozek // na_stranku + (1 if celkem_polozek % na_stranku else 0)
+      # = 5 stránek
+      ```
+    common_mistakes:
+      - "17 / 5 vrátí 3 — ne, vrátí 3.4 (float dělení!)"
+      - "Pro mocninu se nepoužívá ^, ale **"
+    thinking_notes: |
+      Když vidíš //:
+      → „Kolik celých se tam vejde?"
+
+      Když vidíš %:
+      → „Co zbyde po dělení?"
+
+      Dvojice // a % spolu úzce souvisí:
+      a == (a // b) * b + (a % b) — vždy platí!
+    reference_solution: |
+      soucet = 17 + 25           # = 42
+      podil = 17 // 5            # = 3
+      zbytek = 17 % 5            # = 2
+      mocnina = 2 ** 10          # = 1024
+      porovnani = 10 >= 10       # = True
+      return soucet, podil, zbytek, mocnina, porovnani
+    solution_explanation: "Přímočaré použití operátorů. Klíčové je vědět, že // zaokrouhluje dolů a % vrací zbytek."
+    practice_mode: guided
+
+  - id: 5
+    title: "Dynamické typování"
+    type: implementation
+    difficulty: 1
+    points: 10
+    learning_objective: "Pochopit, že Python proměnné nemají fixní typ — typ se mění s hodnotou"
+    tags: ['types', 'dynamic-typing']
+    estimated_minutes: 5
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Proměnná může mít jen jeden typ — ne, v Pythonu se typ mění s přiřazením"
+      - "Musím deklarovat typ proměnné — ne, Python je dynamicky typovaný"
+    mastery_rule: 3_consecutive
+    solution_pattern: "(10, 'deset', [10, 'deset'])"
+    why_it_matters: |
+      Python je dynamicky typovaný — to je zásadní rozdíl oproti C/Java.
+      Toto pochopení je klíčové, protože vysvětluje, proč Python nevyhodí
+      chybu při `x = 10; x = 'ahoj'` a proč je důležité sledovat typy.
+    what_you_will_learn: "Pochopíš dynamické typování — proč proměnné v Pythonu nemají fixní typ."
+    key_concept: "V Pythonu proměnná ukazuje na objekt. Když přiřadíš novou hodnotu, proměnná začne ukazovat na jiný objekt (možná jiného typu)."
+    worked_example: |
+      ```python
+      x = 42          # x ukazuje na int objekt 42
+      print(type(x))  # <class 'int'>
+
+      x = "ahoj"      # x teď ukazuje na str objekt "ahoj"
+      print(type(x))  # <class 'str'>
+
+      # Proměnná je jen „jmenovka" na hodnotu!
+      ```
+    common_mistakes:
+      - "Myslet si, že x = 42 vytvoří 'intovou proměnnou' — ne, x je jen reference"
+    thinking_notes: |
+      Představ si proměnnou jako jmenovku na krabici:
+      - Napíšeš na ni: x = 42 → jmenovka „x" visí na krabici s číslem 42
+      - Přepíšeš: x = "ahoj" → jmenovka „x" se přesune na krabici s textem
+      - Stará krabice (42) stále existuje, jen na ni nikdo neukazuje
+    reference_solution: |
+      x = 10
+      verze1 = x
+      x = "deset"
+      verze2 = x
+      x = [10, "deset"]
+      verze3 = x
+      return verze1, verze2, verze3
+    solution_explanation: "Proměnná x postupně ukazuje na tři různé objekty různých typů. verze1/2/3 zachycují referenci na hodnotu v okamžiku přiřazení."
+    practice_mode: guided

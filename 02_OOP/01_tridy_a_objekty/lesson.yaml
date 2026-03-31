@@ -1,0 +1,322 @@
+id: "02.01"
+title: "Třídy a Objekty"
+summary: "Základní OOP — třída jako šablona, objekt jako instance, self, atributy, metody."
+difficulty: 1
+estimated_minutes: 45
+tags: ['python', 'oop', 'classes', 'objects']
+prerequisites: ['01.03']
+learning_objectives:
+  - "Vytvořit třídu s __init__ a instančními atributy"
+  - "Definovat metody, které pracují se stavem objektu (self)"
+  - "Rozlišovat třídní a instanční proměnné"
+  - "Implementovat __repr__ pro čitelný výpis objektu"
+  - "Navrhnout třídu s přirozeným rozhraním (API)"
+
+why_it_matters: |
+  OOP je **dominantní paradigma** v profesionálním Pythonu. Třídy jsou všude:
+  - `requests.Session()` — HTTP klient si pamatuje cookies
+  - `torch.nn.Module` — každá neuronová síť je třída
+  - `rospy.Publisher()` — ROS publisher je objekt s metodami
+  - `django.db.models.Model` — databázový model je třída
+
+  Bez OOP nemůžeš:
+  - Organizovat větší programy (100+ řádků)
+  - Používat většinu Python knihoven
+  - Psát testovatelný kód (dependency injection, mocking)
+
+  **Klíčový mentální model:** Třída je *šablona* (formička na cukroví),
+  objekt je *instance* (konkrétní cukroví vyrobené formičkou).
+  Každá instance má vlastní data (atributy), ale sdílí chování (metody).
+
+what_you_will_learn: |
+  Po dokončení této lekce budeš umět:
+  - Napsat třídu s `__init__` konstruktorem
+  - Uložit data do `self.atribut` a přistupovat k nim v metodách
+  - Vytvořit metody, které čtou a mění stav objektu
+  - Rozlišit třídní proměnnou (sdílená) vs instanční (unikátní)
+  - Implementovat `__repr__` pro debugging a výpisy
+
+key_theory: |
+  **Anatomie třídy:**
+  ```python
+  class NazevTridy:
+      tridni_promenna = 0  # sdílená všemi instancemi
+
+      def __init__(self, param1, param2):
+          self.atribut1 = param1  # instanční proměnná
+          self.atribut2 = param2
+
+      def metoda(self):
+          return self.atribut1  # přístup k datům přes self
+
+      def __repr__(self):
+          return f"NazevTridy({self.atribut1})"
+  ```
+
+  **Klíčové koncepty:**
+
+  | Koncept | Příklad | Vysvětlení |
+  |---------|---------|------------|
+  | `self` | `self.x = 5` | Odkaz na konkrétní instanci |
+  | `__init__` | `def __init__(self):` | Konstruktor — inicializace |
+  | Instance | `obj = Trida()` | Vytvoření objektu |
+  | Metoda | `obj.metoda()` | Funkce vázaná na objekt |
+  | `__repr__` | `repr(obj)` | Textová reprezentace objektu |
+  | Třídní proměnná | `Trida.x` | Sdílená mezi instancemi |
+  | Class method | `@classmethod` | Přístup k třídě, ne instanci |
+
+  **Pravidlo:** `self` je **vždy** první parametr metody (kromě @staticmethod).
+  Python ho předá automaticky — ty ho musíš jen deklarovat.
+
+challenges:
+  - id: 1
+    title: "Třída Pes — první OOP"
+    type: implementation
+    difficulty: 1
+    points: 15
+    learning_objective: "Vytvořit třídu s __init__, atributy a metodami"
+    tags: ['oop', 'class', 'init', 'methods']
+    estimated_minutes: 8
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "Zapomenutí self v def __init__(self, ...)"
+      - "self.jmeno = jmeno — self. je nutné pro uložení atributu"
+      - "Volání metody bez self: jmeno místo self.jmeno uvnitř metody"
+    why_it_matters: |
+      Toto je tvoje první třída. Vzor __init__ + self + metody budeš používat
+      v každém Python projektu. Jakmile zvládneš Pes, zvládneš i model neuronové sítě.
+    what_you_will_learn: "Naučíš se vytvořit třídu s konstruktorem a metodami."
+    key_concept: "__init__ inicializuje objekt. self.atribut ukládá data. Metody pracují s self."
+    worked_example: |
+      ```python
+      class Auto:
+          def __init__(self, znacka, rok):
+              self.znacka = znacka
+              self.rok = rok
+
+          def info(self):
+              return f"{self.znacka} ({self.rok})"
+
+          def stari(self, aktualni_rok=2024):
+              return aktualni_rok - self.rok
+
+      skoda = Auto("Škoda", 2020)
+      print(skoda.info())   # → "Škoda (2020)"
+      print(skoda.stari())  # → 4
+      ```
+    common_mistakes:
+      - "def __init__(jmeno, vek, rasa) — chybí self jako první parametr!"
+      - "jmeno = jmeno místo self.jmeno = jmeno — bez self se atribut neuloží"
+      - "return f'{jmeno}' místo f'{self.jmeno}' — uvnitř metody musíš použít self"
+    thinking_notes: |
+      Pro každou třídu si odpověz na 3 otázky:
+      1. **Co si pamatuje?** → atributy v `__init__` (jmeno, vek, rasa)
+      2. **Co umí?** → metody (stekej, info)
+      3. **Jak vypadá zvenku?** → `__repr__` (bonus)
+    reference_solution: |
+      # Ve třídě Pes:
+      def __init__(self, jmeno, vek, rasa):
+          self.jmeno = jmeno
+          self.vek = vek
+          self.rasa = rasa
+
+      def stekej(self):
+          return f"Haf! Jsem {self.jmeno}!"
+
+      def info(self):
+          return f"{self.jmeno}, {self.rasa}, {self.vek} let"
+    solution_explanation: |
+      __init__ uloží všechny 3 parametry jako instanční atributy (self.x = x).
+      Metody používají self.jmeno atd. pro přístup k datům.
+      f-string formátuje výstup přesně podle zadání.
+    practice_mode: guided
+
+  - id: 2
+    title: "Bankomat — stav a metody"
+    type: implementation
+    difficulty: 2
+    points: 20
+    learning_objective: "Vytvořit třídu s vnitřním stavem a metodami, které ho mění"
+    tags: ['oop', 'state', 'methods', 'encapsulation']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "Metody mohou MĚNIT stav objektu — self.zustatek += castka"
+      - "Podmínka musí být PŘED změnou — jinak stav bude nekonzistentní"
+    why_it_matters: |
+      Bankomat je klasický příklad *zapouzdření* (encapsulation) — data (zůstatek)
+      jsou chráněna metodami (vloz, vyber). Stejný vzor uvidíš v databázích,
+      cache systémech, herních enginech.
+    what_you_will_learn: "Naučíš se vytvořit třídu s měnitelným vnitřním stavem."
+    key_concept: "Metody mohou číst i měnit atributy objektu. Stav se uchovává mezi voláními."
+    worked_example: |
+      ```python
+      class Zasobnik:
+          def __init__(self):
+              self.polozky = []
+
+          def vloz(self, item):
+              self.polozky.append(item)
+              return len(self.polozky)
+
+          def vyjmi(self):
+              if not self.polozky:
+                  return "Prázdný"
+              return self.polozky.pop()
+      ```
+    common_mistakes:
+      - "Zapomenutí default parametru: def __init__(self, majitel, zustatek=0)"
+      - "Výběr bez kontroly: self.zustatek -= castka BEZ if castka > self.zustatek"
+      - "Vrácení zůstatku jako int místo formátovaného stringu ve stav()"
+    thinking_notes: |
+      Postup pro třídu s měnitelným stavem:
+      1. __init__: nastav počáteční stav (majitel, zustatek=0)
+      2. vloz: zvyš zůstatek, vrať nový
+      3. vyber: NEJDŘÍVE zkontroluj, pak odeber
+      4. stav: formátovaný string
+    reference_solution: |
+      def __init__(self, majitel, zustatek=0):
+          self.majitel = majitel
+          self.zustatek = zustatek
+
+      def vloz(self, castka):
+          self.zustatek += castka
+          return self.zustatek
+
+      def vyber(self, castka):
+          if castka > self.zustatek:
+              return "Nedostatek prostředků"
+          self.zustatek -= castka
+          return self.zustatek
+
+      def stav(self):
+          return f"Účet {self.majitel}: {self.zustatek} Kč"
+    solution_explanation: |
+      Klíčový vzor: __init__ nastaví stav, metody ho mění.
+      vyber() kontroluje podmínku PŘED změnou — to je správný defensivní přístup.
+      Vrácení nového zůstatku umožňuje řetězení a testování.
+    practice_mode: guided
+
+  - id: 3
+    title: "Třídní vs instanční proměnné"
+    type: implementation
+    difficulty: 2
+    points: 20
+    learning_objective: "Rozlišit třídní a instanční proměnné a správně je používat"
+    tags: ['oop', 'class-variables', 'instance-variables', 'classmethod']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: high
+    expected_misconceptions:
+      - "self.celkem_kliknuti vs Pocitadlo.celkem_kliknuti — self přepíše třídní na instanční!"
+      - "@classmethod přijímá cls (třída), ne self (instance)"
+    why_it_matters: |
+      Třídní proměnné jsou sdílený stav — stejný koncept jako počet připojení k serveru,
+      globální konfigurace, nebo registry vzor (design pattern). Pochopení rozdílu
+      mezi třídní a instanční proměnnou je klíčové pro debugování.
+    what_you_will_learn: "Naučíš se správně sdílet data mezi instancemi pomocí třídních proměnných."
+    key_concept: "Třídní proměnná je sdílená. Instanční je unikátní. Přistupuj k třídní přes Trida.x nebo cls.x."
+    worked_example: |
+      ```python
+      class Kocka:
+          pocet = 0  # třídní — sdílená
+
+          def __init__(self, jmeno):
+              self.jmeno = jmeno    # instanční — unikátní
+              Kocka.pocet += 1      # zvyš třídní přes Trida.x
+
+          @classmethod
+          def kolik(cls):
+              return cls.pocet
+
+      k1 = Kocka("Micka")
+      k2 = Kocka("Mourek")
+      Kocka.kolik()  # → 2
+      ```
+    common_mistakes:
+      - "self.celkem_kliknuti += 1 — POZOR: to vytvoří NOVOU instanční proměnnou!"
+      - "Správně: Pocitadlo.celkem_kliknuti += 1 (přes název třídy)"
+    thinking_notes: |
+      Pravidlo: pokud chceš sdílet data mezi instancemi, přistupuj přes Trida.x, ne self.x.
+      self.x čte třídní proměnnou, ale self.x = ... vytvoří NOVOU instanční!
+    reference_solution: |
+      def __init__(self):
+          self.moje_kliknuti = 0
+
+      def klikni(self):
+          self.moje_kliknuti += 1
+          Pocitadlo.celkem_kliknuti += 1
+
+      @classmethod
+      def celkem(cls):
+          return cls.celkem_kliknuti
+    solution_explanation: |
+      __init__ vytvoří instanční počítadlo (self.moje_kliknuti = 0).
+      klikni() zvyšuje obě — instanční přes self, třídní přes Pocitadlo.
+      celkem() je @classmethod — přistupuje k cls.celkem_kliknuti (třídní proměnné).
+    practice_mode: guided
+
+  - id: 4
+    title: "Třída Bod — __repr__ a metody"
+    type: implementation
+    difficulty: 2
+    points: 20
+    learning_objective: "Implementovat __repr__ a matematické metody na třídě"
+    tags: ['oop', 'repr', 'math', 'methods']
+    estimated_minutes: 10
+    hint_strategy: progressive
+    review_priority: normal
+    expected_misconceptions:
+      - "__repr__ vs __str__: repr je pro debugging, str pro uživatele"
+      - "math.sqrt() potřebuje import math"
+    why_it_matters: |
+      __repr__ je základní dunder metoda — bez ní se objekty zobrazí jako
+      `<__main__.Bod object at 0x...>`, což je k ničemu pro debugging.
+      Vzdálenostní výpočty jsou základ geometrie v CV a robotice.
+    what_you_will_learn: "Naučíš se implementovat __repr__ a pracovat s matematickými operacemi na objektech."
+    key_concept: "__repr__ definuje textovou reprezentaci objektu. Pravidlo: eval(repr(obj)) by mělo vytvořit stejný objekt."
+    worked_example: |
+      ```python
+      import math
+
+      class Vektor:
+          def __init__(self, x, y):
+              self.x = x
+              self.y = y
+
+          def __repr__(self):
+              return f"Vektor({self.x}, {self.y})"
+
+          def delka(self):
+              return math.sqrt(self.x**2 + self.y**2)
+
+      v = Vektor(3, 4)
+      print(v)       # → Vektor(3, 4)
+      v.delka()      # → 5.0
+      ```
+    common_mistakes:
+      - "Zapomenutí import math — NameError: name 'math' is not defined"
+      - "__repr__ vrací string — return, ne print!"
+      - "Vzdálenost vzorec: sqrt((x2-x1)² + (y2-y1)²) — nezaměň pořadí"
+    thinking_notes: |
+      Euklidovská vzdálenost:
+      d = √((x₂-x₁)² + (y₂-y₁)²)
+      V kódu: math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+    reference_solution: |
+      import math
+
+      def __init__(self, x, y):
+          self.x = x
+          self.y = y
+
+      def vzdalenost(self, other):
+          return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+
+      def __repr__(self):
+          return f"Bod({self.x}, {self.y})"
+    solution_explanation: |
+      __init__ ukládá souřadnice. __repr__ vrací čitelný string.
+      vzdalenost() počítá euklidovskou vzdálenost pomocí Pythagorovy věty.
+    practice_mode: guided

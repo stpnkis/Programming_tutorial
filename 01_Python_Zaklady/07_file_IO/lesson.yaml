@@ -1,0 +1,45 @@
+id: "01.07"
+title: "File Io"
+summary: "Čtení a zápis dat — základ pro jakoukoliv reálnou aplikaci."
+difficulty: 1
+estimated_minutes: 40
+tags: ['python', 'basics', 'fundamentals']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Challenge 1"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Čtení souboru"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Řádky souboru"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "JSON zápis"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "JSON čtení"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 6
+    title: "CSV zápis"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 7
+    title: "CSV čtení jako slovníky"
+    type: implementation
+    difficulty: 1
+    points: 10

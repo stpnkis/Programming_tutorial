@@ -1,0 +1,35 @@
+id: "10.03"
+title: "Services A Actions"
+summary: "🔄 ROS2 Services & Actions — Request/response, action server/client, feedback."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ros2', 'robotics']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Services — request/response"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Service Client"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Actions — základy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Action Server"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Action Client"
+    type: implementation
+    difficulty: 1
+    points: 10

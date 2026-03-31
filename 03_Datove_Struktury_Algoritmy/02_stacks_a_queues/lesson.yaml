@@ -1,0 +1,35 @@
+id: "03.02"
+title: "Stacks A Queues"
+summary: "📚 DSA — Stacks a Queues: LIFO a FIFO struktury."
+difficulty: 1
+estimated_minutes: 30
+tags: ['algorithms', 'data-structures']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Stack — LIFO zásobník"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Kontrola závorek"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Queue — FIFO fronta"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Horký brambor — simulace"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 5
+    title: "Challenge 5"
+    type: implementation
+    difficulty: 1
+    points: 10

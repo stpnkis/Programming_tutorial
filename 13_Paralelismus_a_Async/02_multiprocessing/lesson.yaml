@@ -1,0 +1,35 @@
+id: "13.02"
+title: "Multiprocessing"
+summary: "🔀 Multiprocessing — Process, Pool, Value/Array, Manager, sdílená paměť."
+difficulty: 1
+estimated_minutes: 30
+tags: ['async', 'threading', 'parallel']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "🔀 Multiprocessing vs Threading — teorie"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "⚡ Pool.map — paralelní faktoriál"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "💾 Sdílená Value — bezpečný čítač mezi procesy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "🤖 Pool.starmap — vzdálenosti robotů"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "📋 Manager — sdílený slovník mezi procesy"
+    type: implementation
+    difficulty: 1
+    points: 10

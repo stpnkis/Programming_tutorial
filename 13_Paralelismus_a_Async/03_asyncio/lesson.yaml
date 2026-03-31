@@ -1,0 +1,35 @@
+id: "13.03"
+title: "Asyncio"
+summary: "⚡ Asyncio — async/await, event loop, coroutines, gather, Tasks."
+difficulty: 1
+estimated_minutes: 30
+tags: ['async', 'threading', 'parallel']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "⚡ Asyncio teorie — event loop a coroutiny"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "🌟 První coroutina — async def & await"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "🚀 asyncio.gather — souběžné dotazy na roboty"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "⏰ asyncio.wait_for — timeout pro senzorové operace"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "🔄 Async Queue — senzorová pipeline"
+    type: implementation
+    difficulty: 1
+    points: 10

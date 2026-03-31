@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "prog-train"
+version = "3.0.0"
+description = "Programátorské tréninkové centrum — interaktivní výuka programování"
+requires-python = ">=3.10"
+dependencies = [
+    "rich>=13.0",
+    "PyYAML>=6.0",
+]
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+desktop = [
+    "PySide6>=6.5",
+    "flask>=3.0",
+    "flask-cors>=4.0",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+progtrain = "start:main"
+progtrain-desktop = "desktop.app:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

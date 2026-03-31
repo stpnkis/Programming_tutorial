@@ -1,0 +1,35 @@
+id: "08.10"
+title: "Transfer Learning"
+summary: "🔄 Transfer Learning — Předtrénované modely, fine-tuning."
+difficulty: 2
+estimated_minutes: 35
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Transfer Learning princip"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Feature Extraction vs Fine-tuning"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 3
+    title: "PyTorch Transfer Learning"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 4
+    title: "Data Augmentace"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 5
+    title: "Kdy TL použít?"
+    type: implementation
+    difficulty: 1
+    points: 15

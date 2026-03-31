@@ -1,0 +1,35 @@
+id: "08.07"
+title: "Feature Engineering"
+summary: "🔧 Feature Engineering — Výběr, transformace, encoding."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "One-Hot Encoding"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Label Encoding"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Min-Max normalizace"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Feature Selection teorie"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 5
+    title: "Feature Engineering — BMI"
+    type: implementation
+    difficulty: 1
+    points: 10

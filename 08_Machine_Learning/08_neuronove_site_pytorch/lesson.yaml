@@ -1,0 +1,35 @@
+id: "08.08"
+title: "Neuronove Site Pytorch"
+summary: "🧠 Neuronové sítě — Perceptron, PyTorch základy, backpropagation."
+difficulty: 1
+estimated_minutes: 30
+tags: ['ml', 'machine-learning', 'sklearn']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Perceptron"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Aktivační funkce"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Forward Pass"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Backpropagation teorie"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "PyTorch Model teorie"
+    type: implementation
+    difficulty: 1
+    points: 10

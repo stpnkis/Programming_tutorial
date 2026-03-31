@@ -1,0 +1,35 @@
+id: "12.03"
+title: "Websockets"
+summary: "🔌 WebSockets — asyncio websockets, Socket.IO, real-time komunikace."
+difficulty: 1
+estimated_minutes: 30
+tags: ['networking', 'api', 'http']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "WebSocket protokol"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "asyncio websockets"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Flask-SocketIO"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Real-time vzory"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "WebSockets v robotice"
+    type: implementation
+    difficulty: 1
+    points: 10

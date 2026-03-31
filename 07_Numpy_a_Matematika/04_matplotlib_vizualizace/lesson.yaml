@@ -1,0 +1,35 @@
+id: "07.04"
+title: "Matplotlib Vizualizace"
+summary: "📈 Matplotlib Vizualizace — Grafy, styly, subplots."
+difficulty: 1
+estimated_minutes: 30
+tags: ['numpy', 'math', 'visualization']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Challenge 1"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Challenge 2"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Challenge 3"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Challenge 4"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Histogram"
+    type: implementation
+    difficulty: 1
+    points: 10

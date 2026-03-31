@@ -1,0 +1,35 @@
+id: "14.01"
+title: "Mini Projekty"
+summary: "🚀 MINI PROJEKTY — Jednoduché projekty na 1-2 hodiny s používáním OOP, souborů a API."
+difficulty: 1
+estimated_minutes: 30
+tags: ['projects', 'portfolio']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Kalkulačka s OOP"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Organizátor Souborů"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Generátor Hesel"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Analyzer CSV"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Chatbot Diagnostika"
+    type: implementation
+    difficulty: 1
+    points: 10

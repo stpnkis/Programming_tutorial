@@ -1,0 +1,35 @@
+id: "11.03"
+title: "Systemd Procesy"
+summary: "⚙️ Systemd & Procesy — ps, top, kill, systemctl, journalctl, cron."
+difficulty: 1
+estimated_minutes: 30
+tags: ['linux', 'terminal', 'bash']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Procesy — ps, top, htop"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Signály a kill"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Systemd a služby"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Journalctl a logy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 5
+    title: "Cron a plánování"
+    type: implementation
+    difficulty: 2
+    points: 20

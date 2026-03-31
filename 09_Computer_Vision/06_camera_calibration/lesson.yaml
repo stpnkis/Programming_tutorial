@@ -1,0 +1,35 @@
+id: "09.06"
+title: "Camera Calibration"
+summary: "📐 Camera Calibration — Kalibrace kamery, distortion, homografie."
+difficulty: 2
+estimated_minutes: 35
+tags: ['cv', 'computer-vision', 'opencv']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Kamerový model"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Kalibrace kamery"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 3
+    title: "Distortion"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 4
+    title: "Homografie"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 5
+    title: "Stereo vize"
+    type: implementation
+    difficulty: 2
+    points: 25

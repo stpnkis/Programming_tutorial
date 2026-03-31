@@ -1,0 +1,35 @@
+id: "09.08"
+title: "Point Clouds"
+summary: "☁️ Point Clouds — Mračna bodů, Open3D, registrace."
+difficulty: 2
+estimated_minutes: 35
+tags: ['cv', 'computer-vision', 'opencv']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Point Cloud základy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Open3D operace"
+    type: implementation
+    difficulty: 2
+    points: 20
+  - id: 3
+    title: "ICP Registrace"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Segmentace Point Cloudu"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 5
+    title: "Point Clouds v robotice"
+    type: implementation
+    difficulty: 1
+    points: 10

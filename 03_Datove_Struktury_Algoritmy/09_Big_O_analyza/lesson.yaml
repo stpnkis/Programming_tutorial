@@ -1,0 +1,30 @@
+id: "03.09"
+title: "Big O Analyza"
+summary: "⏱️ DSA — Big O Analýza: Složitost algoritmů."
+difficulty: 1
+estimated_minutes: 25
+tags: ['algorithms', 'data-structures']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "Urči Big O složitost"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Seřaď složitosti"
+    type: implementation
+    difficulty: 1
+    points: 15
+  - id: 3
+    title: "Python operace — jaká složitost?"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 4
+    title: "Napiš funkci s danou složitostí"
+    type: implementation
+    difficulty: 1
+    points: 10

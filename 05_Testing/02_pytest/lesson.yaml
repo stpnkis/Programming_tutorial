@@ -1,0 +1,25 @@
+id: "05.02"
+title: "Pytest"
+summary: "⚡ Testing — pytest: Moderní testování."
+difficulty: 1
+estimated_minutes: 20
+tags: ['testing', 'pytest', 'quality']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "pytest styl — assert je vše"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "Fixtures — příprava dat"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 3
+    title: "Parametrizace — mnoho vstupů"
+    type: implementation
+    difficulty: 1
+    points: 10

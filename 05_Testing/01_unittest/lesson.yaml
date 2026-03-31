@@ -1,0 +1,25 @@
+id: "05.01"
+title: "Unittest"
+summary: "🧪 Testing — unittest: Standardní testovací knihovna."
+difficulty: 2
+estimated_minutes: 25
+tags: ['testing', 'pytest', 'quality']
+prerequisites: []
+learning_objectives: []
+
+challenges:
+  - id: 1
+    title: "unittest — Calculator testy"
+    type: implementation
+    difficulty: 1
+    points: 10
+  - id: 2
+    title: "unittest — Košík testy"
+    type: implementation
+    difficulty: 2
+    points: 25
+  - id: 3
+    title: "Parametrizované testy — subTest"
+    type: implementation
+    difficulty: 1
+    points: 10
