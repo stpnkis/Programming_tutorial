@@ -3,7 +3,8 @@ title: "Zapouzdreni"
 summary: "🏗️ OOP — Zapouzdření: Skrývání implementace, kontrola přístupu."
 difficulty: 2
 estimated_minutes: 25
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.encapsulation", "oop.properties"]
 prerequisites: []
 learning_objectives: []
 

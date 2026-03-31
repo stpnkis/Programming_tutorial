@@ -3,7 +3,8 @@ title: "Error Handling"
 summary: "Správné zachycení a řízení chyb — robustní kód."
 difficulty: 1
 estimated_minutes: 35
-tags: ['python', 'basics', 'fundamentals']
+tags: ["python", "basics", "fundamentals"]
+concepts: ["python.exceptions", "python.custom_exceptions"]
 prerequisites: []
 learning_objectives: []
 

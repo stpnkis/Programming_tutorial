@@ -3,7 +3,8 @@ title: "Magic Methods"
 summary: "🏗️ OOP — Magic Methods: Přizpůsob chování tříd operátorům a built-in funkcím."
 difficulty: 1
 estimated_minutes: 20
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.magic_methods", "oop.operator_overloading"]
 prerequisites: []
 learning_objectives: []
 

@@ -3,8 +3,16 @@ title: "Třídy a Objekty"
 summary: "Základní OOP — třída jako šablona, objekt jako instance, self, atributy, metody."
 difficulty: 1
 estimated_minutes: 45
-tags: ['python', 'oop', 'classes', 'objects']
-prerequisites: ['01.03']
+tags: ["python", "oop", "classes", "objects"]
+concepts:
+  [
+    "oop.classes",
+    "oop.init",
+    "oop.self",
+    "oop.class_vs_instance",
+    "oop.methods",
+  ]
+prerequisites: ["01.03"]
 learning_objectives:
   - "Vytvořit třídu s __init__ a instančními atributy"
   - "Definovat metody, které pracují se stavem objektu (self)"
@@ -75,7 +83,7 @@ challenges:
     difficulty: 1
     points: 15
     learning_objective: "Vytvořit třídu s __init__, atributy a metodami"
-    tags: ['oop', 'class', 'init', 'methods']
+    tags: ["oop", "class", "init", "methods"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: high
@@ -138,7 +146,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Vytvořit třídu s vnitřním stavem a metodami, které ho mění"
-    tags: ['oop', 'state', 'methods', 'encapsulation']
+    tags: ["oop", "state", "methods", "encapsulation"]
     estimated_minutes: 10
     hint_strategy: progressive
     review_priority: normal
@@ -205,7 +213,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Rozlišit třídní a instanční proměnné a správně je používat"
-    tags: ['oop', 'class-variables', 'instance-variables', 'classmethod']
+    tags: ["oop", "class-variables", "instance-variables", "classmethod"]
     estimated_minutes: 10
     hint_strategy: progressive
     review_priority: high
@@ -264,7 +272,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Implementovat __repr__ a matematické metody na třídě"
-    tags: ['oop', 'repr', 'math', 'methods']
+    tags: ["oop", "repr", "math", "methods"]
     estimated_minutes: 10
     hint_strategy: progressive
     review_priority: normal

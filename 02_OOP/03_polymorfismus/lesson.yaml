@@ -3,7 +3,8 @@ title: "Polymorfismus"
 summary: "🏗️ OOP — Polymorfismus: Stejné rozhraní, různé chování."
 difficulty: 1
 estimated_minutes: 25
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.polymorphism", "oop.inheritance"]
 prerequisites: []
 learning_objectives: []
 

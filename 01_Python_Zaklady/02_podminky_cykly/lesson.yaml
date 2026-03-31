@@ -3,8 +3,16 @@ title: "Podmínky a cykly"
 summary: "Řízení toku programu — if/else, for, while. Základní stavební kameny logiky."
 difficulty: 1
 estimated_minutes: 50
-tags: ['python', 'basics', 'control-flow', 'fundamentals']
-prerequisites: ['01.01']
+tags: ["python", "basics", "control-flow", "fundamentals"]
+concepts:
+  [
+    "python.conditions",
+    "python.loops",
+    "python.loop_control",
+    "python.boolean_logic",
+    "python.ternary",
+  ]
+prerequisites: ["01.01"]
 learning_objectives:
   - "Používat if/elif/else pro rozhodování"
   - "Psát for cykly s range() a iterací přes kolekce"
@@ -69,7 +77,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Umět správně větvit program pomocí if/elif/else"
-    tags: ['conditions', 'if-else']
+    tags: ["conditions", "if-else"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -124,7 +132,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Kombinovat podmínky s modulo operátorem pro klasifikaci"
-    tags: ['conditions', 'modulo', 'classic']
+    tags: ["conditions", "modulo", "classic"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal
@@ -186,7 +194,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Používat for cyklus s range() pro iteraci přes čísla"
-    tags: ['loops', 'for', 'range']
+    tags: ["loops", "for", "range"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -238,7 +246,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Kombinovat for cyklus s podmínkou (filtrování)"
-    tags: ['loops', 'conditions', 'filter']
+    tags: ["loops", "conditions", "filter"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -288,7 +296,7 @@ challenges:
     difficulty: 2
     points: 15
     learning_objective: "Používat while cyklus s podmínkou, která se mění v těle cyklu"
-    tags: ['loops', 'while', 'strings']
+    tags: ["loops", "while", "strings"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal
@@ -344,7 +352,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Kombinovat for cyklus s modulo pro hledání násobků"
-    tags: ['loops', 'modulo']
+    tags: ["loops", "modulo"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -396,7 +404,7 @@ challenges:
     difficulty: 2
     points: 15
     learning_objective: "Používat vnořené cykly pro práci s 2D daty (seznam seznamů)"
-    tags: ['loops', 'nested', 'matrix', '2d']
+    tags: ["loops", "nested", "matrix", "2d"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: normal

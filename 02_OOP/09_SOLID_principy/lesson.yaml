@@ -3,7 +3,8 @@ title: "Solid Principy"
 summary: "⚖️ OOP — SOLID Principy: Pět pilířů čistého OOP designu."
 difficulty: 1
 estimated_minutes: 20
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.solid", "oop.abstract_classes"]
 prerequisites: []
 learning_objectives: []
 

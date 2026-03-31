@@ -5,6 +5,7 @@ This module provides UI-agnostic services that both the TUI (Rich) and
 the desktop GUI (Flask API) can consume.  Every public function returns
 plain Python dicts / lists suitable for JSON serialisation.
 """
+
 from __future__ import annotations
 
 import os
@@ -73,6 +74,7 @@ def refresh_progress() -> None:
 
 # ── Content services ─────────────────────────────────────────
 
+
 def get_sections() -> List[Dict[str, Any]]:
     """Return all curriculum sections with their lessons."""
     result = []
@@ -81,29 +83,33 @@ def get_sections() -> List[Dict[str, Any]]:
         for l in s.lessons:
             prog = _get_progress()
             completed = prog.get_lesson_completed(l.section_num, l.lesson_num)
-            lessons.append({
-                "id": l.lesson_id,
-                "section_num": l.section_num,
-                "lesson_num": l.lesson_num,
-                "name": l.name,
-                "dir_name": l.dir_name,
-                "challenge_count": l.challenge_count,
-                "completed": completed,
-                "meta": {
-                    "summary": l.meta.summary,
-                    "difficulty": l.meta.difficulty,
-                    "estimated_minutes": l.meta.estimated_minutes,
-                    "tags": l.meta.tags,
-                    "prerequisites": l.meta.prerequisites,
-                    "learning_objectives": l.meta.learning_objectives,
-                },
-            })
-        result.append({
-            "num": s.num,
-            "name": s.name,
-            "emoji": s.emoji,
-            "lessons": lessons,
-        })
+            lessons.append(
+                {
+                    "id": l.lesson_id,
+                    "section_num": l.section_num,
+                    "lesson_num": l.lesson_num,
+                    "name": l.name,
+                    "dir_name": l.dir_name,
+                    "challenge_count": l.challenge_count,
+                    "completed": completed,
+                    "meta": {
+                        "summary": l.meta.summary,
+                        "difficulty": l.meta.difficulty,
+                        "estimated_minutes": l.meta.estimated_minutes,
+                        "tags": l.meta.tags,
+                        "prerequisites": l.meta.prerequisites,
+                        "learning_objectives": l.meta.learning_objectives,
+                    },
+                }
+            )
+        result.append(
+            {
+                "num": s.num,
+                "name": s.name,
+                "emoji": s.emoji,
+                "lessons": lessons,
+            }
+        )
     return result
 
 
@@ -123,38 +129,40 @@ def get_lesson_detail(section_num: str, lesson_num: str) -> Optional[Dict[str, A
             challenges = []
             for d in details:
                 cp = prog.get_challenge(d.challenge_id)
-                challenges.append({
-                    "index": d.index,
-                    "id": d.challenge_id,
-                    "title": d.title,
-                    "description": d.description,
-                    "task": d.task,
-                    "theory": d.theory,
-                    "example": d.example,
-                    "example_output": d.example_output,
-                    "hints": d.hints,
-                    "difficulty": d.difficulty,
-                    "points": d.points,
-                    "type": d.challenge_type.value,
-                    "tags": d.tags,
-                    "learning_objective": d.learning_objective,
-                    "expected_misconceptions": d.expected_misconceptions,
-                    "hint_strategy": d.hint_strategy,
-                    # Pedagogical content (new rich fields)
-                    "why_it_matters": getattr(d, "why_it_matters", ""),
-                    "what_you_will_learn": getattr(d, "what_you_will_learn", ""),
-                    "key_concept": getattr(d, "key_concept", ""),
-                    "worked_example": getattr(d, "worked_example", ""),
-                    "common_mistakes": getattr(d, "common_mistakes", []),
-                    "thinking_notes": getattr(d, "thinking_notes", ""),
-                    "reference_solution": getattr(d, "reference_solution", ""),
-                    "solution_explanation": getattr(d, "solution_explanation", ""),
-                    "practice_mode": getattr(d, "practice_mode", "guided"),
-                    # Progress
-                    "state": cp.state.value,
-                    "attempt_count": cp.attempt_count,
-                    "best_points": cp.best_points,
-                })
+                challenges.append(
+                    {
+                        "index": d.index,
+                        "id": d.challenge_id,
+                        "title": d.title,
+                        "description": d.description,
+                        "task": d.task,
+                        "theory": d.theory,
+                        "example": d.example,
+                        "example_output": d.example_output,
+                        "hints": d.hints,
+                        "difficulty": d.difficulty,
+                        "points": d.points,
+                        "type": d.challenge_type.value,
+                        "tags": d.tags,
+                        "learning_objective": d.learning_objective,
+                        "expected_misconceptions": d.expected_misconceptions,
+                        "hint_strategy": d.hint_strategy,
+                        # Pedagogical content (new rich fields)
+                        "why_it_matters": getattr(d, "why_it_matters", ""),
+                        "what_you_will_learn": getattr(d, "what_you_will_learn", ""),
+                        "key_concept": getattr(d, "key_concept", ""),
+                        "worked_example": getattr(d, "worked_example", ""),
+                        "common_mistakes": getattr(d, "common_mistakes", []),
+                        "thinking_notes": getattr(d, "thinking_notes", ""),
+                        "reference_solution": getattr(d, "reference_solution", ""),
+                        "solution_explanation": getattr(d, "solution_explanation", ""),
+                        "practice_mode": getattr(d, "practice_mode", "guided"),
+                        # Progress
+                        "state": cp.state.value,
+                        "attempt_count": cp.attempt_count,
+                        "best_points": cp.best_points,
+                    }
+                )
 
             # Load lesson-level pedagogical content from YAML
             yaml_data = _load_lesson_yaml(l.path)
@@ -175,8 +183,10 @@ def get_lesson_detail(section_num: str, lesson_num: str) -> Optional[Dict[str, A
                     "learning_objectives": l.meta.learning_objectives,
                 },
                 # Lesson-level pedagogical content (from model + yaml)
-                "why_it_matters": l.meta.why_it_matters or yaml_data.get("why_it_matters", ""),
-                "what_you_will_learn": l.meta.what_you_will_learn or yaml_data.get("what_you_will_learn", ""),
+                "why_it_matters": l.meta.why_it_matters
+                or yaml_data.get("why_it_matters", ""),
+                "what_you_will_learn": l.meta.what_you_will_learn
+                or yaml_data.get("what_you_will_learn", ""),
                 "key_theory": l.meta.key_theory or yaml_data.get("key_theory", ""),
                 "lesson_summary": yaml_data.get("lesson_summary", ""),
                 "recommended_next": yaml_data.get("recommended_next", ""),
@@ -193,6 +203,7 @@ def _load_lesson_yaml(lesson_path: str) -> Dict[str, Any]:
         return {}
     try:
         import yaml
+
         with open(yaml_file, "r", encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
     except Exception:
@@ -200,6 +211,7 @@ def _load_lesson_yaml(lesson_path: str) -> Dict[str, Any]:
 
 
 # ── Progress services ────────────────────────────────────────
+
 
 def get_progress_snapshot() -> Dict[str, Any]:
     """Return global learning snapshot."""
@@ -232,11 +244,15 @@ def get_challenge_progress(challenge_id: str) -> Dict[str, Any]:
 
 # ── Recommendation services ─────────────────────────────────
 
+
 def get_recommendations(limit: int = 10) -> List[Dict[str, Any]]:
     """Return smart recommendations."""
     now = datetime.now(timezone.utc)
     recs = get_smart_recommendations(
-        _get_progress(), _get_sections(), now, limit=limit,
+        _get_progress(),
+        _get_sections(),
+        now,
+        limit=limit,
     )
     return [
         {
@@ -273,8 +289,10 @@ def get_categorized_recs() -> Dict[str, List[Dict[str, Any]]]:
 
 # ── Execution services ───────────────────────────────────────
 
-def run_challenge(section_num: str, lesson_num: str,
-                  challenge_index: int) -> Dict[str, Any]:
+
+def run_challenge(
+    section_num: str, lesson_num: str, challenge_index: int
+) -> Dict[str, Any]:
     """Run a single challenge and record the result.
 
     Returns execution result with feedback.
@@ -333,7 +351,10 @@ def execute_code(code: str, timeout: int = 10) -> Dict[str, Any]:
     Returns stdout, stderr, and return code.
     """
     with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".py", delete=False, dir=ROOT,
+        mode="w",
+        suffix=".py",
+        delete=False,
+        dir=ROOT,
     ) as f:
         f.write(code)
         tmp_path = f.name
@@ -366,6 +387,7 @@ def execute_code(code: str, timeout: int = 10) -> Dict[str, Any]:
 
 # ── File services ────────────────────────────────────────────
 
+
 def get_challenge_file_content(section_num: str, lesson_num: str) -> Dict[str, Any]:
     """Return the challenge file content for editing."""
     lesson = _find_lesson(section_num, lesson_num)
@@ -376,13 +398,18 @@ def get_challenge_file_content(section_num: str, lesson_num: str) -> Dict[str, A
         with open(lesson.challenge_file, "r", encoding="utf-8") as f:
             content = f.read()
         rel_path = os.path.relpath(lesson.challenge_file, ROOT)
-        return {"path": rel_path, "content": content, "absolute_path": lesson.challenge_file}
+        return {
+            "path": rel_path,
+            "content": content,
+            "absolute_path": lesson.challenge_file,
+        }
     except Exception as e:
         return {"error": str(e)}
 
 
-def save_challenge_file(section_num: str, lesson_num: str,
-                        content: str) -> Dict[str, Any]:
+def save_challenge_file(
+    section_num: str, lesson_num: str, content: str
+) -> Dict[str, Any]:
     """Save edited challenge file content."""
     lesson = _find_lesson(section_num, lesson_num)
     if lesson is None:
@@ -412,7 +439,270 @@ def search(query: str) -> List[Dict[str, Any]]:
     ]
 
 
+# ── Concept mastery services ─────────────────────────────────
+
+
+def get_concept_mastery() -> Dict[str, Any]:
+    """Return concept mastery states for all concepts."""
+    from engine.concepts import (
+        load_concept_graph,
+        compute_all_concept_states,
+        get_weak_concepts,
+        get_ready_concepts,
+    )
+    from engine.adaptive import build_challenge_concept_map
+
+    graph = load_concept_graph()
+    sections = _get_sections()
+    progress = _get_progress()
+    challenge_map = build_challenge_concept_map(sections, load_challenge_details)
+    states = compute_all_concept_states(challenge_map, progress.get_challenge)
+
+    concepts = {}
+    for cid, state in states.items():
+        node = graph.get(cid)
+        concepts[cid] = {
+            "name": node.name if node else cid,
+            "category": node.category if node else "",
+            "mastery": state.mastery.value,
+            "score": state.score,
+            "total_challenges": state.total_challenges,
+            "passing_challenges": state.passing_challenges,
+            "prerequisites": node.prerequisites if node else [],
+            "key_insight": node.key_insight if node else "",
+            "common_confusion": node.common_confusion if node else "",
+        }
+
+    weak = get_weak_concepts(states)
+    ready = get_ready_concepts(states)
+
+    return {
+        "concepts": concepts,
+        "weak_concepts": [c.concept_id for c in weak],
+        "ready_concepts": ready,
+    }
+
+
+def get_adaptive_recs(mode: str = "guided", limit: int = 10) -> List[Dict[str, Any]]:
+    """Return concept-aware adaptive recommendations."""
+    from engine.adaptive import (
+        get_adaptive_recommendations,
+        build_challenge_concept_map,
+        StudyMode,
+    )
+    from engine.concepts import compute_all_concept_states
+
+    mode_map = {
+        "guided": StudyMode.GUIDED,
+        "fast_track": StudyMode.FAST_TRACK,
+        "reinforcement": StudyMode.REINFORCEMENT,
+        "interview": StudyMode.INTERVIEW,
+    }
+    study_mode = mode_map.get(mode, StudyMode.GUIDED)
+
+    sections = _get_sections()
+    progress = _get_progress()
+    challenge_map = build_challenge_concept_map(sections, load_challenge_details)
+    concept_states = compute_all_concept_states(challenge_map, progress.get_challenge)
+
+    recs = get_adaptive_recommendations(
+        progress,
+        sections,
+        concept_states,
+        challenge_map,
+        mode=study_mode,
+        limit=limit,
+    )
+    return [
+        {
+            "section_num": r.section_num,
+            "lesson_num": r.lesson_num,
+            "lesson_name": r.lesson_name,
+            "challenge_index": r.challenge_index,
+            "category": r.category.value,
+            "reason": r.reason,
+            "target_concepts": r.target_concepts,
+            "concept_reasoning": r.concept_reasoning,
+        }
+        for r in recs
+    ]
+
+
+def get_study_plan(mode: str = "guided", session_minutes: int = 30) -> Dict[str, Any]:
+    """Generate a study plan for today."""
+    from engine.adaptive import (
+        generate_study_plan,
+        build_challenge_concept_map,
+        StudyMode,
+        STUDY_MODE_INFO,
+    )
+    from engine.concepts import compute_all_concept_states
+
+    mode_map = {
+        "guided": StudyMode.GUIDED,
+        "fast_track": StudyMode.FAST_TRACK,
+        "reinforcement": StudyMode.REINFORCEMENT,
+        "interview": StudyMode.INTERVIEW,
+    }
+    study_mode = mode_map.get(mode, StudyMode.GUIDED)
+
+    sections = _get_sections()
+    progress = _get_progress()
+    challenge_map = build_challenge_concept_map(sections, load_challenge_details)
+    concept_states = compute_all_concept_states(challenge_map, progress.get_challenge)
+
+    plan = generate_study_plan(
+        progress,
+        sections,
+        concept_states,
+        challenge_map,
+        mode=study_mode,
+        session_minutes=session_minutes,
+    )
+
+    mode_info = STUDY_MODE_INFO.get(plan.mode, {})
+
+    return {
+        "mode": plan.mode.value,
+        "mode_name": mode_info.get("name", ""),
+        "mode_emoji": mode_info.get("emoji", ""),
+        "mode_description": mode_info.get("description", ""),
+        "focus_concepts": plan.today_focus_concepts,
+        "focus_area": plan.focus_area,
+        "estimated_minutes": plan.today_estimated_minutes,
+        "reasoning": plan.plan_reasoning,
+        "overall_mastery_pct": round(plan.overall_mastery_pct * 100, 1),
+        "weak_concept_count": plan.weak_concept_count,
+        "regressed_concept_count": plan.regressed_concept_count,
+        "ready_to_learn": plan.ready_to_learn,
+        "steps": [
+            {
+                "section_num": r.section_num,
+                "lesson_num": r.lesson_num,
+                "lesson_name": r.lesson_name,
+                "challenge_index": r.challenge_index,
+                "category": r.category.value,
+                "reason": r.reason,
+                "target_concepts": r.target_concepts,
+                "concept_reasoning": r.concept_reasoning,
+            }
+            for r in plan.today_recommendations
+        ],
+    }
+
+
+def get_projects() -> List[Dict[str, Any]]:
+    """Return available projects with progress."""
+    from engine.projects import load_projects, get_available_projects
+    from engine.concepts import load_concept_graph, compute_all_concept_states
+    from engine.adaptive import build_challenge_concept_map
+
+    graph = load_concept_graph()
+    challenge_map = build_challenge_concept_map(
+        _get_sections(),
+        load_challenge_details,
+    )
+    states = compute_all_concept_states(challenge_map, _get_progress().get_challenge)
+
+    available = get_available_projects(states)
+    all_projects = load_projects()
+
+    result = []
+    for pid, proj in all_projects.items():
+        is_available = pid in [p.id for p in available]
+        result.append(
+            {
+                "id": pid,
+                "name": proj.title,
+                "description": proj.summary,
+                "difficulty": proj.difficulty.value,
+                "section": proj.section,
+                "required_concepts": proj.prerequisite_concepts,
+                "available": is_available,
+                "milestones": [
+                    {
+                        "id": m.id,
+                        "name": m.name,
+                        "description": m.description,
+                        "concepts": m.concepts,
+                        "hints": m.hints,
+                        "estimated_minutes": m.estimated_minutes,
+                    }
+                    for m in proj.milestones
+                ],
+            }
+        )
+    return result
+
+
+def get_reflection(
+    context: str,
+    section_num: str = "",
+    lesson_num: str = "",
+    challenge_index: int = -1,
+    passed: bool = False,
+) -> Dict[str, Any]:
+    """Generate reflection prompts based on context."""
+    from engine.reflection import (
+        generate_post_challenge_reflection,
+        generate_post_lesson_reflection,
+        generate_concept_insight,
+    )
+
+    if context == "challenge" and challenge_index >= 0:
+        detail = _find_challenge_detail(section_num, lesson_num, challenge_index)
+        if detail is None:
+            return {"prompts": []}
+        cp = _get_progress().get_challenge(detail.challenge_id)
+        prompts = generate_post_challenge_reflection(
+            challenge_title=detail.title,
+            challenge_type=detail.challenge_type.value,
+            concepts=detail.tags,
+            attempt_count=cp.attempt_count,
+            passed=passed,
+        )
+        return {"prompts": [p.__dict__ for p in prompts]}
+
+    if context == "lesson":
+        lesson = _find_lesson(section_num, lesson_num)
+        if lesson is None:
+            return {"prompts": []}
+        prompts = generate_post_lesson_reflection(
+            lesson_name=lesson.name,
+            concepts=lesson.meta.tags,
+            mastered_count=0,
+            total_count=lesson.challenge_count,
+        )
+        return {"prompts": [p.__dict__ for p in prompts]}
+
+    if context == "concept":
+        from engine.concepts import load_concept_graph
+
+        graph = load_concept_graph()
+        # Return insights for weak concepts
+        from engine.concepts import compute_all_concept_states, get_weak_concepts
+        from engine.adaptive import build_challenge_concept_map
+
+        challenge_map = build_challenge_concept_map(
+            _get_sections(),
+            load_challenge_details,
+        )
+        states = compute_all_concept_states(
+            challenge_map, _get_progress().get_challenge
+        )
+        weak = get_weak_concepts(states)
+        insights = []
+        for ws in weak[:5]:
+            insight = generate_concept_insight(ws.concept_id, graph)
+            if insight:
+                insights.append(insight.__dict__)
+        return {"insights": insights}
+
+    return {"prompts": []}
+
+
 # ── Helpers ──────────────────────────────────────────────────
+
 
 def _find_lesson(section_num: str, lesson_num: str):
     for s in _get_sections():
@@ -424,8 +714,9 @@ def _find_lesson(section_num: str, lesson_num: str):
     return None
 
 
-def _find_challenge_detail(section_num: str, lesson_num: str,
-                           index: int) -> Optional[ChallengeDetail]:
+def _find_challenge_detail(
+    section_num: str, lesson_num: str, index: int
+) -> Optional[ChallengeDetail]:
     lesson = _find_lesson(section_num, lesson_num)
     if lesson is None:
         return None

@@ -3,8 +3,14 @@ title: "List Comprehensions"
 summary: "Elegantní a pythonovský způsob tvorby kolekcí — comprehensions a generátory."
 difficulty: 2
 estimated_minutes: 50
-tags: ['python', 'basics', 'comprehensions', 'generators', 'fundamentals']
-prerequisites: ['01.02', '01.04']
+tags: ["python", "basics", "comprehensions", "generators", "fundamentals"]
+concepts:
+  [
+    "python.list_comprehensions",
+    "python.generators",
+    "python.dict_comprehensions",
+  ]
+prerequisites: ["01.02", "01.04"]
 learning_objectives:
   - "Psát list comprehensions místo explicitních for-smyček"
   - "Filtrovat prvky pomocí podmínek v comprehension"
@@ -84,7 +90,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Psát základní list comprehension s jedním výrazem"
-    tags: ['comprehension', 'basics']
+    tags: ["comprehension", "basics"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -113,7 +119,7 @@ challenges:
     thinking_notes: |
       Vzor přepisu: Najdi tři části —
       1. Co appenduji? → to je **výraz** (x**2)
-      2. Přes co iteruji? → to je **for x in range(...)** 
+      2. Přes co iteruji? → to je **for x in range(...)**
       3. → `[výraz for x in range(...)]`
     reference_solution: |
       return [x**2 for x in range(1, 11)]
@@ -126,7 +132,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Filtrovat prvky v comprehension pomocí if"
-    tags: ['comprehension', 'filter']
+    tags: ["comprehension", "filter"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -164,7 +170,7 @@ challenges:
     difficulty: 2
     points: 15
     learning_objective: "Kombinovat filtr a transformaci ve složitějším comprehension výrazu"
-    tags: ['comprehension', 'filter', 'transform']
+    tags: ["comprehension", "filter", "transform"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal
@@ -203,7 +209,7 @@ challenges:
     difficulty: 2
     points: 15
     learning_objective: "Používat vnořené for-smyčky v comprehension pro zpracování 2D dat"
-    tags: ['comprehension', 'nested', 'flatten']
+    tags: ["comprehension", "nested", "flatten"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal
@@ -259,7 +265,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Tvořit slovníky pomocí dict comprehension z různých datových zdrojů"
-    tags: ['comprehension', 'dict']
+    tags: ["comprehension", "dict"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -302,7 +308,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Kombinovat string metody, dict comprehension a sorted() pro analýzu textu"
-    tags: ['comprehension', 'dict', 'strings']
+    tags: ["comprehension", "dict", "strings"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: normal
@@ -347,7 +353,7 @@ challenges:
     difficulty: 3
     points: 25
     learning_objective: "Psát generátorové funkce s yield a rozumět lazy evaluation"
-    tags: ['generators', 'yield', 'fibonacci']
+    tags: ["generators", "yield", "fibonacci"]
     estimated_minutes: 10
     hint_strategy: progressive
     review_priority: high

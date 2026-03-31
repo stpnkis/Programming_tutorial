@@ -3,8 +3,9 @@ title: "Stringy a formátování"
 summary: "Nauč se pracovat s textem — formátovat, analyzovat, krájet a hledat chyby v řetězcových operacích."
 difficulty: 1
 estimated_minutes: 50
-tags: ['python', 'basics', 'strings', 'formatting', 'fundamentals']
-prerequisites: ['01.01', '01.02', '01.03']
+tags: ["python", "basics", "strings", "formatting", "fundamentals"]
+concepts: ["python.strings", "python.string_methods", "python.fstrings"]
+prerequisites: ["01.01", "01.02", "01.03"]
 learning_objectives:
   - "Formátovat text pomocí f-stringů a zarovnání"
   - "Používat string slicing pro výběr podřetězců"
@@ -109,14 +110,14 @@ challenges:
     difficulty: 1
     points: 15
     learning_objective: "Umět formátovat text pomocí f-stringů s výrazy a zarovnáním"
-    tags: ['strings', 'f-strings', 'formatting']
+    tags: ["strings", "f-strings", "formatting"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
     expected_misconceptions:
       - "f-string se píše bez f na začátku — ne, f'...' je povinné"
       - "Uvnitř {} nemůže být výraz — může, f'{2+2}' funguje"
-      - "f-string funguje s apostrofy i uvozovkami — ano, f'...' i f\"...\" jsou OK"
+      - 'f-string funguje s apostrofy i uvozovkami — ano, f''...'' i f"..." jsou OK'
     mastery_rule: 3_consecutive
     solution_pattern: "f'Jmenuju se {jmeno} a je mi {vek} let.'"
     why_it_matters: "F-stringy jsou standard pro formátování textu v moderním Pythonu. Budeš je používat v každém programu — logy, výstupy, zprávy."
@@ -140,7 +141,7 @@ challenges:
       ```
     common_mistakes:
       - "Zapomenout f před řetězcem: '{jmeno}' místo f'{jmeno}' — vypíše doslova {jmeno}"
-      - "Zanořené uvozovky: f'řekl 'ahoj'' — použij f\"řekl 'ahoj'\" nebo f'řekl \"ahoj\"'"
+      - 'Zanořené uvozovky: f''řekl ''ahoj'''' — použij f"řekl ''ahoj''" nebo f''řekl "ahoj"'''
     thinking_notes: |
       Postup pro f-string:
       1. Napiš string s prefixem `f`
@@ -158,7 +159,7 @@ challenges:
     difficulty: 1
     points: 15
     learning_objective: "Ovládat string slicing s pozitivními i negativními indexy"
-    tags: ['strings', 'slicing', 'indexing']
+    tags: ["strings", "slicing", "indexing"]
     estimated_minutes: 6
     hint_strategy: progressive
     review_priority: normal
@@ -214,7 +215,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Umět trasovat kód s řetězcovými operacemi a předvídat výstup krok po kroku"
-    tags: ['strings', 'tracing', 'methods', 'reasoning']
+    tags: ["strings", "tracing", "methods", "reasoning"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: high
@@ -285,7 +286,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Umět najít a opravit typické chyby v kódu pracujícím se stringy"
-    tags: ['strings', 'debugging', 'formatting', 'bugs']
+    tags: ["strings", "debugging", "formatting", "bugs"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: high
@@ -350,7 +351,7 @@ challenges:
     difficulty: 2
     points: 15
     learning_objective: "Umět normalizovat text a kombinovat string operace pro složitější logiku"
-    tags: ['strings', 'palindrome', 'normalization', 'algorithms']
+    tags: ["strings", "palindrome", "normalization", "algorithms"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal
@@ -403,7 +404,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Umět kombinovat f-string zarovnání, iteraci a join pro strukturovaný výstup"
-    tags: ['strings', 'formatting', 'alignment', 'tables']
+    tags: ["strings", "formatting", "alignment", "tables"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: normal
@@ -461,7 +462,7 @@ challenges:
     difficulty: 3
     points: 25
     learning_objective: "Umět navrhnout a implementovat vlastní textový procesor kombinující více string technik"
-    tags: ['strings', 'templating', 'design', 'creative']
+    tags: ["strings", "templating", "design", "creative"]
     estimated_minutes: 10
     hint_strategy: progressive
     review_priority: high

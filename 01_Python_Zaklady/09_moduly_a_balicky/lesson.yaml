@@ -3,7 +3,8 @@ title: "Moduly A Balicky"
 summary: "Organizace kódu do modulů — profesionální struktura projektu."
 difficulty: 1
 estimated_minutes: 35
-tags: ['python', 'basics', 'fundamentals']
+tags: ["python", "basics", "fundamentals"]
+concepts: ["python.modules", "python.packages"]
 prerequisites: []
 learning_objectives: []
 

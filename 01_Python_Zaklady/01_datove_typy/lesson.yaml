@@ -3,7 +3,8 @@ title: "Datové typy v Pythonu"
 summary: "Nauč se rozlišovat a pracovat se základními datovými typy — základ každého programu."
 difficulty: 1
 estimated_minutes: 35
-tags: ['python', 'basics', 'types', 'fundamentals']
+tags: ["python", "basics", "types", "fundamentals"]
+concepts: ["python.variables", "python.types", "python.operators"]
 prerequisites: []
 learning_objectives:
   - "Rozlišovat int, float, str, bool a None"
@@ -55,7 +56,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Umět vytvořit proměnnou každého základního typu"
-    tags: ['types', 'variables']
+    tags: ["types", "variables"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -112,7 +113,7 @@ challenges:
     difficulty: 1
     points: 15
     learning_objective: "Umět převádět hodnoty mezi typy pomocí int(), str(), float(), bool()"
-    tags: ['types', 'casting']
+    tags: ["types", "casting"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal
@@ -169,7 +170,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Umět zjistit typ jakékoliv hodnoty pomocí type() a __name__"
-    tags: ['types', 'introspection']
+    tags: ["types", "introspection"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal
@@ -221,7 +222,7 @@ challenges:
     difficulty: 1
     points: 15
     learning_objective: "Ovládat aritmetické a porovnávací operátory v Pythonu"
-    tags: ['operators', 'arithmetic']
+    tags: ["operators", "arithmetic"]
     estimated_minutes: 6
     hint_strategy: progressive
     review_priority: normal
@@ -283,7 +284,7 @@ challenges:
     difficulty: 1
     points: 10
     learning_objective: "Pochopit, že Python proměnné nemají fixní typ — typ se mění s hodnotou"
-    tags: ['types', 'dynamic-typing']
+    tags: ["types", "dynamic-typing"]
     estimated_minutes: 5
     hint_strategy: progressive
     review_priority: normal

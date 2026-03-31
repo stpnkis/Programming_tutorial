@@ -1,9 +1,10 @@
 id: "02.08"
 title: "Composition Vs Inheritance"
-summary: "🏗️ OOP — Kompozice vs Dědičnost: \"Has-a\" vs \"Is-a\"."
+summary: '🏗️ OOP — Kompozice vs Dědičnost: "Has-a" vs "Is-a".'
 difficulty: 2
 estimated_minutes: 25
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.composition", "oop.inheritance"]
 prerequisites: []
 learning_objectives: []
 

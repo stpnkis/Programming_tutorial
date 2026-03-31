@@ -3,7 +3,8 @@ title: "Virtual Env"
 summary: "Izolace projektu — každý projekt své závislosti."
 difficulty: 1
 estimated_minutes: 30
-tags: ['python', 'basics', 'fundamentals']
+tags: ["python", "basics", "fundamentals"]
+concepts: ["python.modules", "python.packages"]
 prerequisites: []
 learning_objectives: []
 

@@ -3,7 +3,8 @@ title: "Design Patterns"
 summary: "🧩 OOP — Design Patterns: Nejdůležitější návrhové vzory."
 difficulty: 1
 estimated_minutes: 25
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.design_patterns", "oop.composition"]
 prerequisites: []
 learning_objectives: []
 

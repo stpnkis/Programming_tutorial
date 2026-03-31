@@ -1,0 +1,316 @@
+# ═══════════════════════════════════════════════════════════
+# Projects — mini-projects, standard projects, capstones
+# ═══════════════════════════════════════════════════════════
+
+projects:
+  # ── Section 01: Python Basics ───────────────────
+
+  proj_text_analyzer:
+    title: "Textový analyzátor"
+    summary: "Vytvoř program, který analyzuje text — počítá slova, znaky, věty, frekvence."
+    difficulty: mini
+    section: "01"
+    estimated_minutes: 45
+    prerequisite_concepts:
+      - python.strings
+      - python.string_methods
+      - python.dicts
+      - python.loops
+    concepts_practiced:
+      - python.strings
+      - python.string_methods
+      - python.fstrings
+      - python.dicts
+      - python.dict_methods
+      - python.functions
+      - python.loops
+    learning_goals:
+      - "Prakticky použít string metody (split, lower, strip)"
+      - "Vytvořit frekvenční slovník"
+      - "Strukturovat kód do funkcí"
+      - "Pracovat s formátovaným výstupem"
+    milestones:
+      - title: "Základní statistiky"
+        description: "Funkce pro počet slov, znaků a vět."
+        criteria:
+          - "count_words(text) vrátí správný počet slov"
+          - "count_chars(text) vrátí počet znaků (bez mezer)"
+          - "count_sentences(text) vrátí počet vět"
+        concepts: [python.strings, python.string_methods, python.functions]
+        hints:
+          - "text.split() rozdělí text na slova"
+          - "len(text.replace(' ', '')) pro znaky bez mezer"
+        estimated_minutes: 10
+      - title: "Frekvenční analýza"
+        description: "Slovník s frekvencí slov, seřazený od nejčastějšího."
+        criteria:
+          - "word_frequency(text) vrátí dict {slovo: počet}"
+          - "Top N slov je správně seřazených"
+        concepts: [python.dicts, python.dict_methods, python.loops]
+        hints:
+          - "dict.get(key, 0) + 1 pro inkrementaci"
+          - "sorted(d.items(), key=lambda x: -x[1]) pro řazení"
+        estimated_minutes: 15
+      - title: "Formátovaný výstup"
+        description: "Přehledný report s f-stringy."
+        criteria:
+          - "generate_report(text) vrátí formátovaný string"
+          - "Obsahuje tabulku frekvencí"
+        concepts: [python.fstrings, python.string_methods]
+        estimated_minutes: 10
+      - title: "Rozšíření a refaktoring"
+        description: "Přidej analýzu průměrné délky slova a nejdelší slovo."
+        criteria:
+          - "Kód je rozdělen do funkcí"
+          - "Žádné duplicitní výpočty"
+        concepts: [python.functions, python.list_comprehensions]
+        estimated_minutes: 10
+    rubric:
+      - "Všechny funkce mají správné return hodnoty"
+      - "Kód je rozdělen do logických funkcí"
+      - "F-stringy použité pro formátování"
+      - "Edge cases ošetřené (prázdný text, speciální znaky)"
+    reflection_prompts:
+      - "Které string metody jsi použil nejčastěji a proč?"
+      - "Jak bys tento analyzátor rozšířil pro analýzu celého souboru?"
+      - "Co by se muselo změnit, kdybys analyzoval kód místo přirozeného textu?"
+      - "Kde jsi narazil na edge case, který jsi nečekal?"
+    starter_code: |
+      def count_words(text: str) -> int:
+          """Vrátí počet slov v textu."""
+          pass
+
+      def count_chars(text: str) -> int:
+          """Vrátí počet znaků (bez mezer)."""
+          pass
+
+      def count_sentences(text: str) -> int:
+          """Vrátí počet vět (oddělených . ! ?)."""
+          pass
+
+      def word_frequency(text: str) -> dict:
+          """Vrátí slovník {slovo: počet výskytů}."""
+          pass
+
+      def generate_report(text: str) -> str:
+          """Vrátí formátovaný report s analýzou textu."""
+          pass
+
+  proj_contact_book:
+    title: "Adresář kontaktů"
+    summary: "CRUD aplikace pro správu kontaktů — slovníky, funkce, validace."
+    difficulty: mini
+    section: "01"
+    estimated_minutes: 60
+    prerequisite_concepts:
+      - python.functions
+      - python.dicts
+      - python.loops
+      - python.conditions
+    concepts_practiced:
+      - python.functions
+      - python.function_params
+      - python.dicts
+      - python.dict_methods
+      - python.lists
+      - python.conditions
+      - python.exceptions
+    learning_goals:
+      - "Navrhnout datový model pomocí slovníků"
+      - "Implementovat CRUD operace jako funkce"
+      - "Validovat vstupy"
+      - "Hledat a filtrovat data"
+    milestones:
+      - title: "Datový model a přidání kontaktu"
+        description: "Funkce pro vytvoření kontaktu a přidání do adresáře."
+        criteria:
+          - "add_contact(contacts, name, phone, email) funguje"
+          - "Kontakt je uložen jako dict v listu"
+        concepts: [python.dicts, python.functions, python.lists]
+        estimated_minutes: 10
+      - title: "Vyhledávání a filtrování"
+        description: "Funkce pro vyhledání kontaktu podle jména nebo emailu."
+        criteria:
+          - "find_contact(contacts, query) vrátí odpovídající kontakty"
+          - "Case-insensitive vyhledávání"
+        concepts:
+          [python.strings, python.string_methods, python.list_comprehensions]
+        estimated_minutes: 15
+      - title: "Editace a mazání"
+        description: "Update a delete operace."
+        criteria:
+          - "update_contact() aktualizuje existující kontakt"
+          - "delete_contact() odstraní kontakt"
+        concepts: [python.dicts, python.functions, python.conditions]
+        estimated_minutes: 15
+      - title: "Validace a edge cases"
+        description: "Validace emailu a telefonu, ošetření chyb."
+        criteria:
+          - "Validace formátu emailu"
+          - "Ošetření duplicitního kontaktu"
+          - "Smysluplné chybové hlášky"
+        concepts: [python.exceptions, python.strings]
+        estimated_minutes: 20
+    rubric:
+      - "CRUD operace fungují správně"
+      - "Vstupy jsou validovány"
+      - "Edge cases ošetřeny"
+      - "Kód je rozdělen do funkcí s jasnými jmény"
+    reflection_prompts:
+      - "Jak jsi navrhl datový model? Proč jsi zvolil dict/list?"
+      - "Jaký pattern se opakuje ve všech CRUD operacích?"
+      - "Jak by se kód musel změnit, kdyby data byla v databázi místo v paměti?"
+      - "Co znamená CRUD a kde ho potkáš v praxi?"
+
+  # ── Section 02: OOP ────────────────────────────
+
+  proj_bank_system:
+    title: "Bankovní systém"
+    summary: "OOP model bankovního systému — účty, transakce, dědičnost."
+    difficulty: standard
+    section: "02"
+    estimated_minutes: 120
+    prerequisite_concepts:
+      - oop.classes
+      - oop.init
+      - oop.methods
+      - oop.inheritance
+    concepts_practiced:
+      - oop.classes
+      - oop.init
+      - oop.self
+      - oop.methods
+      - oop.inheritance
+      - oop.polymorphism
+      - oop.encapsulation
+      - oop.magic_methods
+      - python.exceptions
+    learning_goals:
+      - "Navrhnout objektový model s dědičností"
+      - "Implementovat business logiku v metodách"
+      - "Použít zapouzdření pro ochranu stavu"
+      - "Přetížit operátory pro přirozené rozhraní"
+    milestones:
+      - title: "Základní účet"
+        description: "Třída Account s vklad, výběr, zůstatek."
+        criteria:
+          - "Account má __init__ s owner a balance"
+          - "deposit() a withdraw() fungují"
+          - "withdraw() nelze do mínusu"
+        concepts: [oop.classes, oop.init, oop.methods, oop.encapsulation]
+        estimated_minutes: 20
+      - title: "Typy účtů"
+        description: "SavingsAccount a CheckingAccount dědí z Account."
+        criteria:
+          - "SavingsAccount má interest_rate a apply_interest()"
+          - "CheckingAccount má overdraft_limit"
+          - "Polymorfní chování při withdraw()"
+        concepts: [oop.inheritance, oop.polymorphism]
+        estimated_minutes: 30
+      - title: "Transakce"
+        description: "Transaction třída a historie transakcí."
+        criteria:
+          - "Každá operace vytvoří Transaction objekt"
+          - "Account má get_statement() metodu"
+        concepts: [oop.classes, oop.composition, python.lists]
+        estimated_minutes: 30
+      - title: "Magic methods a formátování"
+        description: "__repr__, __str__, __eq__, porovnání účtů."
+        criteria:
+          - "__repr__ vrací znovu-vytvořitelný string"
+          - "__str__ vrací user-friendly popis"
+          - "Účty jdou porovnat podle zůstatku"
+        concepts: [oop.magic_methods, oop.operator_overloading]
+        estimated_minutes: 20
+      - title: "Bank třída — kompozice"
+        description: "Bank drží kolekci účtů — transfer mezi účty."
+        criteria:
+          - "Bank.transfer(from_account, to_account, amount)"
+          - "Transakce je atomická (buď projde celá, nebo nic)"
+        concepts: [oop.composition, python.exceptions]
+        estimated_minutes: 20
+    rubric:
+      - "Dědičnost je použita smysluplně (ne přepojená)"
+      - "Zapouzdření chrání stav účtu"
+      - "Transakce jsou atomické"
+      - "Magic methods umožňují přirozené použití"
+      - "Kód je čitelný a dobře strukturovaný"
+    reflection_prompts:
+      - "Kde jsi použil dědičnost a kde by byla lepší kompozice?"
+      - "Jak bys zajistil, aby withdraw() nemohl být obejit přímo přes self._balance?"
+      - "Co by se muselo změnit pro multi-currency účty?"
+      - "Jak se liší tvůj Account od reálného bankovního systému?"
+      - "Kde ses v tomto projektu poprvé zpomátl? Co to bylo za chybu?"
+
+  # ── Section 03: Data Structures ─────────────────
+
+  proj_task_manager:
+    title: "Task Manager se strukturami"
+    summary: "Správce úkolů — prioritní fronta, stack pro undo, grafy závislostí."
+    difficulty: standard
+    section: "03"
+    estimated_minutes: 150
+    prerequisite_concepts:
+      - ds.stacks
+      - ds.queues
+      - oop.classes
+      - python.dicts
+    concepts_practiced:
+      - ds.stacks
+      - ds.queues
+      - ds.graphs
+      - oop.classes
+      - oop.methods
+      - python.dicts
+      - python.lists
+    learning_goals:
+      - "Použít stack pro undo/redo"
+      - "Implementovat prioritní frontu"
+      - "Modelovat závislosti jako graf"
+      - "Topologické řazení pro pořadí úkolů"
+    milestones:
+      - title: "Základní Task model"
+        description: "Task třída s prioritou, stavem, závislostmi."
+        criteria:
+          - "Task(title, priority, dependencies) funguje"
+          - "Stavy: todo, in_progress, done"
+        concepts: [oop.classes, oop.init]
+        estimated_minutes: 15
+      - title: "Prioritní fronta"
+        description: "TaskQueue řadí úkoly podle priority."
+        criteria:
+          - "add_task() a get_next() respektují priority"
+          - "Vyšší priorita = dříve"
+        concepts: [ds.queues, ds.sorting]
+        estimated_minutes: 25
+      - title: "Undo/Redo se stackem"
+        description: "Stack pro historii operací, undo vrátí předchozí stav."
+        criteria:
+          - "undo() vrátí poslední akci"
+          - "redo() zopakuje vrácenou akci"
+        concepts: [ds.stacks]
+        estimated_minutes: 30
+      - title: "Graf závislostí"
+        description: "Topologické řazení pro správné pořadí úkolů."
+        criteria:
+          - "Detekce cyklických závislostí"
+          - "get_execution_order() vrátí správné pořadí"
+        concepts: [ds.graphs, ds.recursion]
+        estimated_minutes: 40
+      - title: "Integrace a CLI"
+        description: "Spojení všech komponent do funkční aplikace."
+        criteria:
+          - "Všechny operace fungují dohromady"
+          - "Edge cases ošetřeny"
+        concepts: [python.functions, python.exceptions]
+        estimated_minutes: 40
+    rubric:
+      - "Datové struktury jsou správně implementované"
+      - "Undo/redo funguje bezchybně"
+      - "Cyklické závislosti jsou detekovány"
+      - "Kód je modulární a testovatelný"
+    reflection_prompts:
+      - "Proč je stack přirozená volba pro undo? Co by se stalo s queue?"
+      - "Jak se liší tvůj graf závislostí od concept grafu v této platformě?"
+      - "Kde bys v reálné aplikaci použil prioritní frontu?"
+      - "Co je topologické řazení a kde ho potkáš mimo task management?"

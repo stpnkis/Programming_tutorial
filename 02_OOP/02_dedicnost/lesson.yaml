@@ -3,8 +3,9 @@ title: "Dědičnost"
 summary: "Pochop dědičnost — hierarchii tříd, super(), přepisování metod a kdy dědičnost použít vs. nevyužít."
 difficulty: 2
 estimated_minutes: 50
-tags: ['python', 'oop', 'inheritance', 'super', 'override']
-prerequisites: ['02.01']
+tags: ["python", "oop", "inheritance", "super", "override"]
+concepts: ["oop.inheritance", "oop.super", "oop.polymorphism"]
+prerequisites: ["02.01"]
 learning_objectives:
   - "Vytvořit potomka, který dědí atributy a metody z rodiče"
   - "Používat super().__init__() pro inicializaci rodičovské části"
@@ -105,7 +106,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Vytvořit potomka se super().__init__(), override metody a novým chováním"
-    tags: ['inheritance', 'super', 'override']
+    tags: ["inheritance", "super", "override"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: normal
@@ -183,7 +184,7 @@ challenges:
     difficulty: 3
     points: 25
     learning_objective: "Rozšířit rodičovskou třídu o nový stav a komplexnější logiku s omezeními"
-    tags: ['inheritance', 'super', 'state', 'logic']
+    tags: ["inheritance", "super", "state", "logic"]
     estimated_minutes: 10
     hint_strategy: progressive
     review_priority: high
@@ -263,7 +264,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Umět trasovat pořadí volání metod a __init__ v hierarchii tříd"
-    tags: ['inheritance', 'tracing', 'super', 'mro']
+    tags: ["inheritance", "tracing", "super", "mro"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: high
@@ -338,7 +339,7 @@ challenges:
     difficulty: 2
     points: 20
     learning_objective: "Diagnostikovat a opravit typické chyby v dědičnosti — chybějící super(), špatný override"
-    tags: ['inheritance', 'debugging', 'super', 'bugs']
+    tags: ["inheritance", "debugging", "super", "bugs"]
     estimated_minutes: 8
     hint_strategy: progressive
     review_priority: high
@@ -408,7 +409,7 @@ challenges:
     difficulty: 2
     points: 15
     learning_objective: "Implementovat společné rozhraní přes dědičnost — každý potomek počítá jinak"
-    tags: ['inheritance', 'polymorphism', 'abstract', 'math']
+    tags: ["inheritance", "polymorphism", "abstract", "math"]
     estimated_minutes: 7
     hint_strategy: progressive
     review_priority: normal

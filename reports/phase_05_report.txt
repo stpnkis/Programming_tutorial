@@ -1,0 +1,218 @@
+================================================================================
+  PHASE 5 REPORT — "Uživatel reálně cítí inteligentní vedení"
+  Programming Tutorial Platform
+  ================================================================================
+
+  Cíl: Posunout platformu z "má chytrý backend" na "uživatel reálně cítí,
+  že ho systém inteligentně vede." — 8 pilířů (A–H).
+
+================================================================================
+  SOUHRN ZMĚN
+================================================================================
+
+  Opravených bugů:        2 kritické (services.py)
+  Nových souborů:         3 (scaffold_concepts.py, test_services_adaptive.py,
+                             test_scaffold.py)
+  Upravených souborů:    27 (7 kód + 20 lesson.yaml)
+  Nových testů:          12 (7 service contract + 5 scaffold)
+  Celkový test suite:   256 testů — 0 selhání
+
+================================================================================
+  PILÍŘ A — Concept Mastery v GUI
+================================================================================
+
+  Soubory:
+    - desktop/static/js/dashboard.js   (kompletní přepis)
+    - desktop/static/js/api.js         (getConceptMastery wrapper)
+    - desktop/static/css/style.css     (~200 řádků nových stylů)
+    - desktop/static/index.html        (nový div #dashboard-concepts)
+
+  Co uživatel vidí:
+    • Panel "Znalost konceptů" na dashboardu
+    • Barevný mastery bar (not_started → learning → practiced → solidified
+      → mastered → regressed) s legendou
+    • Slabá místa zobrazená jako chipy pod barem
+    • Rozbalitelné kategorie (python, oop, dsa, …) s progress-bary
+
+================================================================================
+  PILÍŘ B — Adaptive Study Flow GUI
+================================================================================
+
+  Soubory:
+    - desktop/static/js/dashboard.js   (renderStudyPlan)
+    - desktop/static/js/api.js         (getStudyPlan, getAdaptiveRecs)
+    - desktop/static/css/style.css     (study-plan-panel, mode-selector)
+    - desktop/static/index.html        (nový div #dashboard-study-plan)
+    - desktop/server.py                (endpoint rozšířen o mode + minutes)
+    - engine/services.py               (get_study_plan přijímá mode, minutes)
+
+  Co uživatel vidí:
+    • Panel "Co dnes dělat" úplně nahoře dashboardu
+    • 4 režimy studia: 📚 Vedený, ⚡ Zrychlený, 🔄 Opakování, 🎯 Interview
+    • Kliknutím na režim se plán překreslí
+    • Zobrazeno: reasoning, focus koncepty, odhadovaný čas, kroky
+
+================================================================================
+  PILÍŘ C — Project Progress Persistence
+================================================================================
+
+  Řešení: Concept states se počítají on-the-fly z uživatelského progressu
+  pomocí compute_all_concept_states(). Není potřeba separátní persistence —
+  stav konceptů je vždy derivovaný z aktuálního challenge/lesson progressu.
+
+================================================================================
+  PILÍŘ D — Project Path UX
+================================================================================
+
+  Soubory:
+    - desktop/static/js/dashboard.js   (renderProjects)
+    - desktop/static/js/api.js         (getProjects wrapper)
+    - desktop/static/css/style.css     (project-grid, project-card)
+    - desktop/static/index.html        (nový div #dashboard-projects)
+
+  Co uživatel vidí:
+    • Panel "Projekty" na dashboardu
+    • Karty projektů s obtížností, milníky, prerekvizitními koncepty
+    • Zamčené projekty (prerequisites nesplněny) vizuálně odlišeny
+    • Dostupné projekty s CTA "Zobrazit"
+
+================================================================================
+  PILÍŘ E — Reflection Integration
+================================================================================
+
+  Soubory:
+    - desktop/static/js/challenge.js    (fetchReflection + renderPostSuccess)
+    - desktop/static/css/style.css      (reflection-panel)
+
+  Co uživatel vidí:
+    • Po úspěšném splnění challenge se automaticky zobrazí reflection panel
+    • Systém nabídne přemýšlecí otázky specifické pro daný challenge
+    • Panel je vizuálně integrovaný do challenge workspace
+
+================================================================================
+  PILÍŘ F — Concept Coverage Rollout Tooling
+================================================================================
+
+  Soubory:
+    - engine/scaffold_concepts.py       (NOVÝ — CLI nástroj)
+    - tests/test_scaffold.py            (NOVÝ — 5 testů)
+
+  Funkce:
+    • python engine/scaffold_concepts.py            — scan všech lesson.yaml
+    • python engine/scaffold_concepts.py --section 03 — jen sekce 03
+    • python engine/scaffold_concepts.py --apply    — zapíše přímo do YAML
+    • Mapuje tags z lesson.yaml na concept IDs z concept_graph.yaml
+    • Hlásí "Suggested X concepts for lesson Y"
+
+================================================================================
+  PILÍŘ G — Gold-Standard Content Slice
+================================================================================
+
+  20 lesson.yaml souborů ručně otagováno kvalitními concept IDs:
+
+  01_Python_Zaklady:
+    01_datove_typy:       python.variables, python.types, python.operators
+    02_podminky_cykly:    python.conditions, python.loops, python.loop_control,
+                          python.boolean_logic, python.ternary
+    03_funkce:            python.functions, python.function_params,
+                          python.args_kwargs, python.lambda, python.closures,
+                          python.scope
+    04_stringy:           python.strings, python.string_methods, python.fstrings
+    05_list_comp:         python.list_comprehensions, python.generators,
+                          python.dict_comprehensions
+    06_slovniky:          python.dicts, python.dict_methods, python.sets,
+                          python.tuples
+    07_file_IO:           python.file_io, python.context_managers
+    08_error_handling:    python.exceptions, python.custom_exceptions
+    09_moduly_a_balicky:  python.modules, python.packages
+    10_virtual_env:       python.modules, python.packages
+
+  02_OOP:
+    01_tridy_a_objekty:   oop.classes, oop.init, oop.self,
+                          oop.class_vs_instance, oop.methods
+    02_dedicnost:         oop.inheritance, oop.super, oop.polymorphism
+    03_polymorfismus:     oop.polymorphism, oop.inheritance
+    04_zapouzdreni:       oop.encapsulation, oop.properties
+    05_abstraktni_tridy:  oop.abstract_classes, oop.polymorphism
+    06_magic_methods:     oop.magic_methods, oop.operator_overloading
+    07_dataclasses:       oop.dataclasses
+    08_comp_vs_inh:       oop.composition, oop.inheritance
+    09_SOLID:             oop.solid, oop.abstract_classes
+    10_design_patterns:   oop.design_patterns, oop.composition
+
+  Všechny concept IDs ověřeny proti concept_graph.yaml.
+
+================================================================================
+  KRITICKÉ BUGY OPRAVENÉ
+================================================================================
+
+  1. services.py — get_adaptive_recs()
+     PŘED: Předával `load_challenge_details` (funkci!) místo concept_states (dict)
+     PO:   Počítá concept_states přes build_challenge_concept_map() +
+           compute_all_concept_states(); správné atributy r.target_concepts,
+           r.concept_reasoning
+
+  2. services.py — get_study_plan()
+     PŘED: Stejný bug + špatné názvy atributů (plan.focus_concepts,
+           plan.message, plan.recommendations, plan.repair_paths)
+     PO:   Správné atributy: plan.today_focus_concepts,
+           plan.today_estimated_minutes, plan.plan_reasoning,
+           plan.today_recommendations. Přidány mode/session_minutes parametry.
+
+================================================================================
+  NOVÉ TESTY
+================================================================================
+
+  tests/test_services_adaptive.py (7 testů):
+    • TestGetAdaptiveRecs: returns_list, mode_mapping, rec_serialization_fields
+    • TestGetStudyPlan: returns_dict, no_broken_fields, step_serialization
+    • TestGetConceptMastery: returns_dict_with_concepts
+
+  tests/test_scaffold.py (5 testů):
+    • suggest_from_tags, existing_concepts_not_re_suggested, empty_tags,
+      scaffold_runs_without_crash, scaffold_section_filter
+
+  Celkový test suite: 256 testů, 0 selhání.
+
+================================================================================
+  SOUBORY ZMĚNĚNÉ/VYTVOŘENÉ
+================================================================================
+
+  UPRAVENÉ:
+    engine/services.py
+    desktop/server.py
+    desktop/static/js/api.js
+    desktop/static/index.html
+    desktop/static/js/dashboard.js
+    desktop/static/css/style.css
+    desktop/static/js/challenge.js
+    01_Python_Zaklady/01_datove_typy/lesson.yaml
+    01_Python_Zaklady/02_podminky_cykly/lesson.yaml
+    01_Python_Zaklady/03_funkce/lesson.yaml
+    01_Python_Zaklady/04_stringy_a_formatovani/lesson.yaml
+    01_Python_Zaklady/05_list_comprehensions/lesson.yaml
+    01_Python_Zaklady/06_slovniky_a_mnoziny/lesson.yaml
+    01_Python_Zaklady/07_file_IO/lesson.yaml
+    01_Python_Zaklady/08_error_handling/lesson.yaml
+    01_Python_Zaklady/09_moduly_a_balicky/lesson.yaml
+    01_Python_Zaklady/10_virtual_env/lesson.yaml
+    02_OOP/01_tridy_a_objekty/lesson.yaml
+    02_OOP/02_dedicnost/lesson.yaml
+    02_OOP/03_polymorfismus/lesson.yaml
+    02_OOP/04_zapouzdreni/lesson.yaml
+    02_OOP/05_abstraktni_tridy/lesson.yaml
+    02_OOP/06_magic_methods/lesson.yaml
+    02_OOP/07_dataclasses/lesson.yaml
+    02_OOP/08_composition_vs_inheritance/lesson.yaml
+    02_OOP/09_SOLID_principy/lesson.yaml
+    02_OOP/10_design_patterns/lesson.yaml
+
+  NOVÉ:
+    engine/scaffold_concepts.py
+    tests/test_services_adaptive.py
+    tests/test_scaffold.py
+    reports/phase_05_report.txt
+
+================================================================================
+  KONEC REPORTU
+================================================================================

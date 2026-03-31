@@ -1,0 +1,797 @@
+# ═══════════════════════════════════════════════════════════
+# Concept Graph — knowledge taxonomy & prerequisite structure
+# ═══════════════════════════════════════════════════════════
+#
+# Each concept has:
+#   name:            human-readable label
+#   category:        top-level grouping
+#   prerequisites:   concept IDs that should be at least DEVELOPING
+#   related:         related concepts (non-blocking)
+#   difficulty:      1-3
+#   key_insight:     one core insight for this concept
+#   common_confusion: typical misunderstanding
+#   transfer_hint:   where this concept appears in other domains
+
+concepts:
+  # ── Python Fundamentals ─────────────────────────
+
+  python.variables:
+    name: "Proměnné a přiřazení"
+    category: python
+    prerequisites: []
+    related: [python.types]
+    difficulty: 1
+    key_insight: "Proměnná je štítek (jméno) nalepené na objekt v paměti, ne krabička."
+    common_confusion: "Přiřazení kopíruje referenci, ne hodnotu — dvě proměnné mohou ukazovat na stejný objekt."
+    transfer_hint: "V každém jazyce existují proměnné, ale model se liší — Python je reference-based."
+
+  python.types:
+    name: "Datové typy"
+    category: python
+    prerequisites: [python.variables]
+    related: [python.type_casting]
+    difficulty: 1
+    key_insight: "Typ je vlastnost objektu (hodnoty), ne proměnné — proměnná může ukazovat na cokoliv."
+    common_confusion: "Python je dynamicky typovaný — typ se kontroluje za běhu, ne při psaní."
+    transfer_hint: "V statických jazycích (C++, Java) je typ vlastností proměnné, v Pythonu je vlastností objektu."
+
+  python.type_casting:
+    name: "Přetypování"
+    category: python
+    prerequisites: [python.types]
+    related: [python.strings]
+    difficulty: 1
+    key_insight: "int('42') vytvoří nový int objekt — nezmění původní string."
+    common_confusion: "int('3.14') selže — musíš nejdřív float('3.14'), pak int()."
+    transfer_hint: "Casting existuje v každém jazyce — v C++ je implicitní, v Pythonu explicitní."
+
+  python.operators:
+    name: "Operátory a výrazy"
+    category: python
+    prerequisites: [python.types]
+    related: [python.boolean_logic]
+    difficulty: 1
+    key_insight: "Operátor je jen zkratka za volání metody: a + b volá a.__add__(b)."
+    common_confusion: "/ vrací vždy float, // je celočíselné dělení — 7 // 2 == 3."
+    transfer_hint: "Operator overloading — v OOP můžeš předefinovat, co + znamená pro tvoji třídu."
+
+  python.boolean_logic:
+    name: "Booleovská logika"
+    category: python
+    prerequisites: [python.types, python.operators]
+    related: [python.conditions]
+    difficulty: 1
+    key_insight: "and/or/not — and vrací první falsy nebo poslední hodnotu, or vrací první truthy."
+    common_confusion: "Truthiness: 0, '', [], None jsou falsy — ne jen False."
+    transfer_hint: "Boolean logika je základ podmínek, filtrování, validace — všude."
+
+  python.strings:
+    name: "Řetězce a formátování"
+    category: python
+    prerequisites: [python.types]
+    related: [python.string_methods, python.fstrings]
+    difficulty: 1
+    key_insight: "String je immutable sekvence znaků — nemůžeš ho měnit, jen vytvořit nový."
+    common_confusion: "s.upper() nezmění s — vrátí nový string. Musíš: s = s.upper()."
+    transfer_hint: "Immutabilita stringů je v C, Java, Go. V Ruby/JS je string mutable."
+
+  python.string_methods:
+    name: "Metody řetězců"
+    category: python
+    prerequisites: [python.strings]
+    related: [python.fstrings]
+    difficulty: 1
+    key_insight: "split/join/strip/replace — tyto 4 metody pokryjí 80 % práce se stringy."
+    common_confusion: "split() bez argumentu rozdělí podle bílých znaků a odstraní prázdné."
+    transfer_hint: "Regex je rozšíření string metod — pro složitější vzory."
+
+  python.fstrings:
+    name: "F-stringy"
+    category: python
+    prerequisites: [python.strings]
+    related: []
+    difficulty: 1
+    key_insight: "f'Hodnota: {expr}' — cokoliv v {} se vyhodnotí jako Python výraz."
+    common_confusion: "f'{x=}' je debug feature — vypíše 'x=42', ne '42'."
+    transfer_hint: "Template literals v JS, string interpolation v Ruby/Kotlin — stejný koncept."
+
+  python.conditions:
+    name: "Podmínky (if/elif/else)"
+    category: python
+    prerequisites: [python.boolean_logic]
+    related: [python.ternary]
+    difficulty: 1
+    key_insight: "if testuje truthiness — jakákoliv hodnota funguje, ne jen True/False."
+    common_confusion: "elif je důležité — bez něj se kontrolují všechny podmínky nezávisle."
+    transfer_hint: "Podmínky řídí tok programu — v ML to je decision boundary, v UI to je event handling."
+
+  python.ternary:
+    name: "Ternární operátor"
+    category: python
+    prerequisites: [python.conditions]
+    related: []
+    difficulty: 1
+    key_insight: "hodnota_a if podmínka else hodnota_b — pro jednoduché výběry."
+    common_confusion: "Nested ternary je nečitelný — raději if/else blok."
+    transfer_hint: "condition ? a : b v C/JS/Java — Python má jiný syntax."
+
+  python.loops:
+    name: "Cykly (for, while)"
+    category: python
+    prerequisites: [python.conditions]
+    related: [python.loop_control, python.iterators]
+    difficulty: 1
+    key_insight: "for iteruje přes sekvenci, while opakuje dokud platí podmínka."
+    common_confusion: "for i in range(n) — range je 0 až n-1, ne 1 až n."
+    transfer_hint: "V data science je loop obvykle nahrazen vectorizací (NumPy/Pandas)."
+
+  python.loop_control:
+    name: "Řízení cyklů (break, continue)"
+    category: python
+    prerequisites: [python.loops]
+    related: []
+    difficulty: 1
+    key_insight: "break ukončí celý cyklus, continue přeskočí zbytek iterace."
+    common_confusion: "break ukončí jen nejbližší cyklus — vnořený loop potřebuje flag nebo funkci."
+    transfer_hint: "V funkcionálním programování se break/continue nahrazuje rekurzí nebo filter/takewhile."
+
+  python.lists:
+    name: "Seznamy"
+    category: python
+    prerequisites: [python.types]
+    related:
+      [python.list_indexing, python.list_methods, python.list_comprehensions]
+    difficulty: 1
+    key_insight: "List je ordered, mutable kolekce — nejpoužívanější datová struktura v Pythonu."
+    common_confusion: "a = b nekopíruje list, jen přiřadí referenci. Pro kopii: a = b.copy() nebo a = b[:]."
+    transfer_hint: "ArrayList v Java, std::vector v C++, Array v JS — dynamické pole."
+
+  python.list_indexing:
+    name: "Indexování a slicing"
+    category: python
+    prerequisites: [python.lists]
+    related: []
+    difficulty: 1
+    key_insight: "a[start:stop:step] — stop je exkluzivní. Záporný index počítá od konce."
+    common_confusion: "a[-1] je poslední prvek, a[:-1] je vše kromě posledního."
+    transfer_hint: "NumPy slicing je rozšíření — podporuje vícerozměrné indexování."
+
+  python.list_methods:
+    name: "Metody seznamů"
+    category: python
+    prerequisites: [python.lists]
+    related: [python.list_comprehensions]
+    difficulty: 1
+    key_insight: "append/extend/insert mění list in-place. sorted() vrací nový, .sort() mění."
+    common_confusion: "append([1,2]) přidá celý list jako jeden prvek. Pro sloučení: extend([1,2])."
+    transfer_hint: "In-place vs nové — klíčový pattern i v Pandas (inplace=True)."
+
+  python.list_comprehensions:
+    name: "List comprehensions"
+    category: python
+    prerequisites: [python.lists, python.loops, python.conditions]
+    related: [python.generators]
+    difficulty: 2
+    key_insight: "[expr for x in seq if cond] — kompaktní zápis transformace sekvence."
+    common_confusion: "Nested comprehension: [... for x in a for y in b] — vnější cyklus je první."
+    transfer_hint: "Map/filter v FP, SELECT ... WHERE v SQL — stejný pattern."
+
+  python.tuples:
+    name: "N-tice (tuple)"
+    category: python
+    prerequisites: [python.lists]
+    related: []
+    difficulty: 1
+    key_insight: "Tuple je immutable list — umožňuje použití jako dict klíč a je rychlejší."
+    common_confusion: "(1,) je jednoprvkový tuple, (1) je jen číslo v závorkách."
+    transfer_hint: "Named tuples → dataclasses → struct v jiných jazycích."
+
+  python.dicts:
+    name: "Slovníky"
+    category: python
+    prerequisites: [python.types, python.loops]
+    related: [python.dict_methods, python.sets]
+    difficulty: 1
+    key_insight: "Dict je key→value mapping s O(1) přístupem přes hash. Klíč musí být hashable."
+    common_confusion: "d[key] vyhodí KeyError. Bezpečněji: d.get(key, default)."
+    transfer_hint: "HashMap v Java, unordered_map v C++, JSON objekty — dict je základ dat."
+
+  python.dict_methods:
+    name: "Metody slovníků"
+    category: python
+    prerequisites: [python.dicts]
+    related: [python.dict_comprehensions]
+    difficulty: 1
+    key_insight: ".items(), .keys(), .values() vrací views — aktualizují se s dictem."
+    common_confusion: ".update() mění dict in-place, | operátor (3.9+) vytvoří nový."
+    transfer_hint: "JSON parsing vrací dict — klíčové pro API a config práci."
+
+  python.dict_comprehensions:
+    name: "Dict comprehensions"
+    category: python
+    prerequisites: [python.dicts, python.list_comprehensions]
+    related: []
+    difficulty: 2
+    key_insight: "{k: v for k, v in pairs} — transformace dat do dict formy."
+    common_confusion: "Duplicitní klíče — poslední výskyt vyhrává."
+    transfer_hint: "V Pandas: .to_dict(), dict(zip(keys, values)) jsou ekvivalenty."
+
+  python.sets:
+    name: "Množiny"
+    category: python
+    prerequisites: [python.types, python.loops]
+    related: [python.dicts]
+    difficulty: 1
+    key_insight: "Set = unikátní prvky + O(1) in test. Ideální pro deduplikaci a membership."
+    common_confusion: "set() pro prázdnou množinu, {} vytvoří prázdný dict!"
+    transfer_hint: "HashSet v Java, unordered_set v C++ — set operace v SQL (UNION, INTERSECT)."
+
+  python.functions:
+    name: "Funkce (def, return)"
+    category: python
+    prerequisites: [python.variables, python.types]
+    related: [python.function_params, python.scope]
+    difficulty: 1
+    key_insight: "Funkce je pojmenovaný blok kódu s return hodnotou. Bez return vrací None."
+    common_confusion: "print() a return jsou zásadně odlišné — print zobrazí, return vrátí."
+    transfer_hint: "Funkce existuje v každém jazyce. V FP je first-class citizen."
+
+  python.function_params:
+    name: "Parametry funkcí"
+    category: python
+    prerequisites: [python.functions]
+    related: [python.args_kwargs]
+    difficulty: 1
+    key_insight: "Default parametry se vyhodnotí JEDNOU při definici — nikdy mutable default!"
+    common_confusion: "def f(x=[]) — list se sdílí mezi voláními. Správně: def f(x=None)."
+    transfer_hint: "Každý jazyk má parametry — v Python jsou flexibilnější (default, keyword, etc.)."
+
+  python.args_kwargs:
+    name: "*args a **kwargs"
+    category: python
+    prerequisites: [python.function_params, python.tuples, python.dicts]
+    related: []
+    difficulty: 2
+    key_insight: "*args zachytí poziční do tuple, **kwargs pojmenované do dict."
+    common_confusion: "Pořadí: (normální, *args, keyword-only, **kwargs)."
+    transfer_hint: "Variadics v C (printf), rest parameters v JS (...args)."
+
+  python.scope:
+    name: "Scope a namespace"
+    category: python
+    prerequisites: [python.functions]
+    related: [python.closures]
+    difficulty: 2
+    key_insight: "LEGB pravidlo: Local → Enclosing → Global → Built-in."
+    common_confusion: "x = 1 uvnitř funkce vytvoří lokální x, nezmění globální."
+    transfer_hint: "Scope existuje všude. V JS je closure klíčový pattern (callbacks)."
+
+  python.closures:
+    name: "Closures"
+    category: python
+    prerequisites: [python.scope, python.functions]
+    related: [python.decorators]
+    difficulty: 2
+    key_insight: "Closure = vnitřní funkce, která si pamatuje proměnné z vnějšího scope."
+    common_confusion: "Late binding: closure zachytí referenci, ne hodnotu — loop+lambda trap."
+    transfer_hint: "Closures v JS (callbacks), v Java (anonymous classes → lambdy)."
+
+  python.lambda:
+    name: "Lambda funkce"
+    category: python
+    prerequisites: [python.functions]
+    related: [python.higher_order]
+    difficulty: 1
+    key_insight: "lambda x: expr — anonymní jednořádková funkce, čistě pro výrazy."
+    common_confusion: "Lambda nemůže obsahovat statements (if/for blok) — jen výrazy."
+    transfer_hint: "Arrow functions v JS, lambdy v Java/C++ — stejný koncept."
+
+  python.higher_order:
+    name: "Higher-order funkce"
+    category: python
+    prerequisites: [python.functions, python.lambda]
+    related: [python.decorators]
+    difficulty: 2
+    key_insight: "map/filter/sorted s key — funkce jako argument umožňuje generické chování."
+    common_confusion: "map() vrací iterátor, ne list — potřebuješ list(map(...))."
+    transfer_hint: "Celý FP paradigm. V data pipelines: .apply(), .map() v Pandas."
+
+  python.decorators:
+    name: "Dekorátory"
+    category: python
+    prerequisites: [python.closures, python.higher_order]
+    related: []
+    difficulty: 2
+    key_insight: "@decorator je syntaktický cukr: f = decorator(f). Wrapper okolo funkce."
+    common_confusion: "Zapomenutí na @functools.wraps — ztratíš jméno a docstring."
+    transfer_hint: "Aspect-oriented programming. V Java: @annotations, v JS: decorators."
+
+  python.generators:
+    name: "Generátory a iterátory"
+    category: python
+    prerequisites: [python.functions, python.loops]
+    related: [python.list_comprehensions]
+    difficulty: 2
+    key_insight: "yield místo return — generátor produkuje hodnoty lazy, po jedné."
+    common_confusion: "Generátor se spotřebuje po jednom průchodu — nelze iterovat znovu."
+    transfer_hint: "Lazy evaluation v Haskell, Stream v Java — pro velká data."
+
+  python.file_io:
+    name: "Práce se soubory"
+    category: python
+    prerequisites: [python.functions, python.strings]
+    related: [python.context_managers]
+    difficulty: 1
+    key_insight: "with open() as f: — context manager zajistí správné zavření souboru."
+    common_confusion: "read() přečte celý soubor najednou. Pro řádky: for line in f."
+    transfer_hint: "I/O je všude — v ML čtení dat, v web čtení configu, v robotice čtení senzorů."
+
+  python.context_managers:
+    name: "Context managers (with)"
+    category: python
+    prerequisites: [python.file_io]
+    related: []
+    difficulty: 2
+    key_insight: "with zajistí cleanup (close, release, rollback) i při výjimce."
+    common_confusion: "__enter__ a __exit__ — exit se volá i když nastane chyba."
+    transfer_hint: "try-with-resources v Java, using v C#, RAII v C++."
+
+  python.exceptions:
+    name: "Výjimky a error handling"
+    category: python
+    prerequisites: [python.functions]
+    related: [python.custom_exceptions]
+    difficulty: 2
+    key_insight: "try/except zachytí chybu a umožní ji zpracovat místo pádu programu."
+    common_confusion: "except Exception: zachytí vše. Buď specifický: except ValueError."
+    transfer_hint: "Error handling je v každém jazyce. V Go: explicitní err return. V Rust: Result type."
+
+  python.custom_exceptions:
+    name: "Vlastní výjimky"
+    category: python
+    prerequisites: [python.exceptions, oop.inheritance]
+    related: []
+    difficulty: 2
+    key_insight: "class MyError(Exception): pass — vlastní výjimky pro doménovou logiku."
+    common_confusion: "Dědí se z Exception, ne z BaseException (ta zahrnuje SystemExit, KeyboardInterrupt)."
+    transfer_hint: "Custom exceptions v Java, v web: HTTP status codes mapují na exception typy."
+
+  python.modules:
+    name: "Moduly a importy"
+    category: python
+    prerequisites: [python.functions]
+    related: [python.packages]
+    difficulty: 1
+    key_insight: "Jeden .py soubor = jeden modul. import spustí modul a cachuje ho."
+    common_confusion: "Circular import — modul A importuje B, B importuje A → ImportError."
+    transfer_hint: "Moduly v JS (ESM), packages v Java/Go — organizace velikého kódu."
+
+  python.packages:
+    name: "Balíčky a virtual env"
+    category: python
+    prerequisites: [python.modules]
+    related: []
+    difficulty: 1
+    key_insight: "pip install do virtualenv — izolace závislostí per-projekt."
+    common_confusion: "requirements.txt vs pyproject.toml — moderní je pyproject.toml."
+    transfer_hint: "npm v JS, Maven v Java, cargo v Rust — dependency management."
+
+  # ── OOP ─────────────────────────────────────────
+
+  oop.classes:
+    name: "Třídy a objekty"
+    category: oop
+    prerequisites: [python.functions, python.dicts]
+    related: [oop.init, oop.methods]
+    difficulty: 1
+    key_insight: "Třída = šablona (blueprint), objekt = konkrétní instance vytvořená z třídy."
+    common_confusion: "Třída vs instance — třída je definice, instance je živý objekt v paměti."
+    transfer_hint: "OOP je v Java, C++, C#, Swift. V Pythonu je flexibilnější."
+
+  oop.init:
+    name: "__init__ a konstruktory"
+    category: oop
+    prerequisites: [oop.classes]
+    related: [oop.self]
+    difficulty: 1
+    key_insight: "__init__ inicializuje atributy — nový objekt po __new__ dostane stav přes __init__."
+    common_confusion: "__init__ nevrací hodnotu (return None implicitně). Není konstruktor — je initializer."
+    transfer_hint: "Constructor v Java/C++. V Python __new__ je skutečný constructor."
+
+  oop.self:
+    name: "Self a instance atributy"
+    category: oop
+    prerequisites: [oop.init]
+    related: [oop.class_vs_instance]
+    difficulty: 1
+    key_insight: "self je reference na aktuální instanci — přes self přistupuješ k atributům."
+    common_confusion: "Zapomenutí self v parametrech metody — TypeError: takes 0 positional arguments."
+    transfer_hint: "this v Java/JS/C++. V Python je explicitní, v jiných jazycích implicitní."
+
+  oop.class_vs_instance:
+    name: "Třídní vs instanční atributy"
+    category: oop
+    prerequisites: [oop.self]
+    related: []
+    difficulty: 2
+    key_insight: "Třídní atribut je sdílený mezi všemi instancemi. self.x vytvoří instanční."
+    common_confusion: "Mutable třídní atribut (list/dict) je sdílený — změna ovlivní všechny instance."
+    transfer_hint: "static fields v Java/C++. V Python: Class.attr vs self.attr."
+
+  oop.methods:
+    name: "Metody instancí"
+    category: oop
+    prerequisites: [oop.self, python.functions]
+    related: [oop.class_methods, oop.static_methods]
+    difficulty: 1
+    key_insight: "Instance metoda dostane self — může pracovat s daty konkrétního objektu."
+    common_confusion: "self je první parametr metody, ale nepředáváte ho při volání."
+    transfer_hint: "Methods v každém OOP jazyce. V Python je metoda = funkce vázaná na instanci."
+
+  oop.class_methods:
+    name: "Metody tříd (@classmethod)"
+    category: oop
+    prerequisites: [oop.methods, python.decorators]
+    related: [oop.static_methods]
+    difficulty: 2
+    key_insight: "@classmethod dostane cls — factory pattern, alternativní konstruktory."
+    common_confusion: "cls vs self: classmethod pracuje s třídou, ne s instancí."
+    transfer_hint: "Static factory methods v Java. V Python je classmethod idiomatičtější."
+
+  oop.static_methods:
+    name: "Statické metody (@staticmethod)"
+    category: oop
+    prerequisites: [oop.methods]
+    related: [oop.class_methods]
+    difficulty: 2
+    key_insight: "Staticmethod nedostane ani self ani cls — jen utility funkce v namespace třídy."
+    common_confusion: "Pokud nepotřebuješ třídu/instanci, je staticmethod správná volba."
+    transfer_hint: "static methods v Java/C++. V Python raději modul-level funkce."
+
+  oop.inheritance:
+    name: "Dědičnost"
+    category: oop
+    prerequisites: [oop.classes, oop.methods]
+    related: [oop.polymorphism, oop.super]
+    difficulty: 2
+    key_insight: "class Child(Parent): — dědí atributy a metody, může je přepsat (override)."
+    common_confusion: "super().__init__() zavolá rodičovský init — nezapomeň na něj."
+    transfer_hint: "extends v Java, : v C++. V Python podpora vícenásobné dědičnosti (MRO)."
+
+  oop.super:
+    name: "super() a MRO"
+    category: oop
+    prerequisites: [oop.inheritance]
+    related: []
+    difficulty: 2
+    key_insight: "super() volá metodu v MRO pořadí — ne nutně přímého rodiče."
+    common_confusion: "MRO (Method Resolution Order) — C3 linearizace řeší diamond problem."
+    transfer_hint: "super v Java. V C++: explicit Base::method. MRO je Python-specifické."
+
+  oop.polymorphism:
+    name: "Polymorfismus"
+    category: oop
+    prerequisites: [oop.inheritance]
+    related: [oop.abstract_classes]
+    difficulty: 2
+    key_insight: "Stejné rozhraní, různé chování — volej metodu bez znalosti konkrétního typu."
+    common_confusion: "Duck typing v Python: polymorfismus nevyžaduje dědičnost — stačí stejné metody."
+    transfer_hint: "Interfaces v Java, virtual methods v C++, protocols v Swift."
+
+  oop.encapsulation:
+    name: "Zapouzdření"
+    category: oop
+    prerequisites: [oop.classes, oop.methods]
+    related: [oop.properties]
+    difficulty: 2
+    key_insight: "Skryj implementační detail — veřejné rozhraní + privátní stav."
+    common_confusion: "_name je konvence (private), __name je name mangling — Python nebrání přístupu."
+    transfer_hint: "private/protected/public v Java/C++. Python: convention over enforcement."
+
+  oop.properties:
+    name: "Properties (@property)"
+    category: oop
+    prerequisites: [oop.encapsulation, python.decorators]
+    related: []
+    difficulty: 2
+    key_insight: "@property umožňuje getter/setter jako atribut — validace přístupu."
+    common_confusion: "Property je descriptor — zpřístupní se jako atribut, ale volá funkci."
+    transfer_hint: "Getters/setters v Java. Computed properties v Swift/Kotlin."
+
+  oop.abstract_classes:
+    name: "Abstraktní třídy"
+    category: oop
+    prerequisites: [oop.inheritance, oop.polymorphism]
+    related: []
+    difficulty: 2
+    key_insight: "ABC definuje rozhraní (kontrakt) — potomek MUSÍ implementovat @abstractmethod."
+    common_confusion: "ABC se nedá instancovat přímo — TypeError pokud chybí implementace."
+    transfer_hint: "Interfaces v Java/Go, pure virtual v C++, Protocol v Python 3.8+."
+
+  oop.magic_methods:
+    name: "Magické metody"
+    category: oop
+    prerequisites: [oop.classes, python.operators]
+    related: [oop.operator_overloading]
+    difficulty: 2
+    key_insight: "__repr__, __str__, __len__, __eq__ — Python operátory a funkce volají magic methods."
+    common_confusion: "__repr__ je pro vývojáře (debug), __str__ je pro uživatele (display)."
+    transfer_hint: "Operator overloading v C++, toString() v Java, __repr__ v nástrojích."
+
+  oop.operator_overloading:
+    name: "Přetěžování operátorů"
+    category: oop
+    prerequisites: [oop.magic_methods]
+    related: []
+    difficulty: 2
+    key_insight: "a + b volá a.__add__(b) — definuj __add__ a + funguje pro tvoji třídu."
+    common_confusion: "__radd__ se volá když levý objekt neumí + s pravým."
+    transfer_hint: "V NumPy: array + array volá element-wise __add__."
+
+  oop.dataclasses:
+    name: "Dataclasses"
+    category: oop
+    prerequisites: [oop.init, oop.magic_methods]
+    related: []
+    difficulty: 1
+    key_insight: "@dataclass generuje __init__, __repr__, __eq__ automaticky — less boilerplate."
+    common_confusion: "field(default_factory=list) pro mutable defaults — ne default=[]."
+    transfer_hint: "Records v Java 16+, data classes v Kotlin, structs v Go."
+
+  oop.composition:
+    name: "Kompozice vs dědičnost"
+    category: oop
+    prerequisites: [oop.inheritance]
+    related: []
+    difficulty: 2
+    key_insight: "Preferuj has-a (kompozice) nad is-a (dědičnost) — flexibilnější design."
+    common_confusion: "Dědičnost vytváří tight coupling. Kompozice umožňuje výměnu implementace."
+    transfer_hint: "Go nemá dědičnost — jen embedding (kompozice). SOLID preferuje kompozici."
+
+  oop.solid:
+    name: "SOLID principy"
+    category: oop
+    prerequisites: [oop.abstract_classes, oop.composition]
+    related: [oop.design_patterns]
+    difficulty: 3
+    key_insight: "S — jedna zodpovědnost, O — otevřené/uzavřené, L — substituovatelnost, I — segregace, D — inverze."
+    common_confusion: "SOLID není absolutní pravidlo — balance s pragmatismem."
+    transfer_hint: "SOLID platí v každém OOP jazyce. Clean Architecture je SOLID na architektonické úrovni."
+
+  oop.design_patterns:
+    name: "Design patterns"
+    category: oop
+    prerequisites: [oop.solid]
+    related: []
+    difficulty: 3
+    key_insight: "Patterns jsou ověřená řešení opakujících se problémů: Strategy, Observer, Factory..."
+    common_confusion: "Nepoužívej pattern jen proto, že ho znáš — řeš problém, ne aplikuj vzor."
+    transfer_hint: "Singleton v konfiguraci, Observer v UI, Strategy v ML pipelines."
+
+  # ── Data Structures ────────────────────────────
+
+  ds.arrays:
+    name: "Pole a dynamická pole"
+    category: data_structures
+    prerequisites: [python.lists]
+    related: [ds.linked_lists]
+    difficulty: 2
+    key_insight: "Array = kontiguózní paměť, O(1) přístup, O(n) insert. List je dynamický array."
+    common_confusion: "Python list NENÍ linked list — je dynamické pole s amortized O(1) append."
+    transfer_hint: "std::vector v C++, ArrayList v Java. NumPy array je skutečné contiguous array."
+
+  ds.linked_lists:
+    name: "Spojové seznamy"
+    category: data_structures
+    prerequisites: [oop.classes, ds.arrays]
+    related: [ds.stacks, ds.queues]
+    difficulty: 2
+    key_insight: "Node → Node → Node: O(1) insert/delete na začátek, O(n) přístup."
+    common_confusion: "Pointer/reference manipulation — nezapomeň aktualizovat prev i next."
+    transfer_hint: "V praxi méně časté — ale klíčové pro interview otázky a pochopení paměti."
+
+  ds.stacks:
+    name: "Zásobníky (Stack)"
+    category: data_structures
+    prerequisites: [python.lists]
+    related: [ds.queues]
+    difficulty: 1
+    key_insight: "LIFO: Last In, First Out. Push a Pop. V Python: list.append() + list.pop()."
+    common_confusion: "Stack se používá implicitně při rekurzi — call stack."
+    transfer_hint: "Undo systém v editoru, parsování závorek, DFS algoritmus."
+
+  ds.queues:
+    name: "Fronty (Queue)"
+    category: data_structures
+    prerequisites: [python.lists]
+    related: [ds.stacks]
+    difficulty: 1
+    key_insight: "FIFO: First In, First Out. collections.deque je efektivní fronta."
+    common_confusion: "list.pop(0) je O(n) — deque.popleft() je O(1)."
+    transfer_hint: "BFS algoritmus, task queue, message queue v distribuovaných systémech."
+
+  ds.trees:
+    name: "Stromy"
+    category: data_structures
+    prerequisites: [oop.classes, ds.linked_lists]
+    related: [ds.bst, ds.graphs]
+    difficulty: 2
+    key_insight: "Hierarchická struktura — root, children, leaves. Traversal: DFS/BFS."
+    common_confusion: "Strom je acyklický graf. Binární strom má max 2 potomky per node."
+    transfer_hint: "DOM v HTML, file system, AST (abstract syntax tree) v kompilátorech."
+
+  ds.bst:
+    name: "Binární vyhledávací strom"
+    category: data_structures
+    prerequisites: [ds.trees]
+    related: []
+    difficulty: 2
+    key_insight: "BST: left < node < right. Hledání O(log n) pro balanced, O(n) pro degenerate."
+    common_confusion: "BST bez balancování může degenerovat na linked list."
+    transfer_hint: "TreeMap v Java, std::set v C++, Red-Black tree pod kapotou."
+
+  ds.graphs:
+    name: "Grafy"
+    category: data_structures
+    prerequisites: [ds.trees, python.dicts]
+    related: []
+    difficulty: 3
+    key_insight: "Uzly + hrany. Reprezentace: adjacency list (dict) nebo adjacency matrix."
+    common_confusion: "Directed vs undirected, weighted vs unweighted — různé algoritmy."
+    transfer_hint: "Sociální sítě, navigace, dependency resolver, concept graph."
+
+  ds.hashing:
+    name: "Hashování"
+    category: data_structures
+    prerequisites: [python.dicts, python.sets]
+    related: []
+    difficulty: 2
+    key_insight: "Hash funkce mapuje klíč → index. O(1) average, O(n) worst case (kolize)."
+    common_confusion: "Mutable objekty nemůžou být hash klíče — list nelze použít jako dict key."
+    transfer_hint: "Hash table je pod kapotou dict/set. Kryptografické hashe (SHA) jsou jiná věc."
+
+  ds.sorting:
+    name: "Řadící algoritmy"
+    category: data_structures
+    prerequisites: [python.lists, python.loops]
+    related: [ds.searching]
+    difficulty: 2
+    key_insight: "O(n²) bubble/insertion vs O(n log n) merge/quick. Python: sorted() = Timsort."
+    common_confusion: "sorted() je stabilní — zachová pořadí rovných prvků."
+    transfer_hint: "V praxi téměř vždy built-in sort. Vlastní jen pro speciální pořadí (key=)."
+
+  ds.searching:
+    name: "Vyhledávací algoritmy"
+    category: data_structures
+    prerequisites: [ds.sorting]
+    related: []
+    difficulty: 2
+    key_insight: "Linear O(n) vs Binary O(log n). Binary search vyžaduje seřazená data."
+    common_confusion: "Off-by-one: mid = (lo + hi) // 2 — pozor na lo vs lo+1 a hi vs hi-1."
+    transfer_hint: "bisect modul v Python. Git bisect pro hledání bugů."
+
+  ds.recursion:
+    name: "Rekurze"
+    category: data_structures
+    prerequisites: [python.functions, ds.stacks]
+    related: [ds.dynamic_programming]
+    difficulty: 2
+    key_insight: "Base case + recursive case. Funkce volá sama sebe na menší problém."
+    common_confusion: "RecursionError: maximum recursion depth exceeded — Python limit ~1000."
+    transfer_hint: "DFS je rekurzivní, stromové traversaly jsou rekurzivní, divide & conquer."
+
+  ds.dynamic_programming:
+    name: "Dynamické programování"
+    category: data_structures
+    prerequisites: [ds.recursion]
+    related: []
+    difficulty: 3
+    key_insight: "Memoizace nebo tabulace — ulož mezivýsledky, neopakuj výpočty."
+    common_confusion: "DP ≠ rekurze. DP = optimal substructure + overlapping subproblems."
+    transfer_hint: "Fibonacci, nejkratší cesta, batoh, editační vzdálenost."
+
+  ds.big_o:
+    name: "Big-O analýza"
+    category: data_structures
+    prerequisites: [python.loops, python.functions]
+    related: [ds.sorting, ds.searching]
+    difficulty: 2
+    key_insight: "Big-O měří růst, ne absolutní čas. O(n) = lineární s velikostí vstupu."
+    common_confusion: "O(n) neznamená pomalé — záleží na konstantách a reálném n."
+    transfer_hint: "V code review: 'to je O(n²), dá se O(n)?' — klíčový komunikační nástroj."
+
+  # ── Testing ────────────────────────────────────
+
+  testing.unittest:
+    name: "Unit testing základy"
+    category: testing
+    prerequisites: [python.functions, python.exceptions]
+    related: [testing.pytest]
+    difficulty: 2
+    key_insight: "Test = assert(expected == actual). Jeden test = jedna věc."
+    common_confusion: "Test testuje chování, ne implementaci. Testuj co, ne jak."
+    transfer_hint: "JUnit v Java, Jest v JS, Google Test v C++."
+
+  testing.pytest:
+    name: "Pytest"
+    category: testing
+    prerequisites: [testing.unittest]
+    related: [testing.mocking]
+    difficulty: 2
+    key_insight: "def test_x(): assert ... — jednodušší než unittest. Fixtures pro setup."
+    common_confusion: "pytest fixtures nejsou global state — jsou per-test instance."
+    transfer_hint: "pytest je de facto standard v Python. V CI/CD: pytest --cov."
+
+  testing.mocking:
+    name: "Mocking a stubbing"
+    category: testing
+    prerequisites: [testing.pytest]
+    related: [testing.tdd]
+    difficulty: 2
+    key_insight: "Mock nahrazuje reálnou závislost — testuj izolovaně, bez externe."
+    common_confusion: "Mockuj kde se importuje, ne kde je definováno."
+    transfer_hint: "Mockito v Java, Sinon v JS. V ML: mock data pro offline testing."
+
+  testing.tdd:
+    name: "Test-Driven Development"
+    category: testing
+    prerequisites: [testing.pytest]
+    related: []
+    difficulty: 2
+    key_insight: "Red → Green → Refactor. Napiš test první, pak implementaci."
+    common_confusion: "TDD neznamená 100% coverage — testuj kritickou logiku."
+    transfer_hint: "TDD je workflow, ne technologie. Funguje v každém jazyce."
+
+  # ── Git ─────────────────────────────────────────
+
+  git.basics:
+    name: "Git základy"
+    category: git
+    prerequisites: []
+    related: [git.branching]
+    difficulty: 1
+    key_insight: "Git sleduje snapshoty, ne diffy. commit = snapshot celého projektu."
+    common_confusion: "git add je staging — add neznamená commit."
+    transfer_hint: "Verzování existuje všude. Git je dominantní v software development."
+
+  git.branching:
+    name: "Branching a merging"
+    category: git
+    prerequisites: [git.basics]
+    related: [git.flow]
+    difficulty: 2
+    key_insight: "Branch je jen pointer na commit. Merge spojí historii dvou větví."
+    common_confusion: "Merge conflict = dva commity mění stejný řádek — manual resolve."
+    transfer_hint: "Feature branches, hotfix branches — organizace paralelní práce."
+
+  git.flow:
+    name: "Git Flow a workflow"
+    category: git
+    prerequisites: [git.branching]
+    related: []
+    difficulty: 2
+    key_insight: "main = stable, develop = integration, feature/* = work in progress."
+    common_confusion: "Git Flow je jen jedna konvence — GitHub Flow je jednodušší alternativa."
+    transfer_hint: "CI/CD pipeline navazuje na merge do main."
+
+  # ── Advanced ────────────────────────────────────
+
+  debugging.pdb:
+    name: "Debugger (pdb)"
+    category: debugging
+    prerequisites: [python.functions, python.exceptions]
+    related: [debugging.logging]
+    difficulty: 2
+    key_insight: "breakpoint() → pdb. n(ext), s(tep), c(ontinue), p(rint) — interaktivní inspekce."
+    common_confusion: "pdb vs print — pdb umožňuje inspekci v kontextu, ne jen output."
+    transfer_hint: "GDB v C++, Chrome DevTools v JS, IDE debugger v Java."
+
+  debugging.logging:
+    name: "Logging"
+    category: debugging
+    prerequisites: [python.modules]
+    related: [debugging.pdb]
+    difficulty: 2
+    key_insight: "logging.info/warning/error — úrovně umožňují filtrovat důležitost."
+    common_confusion: "print() není logging — logging má úrovně, formáty, handlers."
+    transfer_hint: "V produkci: logging → centrální systém (ELK, CloudWatch)."

@@ -4,6 +4,7 @@ Flask API server — exposes the learning engine as REST endpoints.
 Runs in a background thread when launched from the PySide6 desktop shell,
 or standalone for development (python3 -m desktop.server).
 """
+
 from __future__ import annotations
 
 import atexit
@@ -16,11 +17,20 @@ from flask_cors import CORS
 
 import engine.services as svc
 from engine.workspace import (
-    get_draft, save_draft, get_starter, reset_to_starter,
-    get_reference_solution, get_workspace_info, init_workspace,
+    get_draft,
+    save_draft,
+    get_starter,
+    reset_to_starter,
+    get_reference_solution,
+    get_workspace_info,
+    init_workspace,
 )
 from engine.lab import (
-    get_repl, get_terminal, reset_repl, reset_terminal, shutdown_all,
+    get_repl,
+    get_terminal,
+    reset_repl,
+    reset_terminal,
+    shutdown_all,
 )
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,12 +45,14 @@ atexit.register(shutdown_all)
 
 # ── Static / SPA ─────────────────────────────────────────────
 
+
 @app.route("/")
 def index():
     return send_from_directory(STATIC, "index.html")
 
 
 # ── Content endpoints ────────────────────────────────────────
+
 
 @app.route("/api/sections")
 def api_sections():
@@ -65,6 +77,7 @@ def api_search():
 
 # ── Progress endpoints ───────────────────────────────────────
 
+
 @app.route("/api/progress/snapshot")
 def api_snapshot():
     return jsonify(svc.get_progress_snapshot())
@@ -76,6 +89,7 @@ def api_challenge_progress(challenge_id: str):
 
 
 # ── Recommendation endpoints ────────────────────────────────
+
 
 @app.route("/api/recommendations")
 def api_recommendations():
@@ -90,8 +104,8 @@ def api_categorized_recs():
 
 # ── Execution endpoints ─────────────────────────────────────
 
-@app.route("/api/challenges/<section_num>/<lesson_num>/<int:idx>/run",
-           methods=["POST"])
+
+@app.route("/api/challenges/<section_num>/<lesson_num>/<int:idx>/run", methods=["POST"])
 def api_run_challenge(section_num: str, lesson_num: str, idx: int):
     result = svc.run_challenge(section_num, lesson_num, idx)
     return jsonify(result)
@@ -106,7 +120,55 @@ def api_execute_code():
     return jsonify(svc.execute_code(code, timeout=timeout))
 
 
+# ── Concept & Adaptive endpoints ─────────────────────────────
+
+
+@app.route("/api/concepts/mastery")
+def api_concept_mastery():
+    """Return concept mastery states for all concepts."""
+    return jsonify(svc.get_concept_mastery())
+
+
+@app.route("/api/adaptive/recommendations")
+def api_adaptive_recs():
+    """Return concept-aware adaptive recommendations."""
+    mode = request.args.get("mode", "guided")
+    limit = request.args.get("limit", 10, type=int)
+    return jsonify(svc.get_adaptive_recs(mode=mode, limit=limit))
+
+
+@app.route("/api/adaptive/study-plan")
+def api_study_plan():
+    """Generate a study plan for today."""
+    mode = request.args.get("mode", "guided")
+    minutes = request.args.get("minutes", 30, type=int)
+    return jsonify(svc.get_study_plan(mode=mode, session_minutes=minutes))
+
+
+@app.route("/api/projects")
+def api_projects():
+    """Return available projects with progress."""
+    return jsonify(svc.get_projects())
+
+
+@app.route("/api/reflection", methods=["POST"])
+def api_reflection():
+    """Generate reflection prompts."""
+    data = request.get_json(force=True)
+    context = data.get("context", "challenge")
+    return jsonify(
+        svc.get_reflection(
+            context=context,
+            section_num=data.get("section_num", ""),
+            lesson_num=data.get("lesson_num", ""),
+            challenge_index=data.get("challenge_index", -1),
+            passed=data.get("passed", False),
+        )
+    )
+
+
 # ── Workspace endpoints ──────────────────────────────────────
+
 
 @app.route("/api/workspace/<section_num>/<lesson_num>")
 def api_workspace_info(section_num: str, lesson_num: str):
@@ -148,6 +210,7 @@ def api_reference_solution(section_num: str, lesson_num: str, idx: int):
 
 # ── File endpoints (legacy, kept for backward compat) ────────
 
+
 @app.route("/api/files/<section_num>/<lesson_num>")
 def api_get_file(section_num: str, lesson_num: str):
     return jsonify(get_draft(section_num, lesson_num))
@@ -161,6 +224,7 @@ def api_save_file(section_num: str, lesson_num: str):
 
 
 # ── Persistent REPL endpoints ────────────────────────────────
+
 
 @app.route("/api/repl/execute", methods=["POST"])
 def api_repl_execute():
@@ -186,6 +250,7 @@ def api_repl_status():
 
 
 # ── PTY Terminal endpoints ───────────────────────────────────
+
 
 @app.route("/api/terminal/write", methods=["POST"])
 def api_terminal_write():
@@ -252,6 +317,7 @@ def start_server(port: int = 44556) -> str:
 
 if __name__ == "__main__":
     import sys
+
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 44556
     print(f"ProgTrain API server on http://127.0.0.1:{port}")
     print(f"Open http://127.0.0.1:{port} in your browser for the web UI.")

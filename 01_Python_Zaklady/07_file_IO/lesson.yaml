@@ -3,7 +3,8 @@ title: "File Io"
 summary: "Čtení a zápis dat — základ pro jakoukoliv reálnou aplikaci."
 difficulty: 1
 estimated_minutes: 40
-tags: ['python', 'basics', 'fundamentals']
+tags: ["python", "basics", "fundamentals"]
+concepts: ["python.file_io", "python.context_managers"]
 prerequisites: []
 learning_objectives: []
 

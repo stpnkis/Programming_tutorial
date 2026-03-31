@@ -3,7 +3,8 @@ title: "Dataclasses"
 summary: "🏗️ OOP — Dataclasses: Méně boilerplate, víc práce."
 difficulty: 1
 estimated_minutes: 25
-tags: ['python', 'oop', 'classes']
+tags: ["python", "oop", "classes"]
+concepts: ["oop.dataclasses"]
 prerequisites: []
 learning_objectives: []
 
